@@ -8,9 +8,9 @@ export const Home: React.FC = () => {
   return (
     <div className="flex min-h-screen w-full bg-darkest text-lightest">
       <Sidebar />
-      <div className="flex w-full flex-col">
+      <div className="flex w-full flex-col lg:max-w-[84%]">
         <Header />
-        <main className="flex w-full flex-col px-8 py-4">
+        <main className="flex w-full flex-col px-8 py-4 max-lg:gap-8 lg:gap-4">
           <MovieSection
             title="Populares"
             movieURL={`https://api.themoviedb.org/3/movie/popular?api_key=${
@@ -23,7 +23,7 @@ export const Home: React.FC = () => {
               import.meta.env.VITE_API_KEY
             }&language=pt-BR&page=1`}
           />
-          </main>
+        </main>
       </div>
     </div>
   )

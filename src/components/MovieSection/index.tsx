@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { FreeMode } from 'swiper'
 import 'swiper/css'
+import 'swiper/css/free-mode'
 
 interface MovieSectionProps {
   movieURL: string
@@ -49,15 +51,34 @@ export const MovieSection: React.FC<MovieSectionProps> = ({
         }
         setMovies(data.results)
       })
-  }, [])
+  }, [movieURL])
 
   return (
     <section className="flex w-full flex-col gap-6">
       <h2>{title}</h2>
       <div className="flex w-full">
         <Swiper
-          spaceBetween={40}
-          slidesPerView={amount ? amount : 6}
+          freeMode={true}
+          grabCursor={true}
+          modules={[FreeMode]}
+          breakpoints={{
+            0: {
+              slidesPerView: amount ? amount : 3,
+              spaceBetween: 30
+            },
+            640: {
+              slidesPerView: amount ? amount : 4,
+              spaceBetween: 40
+            },
+            769: {
+              slidesPerView: amount ? amount : 4,
+              spaceBetween: 45
+            },
+            1280: {
+              slidesPerView: amount ? amount : 5,
+              spaceBetween: 50
+            }
+          }}
           // onSlideChange={() => console.log('slide change')}
           // onSwiper={swiper => console.log(swiper)}
         >
@@ -73,8 +94,8 @@ export const MovieSection: React.FC<MovieSectionProps> = ({
                 alt={movie.title + 'Poster.'}
               />
 
-              <div className="-z-10 -translate-y-[200%] transition-transform duration-300 group-hover:translate-y-0">
-                <h3 className="text-center text-lg">{movie.title}</h3>
+              <div className="-z-10 -translate-y-[200%] transition-transform duration-300 group-hover:translate-y-0 max-lg:hidden">
+                <h3 className="text-center text-base">{movie.title}</h3>
               </div>
             </SwiperSlide>
           ))}

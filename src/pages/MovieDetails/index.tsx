@@ -23,7 +23,7 @@ export const MovieDetails: React.FC = () => {
       .then(data => {
         setDetails(data)
       })
-  }, [])
+  }, [id, details])
 
   function handleMovieFavorite(id: number) {
     toogleFavorite(id)
@@ -32,10 +32,10 @@ export const MovieDetails: React.FC = () => {
   return (
     <div className="flex min-h-screen w-full bg-darkest text-lightest">
       <Sidebar />
-      <div className="flex max-w-[84%] flex-col pb-6">
+      <div className="flex w-full flex-col pb-6 lg:max-w-[84%]">
         {details?.backdrop_path && (
           <div
-            className="relative mb-6 h-[50vh] w-full bg-cover"
+            className="relative mb-6 h-[50vh] w-full bg-cover max-lg:bg-center"
             style={{
               backgroundImage: `url(https://image.tmdb.org/t/p/original${details?.backdrop_path})`,
               boxShadow:
@@ -69,7 +69,7 @@ export const MovieDetails: React.FC = () => {
             </div>
           </header>
           <h1>{details?.title}</h1>
-          <div className="mb-3 flex items-center gap-2">
+          <div className="mb-3 flex flex-wrap items-center gap-2">
             {details?.genres.map(genre => (
               <span
                 key={genre.id}
@@ -82,15 +82,17 @@ export const MovieDetails: React.FC = () => {
           <p className="mb-8 text-cadet">{details?.overview}</p>
 
           {details?.id && (
-            <MovieSection
-              amount={4}
-              movieURL={`https://api.themoviedb.org/3/movie/${
-                details?.id
-              }/recommendations?api_key=${
-                import.meta.env.VITE_API_KEY
-              }&language=pt-BR&page=1`}
-              title="Recomendações"
-            />
+            <div className="mb-8 lg:w-[75%]">
+              <MovieSection
+                amount={4}
+                movieURL={`https://api.themoviedb.org/3/movie/${
+                  details?.id
+                }/recommendations?api_key=${
+                  import.meta.env.VITE_API_KEY
+                }&language=pt-BR&page=1`}
+                title="Recomendações"
+              />
+            </div>
           )}
 
           {details?.id && <Comments id={details?.id} />}
