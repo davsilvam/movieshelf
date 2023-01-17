@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { FreeMode } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/free-mode'
+import { MovieCard } from '../MovieCard'
 
 interface MovieSectionProps {
   movieURL: string
@@ -36,11 +36,6 @@ export const MovieSection: React.FC<MovieSectionProps> = ({
   amount
 }) => {
   const [movies, setMovies] = useState<MovieType[]>([])
-  const history = useNavigate()
-
-  function goToTheMoviePage(id: number) {
-    history(`/movie/${id}`)
-  }
 
   useEffect(() => {
     fetch(movieURL)
@@ -87,16 +82,7 @@ export const MovieSection: React.FC<MovieSectionProps> = ({
               className="group flex cursor-pointer flex-col gap-3"
               key={movie.id}
             >
-              <img
-                onClick={() => goToTheMoviePage(movie.id)}
-                className="rounded-md"
-                src={'https://image.tmdb.org/t/p/w500' + movie.poster_path}
-                alt={movie.title + 'Poster.'}
-              />
-
-              <div className="-z-10 -translate-y-[200%] transition-transform duration-300 group-hover:translate-y-0 max-lg:hidden">
-                <h3 className="text-center text-base">{movie.title}</h3>
-              </div>
+              <MovieCard movie={movie} />
             </SwiperSlide>
           ))}
         </Swiper>

@@ -4,7 +4,7 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { useNavigate } from 'react-router-dom'
 
 export const SearchInput: React.FC = () => {
-  const history = useNavigate()
+  const navigate = useNavigate()
   const [search, setSearch] = useState('')
 
   const searchMovies: React.KeyboardEventHandler<HTMLInputElement> =
@@ -12,7 +12,7 @@ export const SearchInput: React.FC = () => {
       e => {
         console.log(search)
         if (e.key === 'Enter') {
-          history(`/search/${search}`)
+          navigate(`/search/${search}`)
         }
       },
       [search]

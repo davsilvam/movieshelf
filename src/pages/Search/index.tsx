@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Header } from '../../components/Header'
+import { MovieCard } from '../../components/MovieCard'
 import { MovieType } from '../../components/MovieSection'
 import { Sidebar } from '../../components/Sidebar'
 
 export const Search: React.FC = () => {
-  const history = useNavigate()
+  const navigate = useNavigate()
   const [movies, setMovies] = useState<MovieType[]>([])
   const { id } = useParams()
 
   function goToTheMoviePage(id: number) {
-    history(`/movie/${id}`)
+    navigate(`/movie/${id}`)
   }
 
   useEffect(() => {
@@ -38,16 +39,7 @@ export const Search: React.FC = () => {
                 className="group flex cursor-pointer flex-col gap-3"
                 key={movie.id}
               >
-                <img
-                  onClick={() => goToTheMoviePage(movie.id)}
-                  className="rounded-md"
-                  src={'https://image.tmdb.org/t/p/w500' + movie.poster_path}
-                  alt={movie.title + 'Poster.'}
-                />
-
-                <div className="-z-10 -translate-y-[200%] transition-transform duration-300 group-hover:translate-y-0 max-lg:hidden">
-                  <h3 className="text-center text-base">{movie.title}</h3>
-                </div>
+                <MovieCard movie={movie} />
               </div>
             ))}
           </section>

@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { GoToTop } from '../../utils/GoToTop'
 import { Header } from '../../components/Header'
 import { MovieSection } from '../../components/MovieSection'
 import { Sidebar } from '../../components/Sidebar'
@@ -25,6 +26,7 @@ export const Home: React.FC = () => {
           />
         </main>
       </div>
+      <GoToTop />
     </div>
   )
 }

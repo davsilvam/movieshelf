@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import { BookmarkIcon, HeartIcon, StarIcon } from '@heroicons/react/24/outline'
 import { ArrowLeftIcon } from '@heroicons/react/20/solid'
@@ -7,9 +7,11 @@ import { MovieSection, MovieType } from '../../components/MovieSection'
 import { Sidebar } from '../../components/Sidebar'
 import { useFavorites } from '../../contexts/FavoritesContext'
 import { Comments } from './Comments'
+import { GoToTop } from '../../utils/GoToTop'
 
 export const MovieDetails: React.FC = () => {
   const { id } = useParams()
+  const navigate = useNavigate()
   const { favorites, toogleFavorite } = useFavorites()
   const [details, setDetails] = useState<MovieType>()
 
@@ -29,6 +31,10 @@ export const MovieDetails: React.FC = () => {
     toogleFavorite(id)
   }
 
+  function goBack() {
+    navigate(-1)
+  }
+
   return (
     <div className="flex min-h-screen w-full bg-darkest text-lightest">
       <Sidebar />
@@ -42,12 +48,13 @@ export const MovieDetails: React.FC = () => {
                 'rgba(50, 50, 93, 0.25) 0px 20px 60px 12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset'
             }}
           >
-            <Link to="/">
-              <button className="absolute top-2 left-2 flex items-center gap-1 rounded-lg bg-lightest py-1 px-2 text-sm font-semibold text-darkest">
-                <ArrowLeftIcon className="w-4" />
-                Voltar
-              </button>
-            </Link>
+            <button
+              onClick={goBack}
+              className="absolute top-2 left-2 flex items-center gap-1 rounded-lg bg-lightest py-1 px-2 text-sm font-semibold text-darkest"
+            >
+              <ArrowLeftIcon className="w-4" />
+              Voltar
+            </button>
           </div>
         )}
         <div className="flex w-full flex-col gap-3 px-6">
@@ -98,6 +105,7 @@ export const MovieDetails: React.FC = () => {
           {details?.id && <Comments id={details?.id} />}
         </div>
       </div>
+      <GoToTop />
     </div>
   )
 }
