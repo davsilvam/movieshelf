@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
 // Icons
-import { ArrowUpRightIcon, StarIcon } from '@heroicons/react/24/outline'
+import {
+  ArrowUpRightIcon,
+  BookmarkIcon,
+  StarIcon
+} from '@heroicons/react/24/outline'
 
 // Router
 import { useNavigate } from 'react-router-dom'
@@ -79,16 +83,24 @@ export const HottestMovieBanner: React.FC = () => {
                 <div className="flex w-96 flex-col gap-2">
                   <h1 className="text-5xl">{movie.title}</h1>
                   <h3 className="flex items-center gap-2 font-semibold">
-                    {movie.vote_average} <StarIcon className="w-5 text-main" />
+                    <StarIcon className="w-5 text-main" /> {movie.vote_average}
                   </h3>
                   <p className="mt-1 text-sm">{movie.overview}</p>
                 </div>
-                <button
-                  onClick={() => goToTheMoviePage(movie.id)}
-                  className="flex w-fit items-center gap-2 rounded-md bg-main py-3 px-6 font-bold shadow-md hover:saturate-200"
-                >
-                  Visitar <ArrowUpRightIcon className="w-4" />
-                </button>
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => goToTheMoviePage(movie.id)}
+                    className="flex w-fit items-center gap-2 rounded-md bg-main py-3 px-6 font-bold shadow-md hover:saturate-200"
+                  >
+                    Visitar <ArrowUpRightIcon className="w-4" />
+                  </button>
+                  <button
+                    onClick={() => goToTheMoviePage(movie.id)}
+                    className="group flex w-fit items-center gap-2 rounded-md bg-darkest px-4 font-bold shadow-md transition-colors duration-300 hover:bg-secondary"
+                  >
+                    <BookmarkIcon className="w-5 transition-all duration-300 group-hover:fill-lightest" />
+                  </button>
+                </div>
               </div>
             </div>
           </SwiperSlide>

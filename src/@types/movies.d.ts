@@ -36,6 +36,20 @@ export type MovieType = {
   vote_count: number
 }
 
+export type MovieDetailsType = MovieType & {
+  budget: number
+  genres: GenreType[]
+  homepage: string
+  imdb_id: string
+  production_companies: []
+  production_countries: []
+  revenue: number
+  runtime: number
+  spoken_languages: []
+  status: string
+  tagline: string
+}
+
 export type ProductionCompanyType = {
   id: number
   logo_path: string

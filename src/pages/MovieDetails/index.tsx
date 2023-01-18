@@ -24,7 +24,7 @@ import { ApiException } from '../../services/apiException'
 import { MoviesService } from '../../services/apiServices'
 
 // Types
-import { MovieType } from '../../@types/movies'
+import { MovieDetailsType } from '../../@types/movies'
 
 // Utils
 import { GoToTop } from '../../utils/GoToTop'
@@ -33,7 +33,7 @@ export const MovieDetails: React.FC = () => {
   const { id } = useParams()
   const navigate = useNavigate()
   const { favorites, toogleFavorite } = useFavorites()
-  const [details, setDetails] = useState<MovieType>()
+  const [details, setDetails] = useState<MovieDetailsType>()
 
   useEffect(() => {
     if (!id) return
@@ -70,7 +70,7 @@ export const MovieDetails: React.FC = () => {
           >
             <button
               onClick={goBack}
-              className="absolute top-2 left-2 flex items-center gap-1 rounded-lg bg-lightest py-1 px-2 text-sm font-semibold text-darkest"
+              className="absolute top-2 left-2 flex items-center gap-1 rounded-lg bg-lightest py-1 px-2 text-sm font-semibold text-darkest transition-all hover:bg-opacity-75"
             >
               <ArrowLeftIcon className="w-4" />
               Voltar
@@ -80,7 +80,9 @@ export const MovieDetails: React.FC = () => {
         <div className="flex w-full flex-col gap-3 px-6">
           <header className="flex w-full items-center justify-between ">
             <h3 className="flex items-center gap-2 font-semibold">
-              {details?.vote_average} <StarIcon className="w-5 text-main" />
+              <StarIcon className="w-5 text-main" /> {details?.vote_average}{' '}
+              <div className="h-4 w-px bg-lightest"></div>
+              <span className="text-sm">{details?.vote_count}</span>
             </h3>
             <div className="flex items-center gap-3">
               <BookmarkIcon className="w-7 cursor-pointer fill-transparent text-tertiary transition-colors hover:fill-tertiary" />
@@ -108,7 +110,7 @@ export const MovieDetails: React.FC = () => {
           </div>
           <p className="mb-2 text-cadet">{details?.overview}</p>
 
-          <button className="mb-8 flex w-fit items-center gap-2 rounded-md bg-main py-3 px-6 text-sm font-bold shadow-md hover:saturate-200">
+          <button className="mb-8 flex w-fit items-center gap-2 rounded-md bg-main py-3 px-6 text-sm font-bold shadow-md transition-all duration-300 hover:saturate-200">
             <SquaresPlusIcon className="w-5" />
             Adicionar à estante
           </button>

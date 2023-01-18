@@ -1,11 +1,11 @@
-import { MovieType } from '../@types/movies'
+import { MovieDetailsType } from './../@types/movies.d'
 import { CommentResponse, MovieResponse } from '../@types/response'
 import { Api } from './apiConfig'
 import { ApiException } from './apiException'
 
 async function getMovieDetails(
   id: string | number
-): Promise<ApiException | MovieType> {
+): Promise<ApiException | MovieDetailsType> {
   try {
     const { data } = await Api().get(
       `/movie/${id}?api_key=${import.meta.env.VITE_API_KEY}&language=pt-BR`
