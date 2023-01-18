@@ -74,7 +74,7 @@ export const HottestMovieBanner: React.FC = () => {
               }}
             >
               <div className="banner-gradient absolute left-0 bottom-0 flex h-full w-full flex-col items-start justify-end py-8 px-6 pt-24 max-lg:gap-7 lg:w-[70%] lg:justify-between">
-                <div className="flex w-96 flex-col gap-2">
+                <div className="flex w-full flex-col gap-2 lg:w-96">
                   <h1 className="text-5xl">{movie.title}</h1>
                   <h3 className="flex items-center gap-2 font-semibold">
                     <StarIcon className="w-5 text-main" /> {movie.vote_average}
