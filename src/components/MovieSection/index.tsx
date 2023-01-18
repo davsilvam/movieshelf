@@ -1,33 +1,25 @@
 import React, { useEffect, useState } from 'react'
 
+// Components
+import { MovieCard } from '../MovieCard'
+
+// Services
+import { ApiException } from '../../services/apiException'
+import { MoviesService } from '../../services/apiServices'
+
+// Swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { FreeMode } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/free-mode'
-import { MovieCard } from '../MovieCard'
+
+// Types
+import { MovieType } from '../../@types/movies'
 
 interface MovieSectionProps {
   movieURL: string
   title: string
   amount?: number
-}
-
-export type MovieType = {
-  adult: boolean
-  backdrop_path: string
-  genre_ids: number[]
-  genres: { id: number; name: string }[]
-  id: number
-  original_language: string
-  original_title: string
-  overview: string
-  popularity: number
-  poster_path: string
-  release_date: string
-  title: string
-  video: boolean
-  vote_average: number
-  vote_count: number
 }
 
 export const MovieSection: React.FC<MovieSectionProps> = ({
@@ -38,14 +30,17 @@ export const MovieSection: React.FC<MovieSectionProps> = ({
   const [movies, setMovies] = useState<MovieType[]>([])
 
   useEffect(() => {
-    fetch(movieURL)
-      .then(response => response.json())
-      .then(data => {
-        if (amount) {
-          return setMovies(data.results.slice(0, amount))
-        }
-        setMovies(data.results)
-      })
+    MoviesService.getMovies(movieURL).then(response => {
+      if (response instanceof ApiException) {
+        return console.log(response.message)
+      }
+
+      if (amount) {
+        return setMovies(response.results.slice(0, amount))
+      }
+
+      setMovies(response.results)
+    })
   }, [movieURL])
 
   return (
@@ -74,15 +69,17 @@ export const MovieSection: React.FC<MovieSectionProps> = ({
               spaceBetween: 50
             }
           }}
-          // onSlideChange={() => console.log('slide change')}
-          // onSwiper={swiper => console.log(swiper)}
         >
           {movies.map(movie => (
             <SwiperSlide
               className="group flex cursor-pointer flex-col gap-3"
               key={movie.id}
             >
-              <MovieCard movie={movie} />
+              <MovieCard movie={movie}>
+                <div className="-z-10 -translate-y-[200%] transition-transform duration-300 group-hover:translate-y-0 max-lg:hidden">
+                  <h3 className="text-center text-base">{movie.title}</h3>
+                </div>
+              </MovieCard>
             </SwiperSlide>
           ))}
         </Swiper>

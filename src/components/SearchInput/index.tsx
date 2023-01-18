@@ -1,6 +1,9 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 
+// Icons
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+
+// Router
 import { useNavigate } from 'react-router-dom'
 
 export const SearchInput: React.FC = () => {
@@ -10,7 +13,6 @@ export const SearchInput: React.FC = () => {
   const searchMovies: React.KeyboardEventHandler<HTMLInputElement> =
     useCallback(
       e => {
-        console.log(search)
         if (e.key === 'Enter') {
           navigate(`/search/${search}`)
         }

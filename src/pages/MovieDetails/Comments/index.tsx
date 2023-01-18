@@ -1,36 +1,27 @@
 import React, { useEffect, useState } from 'react'
 
-type CommentUser = {
-  author: string
-  author_details: {
-    avatar_path: string
-    name: string
-    rating: number
-    username: string
-  }
-  content: string
-  created_at: string
-  id: string
-  updated_at: string
-}
+// Services
+import { ApiException } from '../../../services/apiException'
+import { MoviesService } from '../../../services/apiServices'
+
+// Types
+import { CommentType } from '../../../@types/movies'
 
 interface CommentsProps {
   id: number
 }
 
 export const Comments: React.FC<CommentsProps> = ({ id }) => {
-  const [comments, setComments] = useState<CommentUser[]>([])
+  const [comments, setComments] = useState<CommentType[]>([])
 
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${
-        import.meta.env.VITE_API_KEY
-      }&language=pt_BR&page=1`
-    )
-      .then(response => response.json())
-      .then(data => {
-        setComments(data.results)
-      })
+    MoviesService.getCommentsByID(id).then(response => {
+      if (response instanceof ApiException) {
+        return console.log(response.message)
+      }
+
+      setComments(response.results)
+    })
   }, [])
 
   return (

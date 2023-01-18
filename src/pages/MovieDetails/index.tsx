@@ -1,12 +1,32 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
 
-import { BookmarkIcon, HeartIcon, StarIcon } from '@heroicons/react/24/outline'
-import { ArrowLeftIcon } from '@heroicons/react/20/solid'
-import { MovieSection, MovieType } from '../../components/MovieSection'
-import { Sidebar } from '../../components/Sidebar'
-import { useFavorites } from '../../contexts/FavoritesContext'
+// Components
 import { Comments } from './Comments'
+import { MovieSection, Sidebar } from '../../components'
+
+// Contexts
+import { useFavorites } from '../../contexts/FavoritesContext'
+
+// Icons
+import { ArrowLeftIcon } from '@heroicons/react/20/solid'
+import {
+  BookmarkIcon,
+  HeartIcon,
+  SquaresPlusIcon,
+  StarIcon
+} from '@heroicons/react/24/outline'
+
+// Router
+import { useNavigate, useParams } from 'react-router-dom'
+
+// Services
+import { ApiException } from '../../services/apiException'
+import { MoviesService } from '../../services/apiServices'
+
+// Types
+import { MovieType } from '../../@types/movies'
+
+// Utils
 import { GoToTop } from '../../utils/GoToTop'
 
 export const MovieDetails: React.FC = () => {
@@ -16,16 +36,16 @@ export const MovieDetails: React.FC = () => {
   const [details, setDetails] = useState<MovieType>()
 
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/${id}?api_key=${
-        import.meta.env.VITE_API_KEY
-      }&language=pt-BR`
-    )
-      .then(response => response.json())
-      .then(data => {
-        setDetails(data)
-      })
-  }, [id, details])
+    if (!id) return
+
+    MoviesService.getMovieDetails(id).then(response => {
+      if (response instanceof ApiException) {
+        return console.log(response.message)
+      }
+
+      setDetails(response)
+    })
+  }, [id])
 
   function handleMovieFavorite(id: number) {
     toogleFavorite(id)
@@ -38,7 +58,7 @@ export const MovieDetails: React.FC = () => {
   return (
     <div className="flex min-h-screen w-full bg-darkest text-lightest">
       <Sidebar />
-      <div className="flex w-full flex-col pb-6 lg:max-w-[84%]">
+      <div className="flex w-full flex-col pb-6 lg:max-w-[80%] xl:max-w-[84%]">
         {details?.backdrop_path && (
           <div
             className="relative mb-6 h-[50vh] w-full bg-cover max-lg:bg-center"
@@ -86,7 +106,12 @@ export const MovieDetails: React.FC = () => {
               </span>
             ))}
           </div>
-          <p className="mb-8 text-cadet">{details?.overview}</p>
+          <p className="mb-2 text-cadet">{details?.overview}</p>
+
+          <button className="mb-8 flex w-fit items-center gap-2 rounded-md bg-main py-3 px-6 text-sm font-bold shadow-md hover:saturate-200">
+            <SquaresPlusIcon className="w-5" />
+            Adicionar à estante
+          </button>
 
           {details?.id && (
             <div className="mb-8 lg:w-[75%]">

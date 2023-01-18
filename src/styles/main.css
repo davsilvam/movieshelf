@@ -45,3 +45,7 @@
     @apply flex cursor-pointer items-center gap-3 rounded-md p-3 transition-colors duration-200 hover:bg-main hover:text-darkest;
   }
 }
+
+.swiper-pagination-bullet {
+  @apply bg-main;
+}

@@ -1,4 +1,6 @@
 import React from 'react'
+
+// Components
 import { SearchInput } from '../SearchInput'
 
 export const Header: React.FC = () => {

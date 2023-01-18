@@ -1,13 +1,17 @@
 import React from 'react'
+
+// Components
 import { useNavigate } from 'react-router-dom'
 
-import { MovieType } from '../MovieSection'
+// Types
+import { MovieType } from '../../@types/movies'
 
 interface MovieCardProps {
+  children?: React.ReactNode
   movie: MovieType
 }
 
-export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
+export const MovieCard: React.FC<MovieCardProps> = ({ children, movie }) => {
   const navigate = useNavigate()
 
   function goToTheMoviePage(id: number) {
@@ -23,9 +27,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
         alt={movie.title + 'Poster.'}
       />
 
-      <div className="-z-10 -translate-y-[200%] transition-transform duration-300 group-hover:translate-y-0 max-lg:hidden">
-        <h3 className="text-center text-base">{movie.title}</h3>
-      </div>
+      { children }
     </>
   )
 }

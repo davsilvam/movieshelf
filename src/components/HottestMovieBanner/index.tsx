@@ -1,0 +1,99 @@
+import React, { useEffect, useState } from 'react'
+
+// Icons
+import { ArrowUpRightIcon, StarIcon } from '@heroicons/react/24/outline'
+
+// Router
+import { useNavigate } from 'react-router-dom'
+
+// Services
+import { ApiException } from '../../services/apiException'
+import { MoviesService } from '../../services/apiServices'
+
+// Swiper
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper'
+import 'swiper/css'
+import 'swiper/css/autoplay'
+import 'swiper/css/effect-fade'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+
+// Types
+import { MovieType } from '../../@types/movies'
+import { PaginationOptions } from 'swiper/types'
+
+export const HottestMovieBanner: React.FC = () => {
+  const [movies, setMovies] = useState<MovieType[]>()
+  const movieURL = `/movie/popular?api_key=${
+    import.meta.env.VITE_API_KEY
+  }&language=pt-BR`
+
+  useEffect(() => {
+    MoviesService.getMovies(movieURL).then(response => {
+      if (response instanceof ApiException) {
+        return console.log(response.message)
+      }
+
+      setMovies(response.results)
+    })
+  }, [])
+
+  const navigate = useNavigate()
+
+  function goToTheMoviePage(id: number) {
+    navigate(`/movie/${id}`)
+  }
+
+  const pagination: PaginationOptions = {
+    clickable: true,
+    dynamicBullets: true
+  }
+
+  return (
+    <div>
+      <Swiper
+        modules={[Autoplay, EffectFade, Pagination]}
+        autoplay={{ delay: 8000 }}
+        effect={'fade'}
+        // navigation
+        pagination={pagination}
+      >
+        {movies?.slice(0, 5)?.map(movie => (
+          <SwiperSlide className="h-[60vh]">
+            <div
+              className="relative mb-6 h-[60vh] w-full bg-cover max-lg:bg-center"
+              style={{
+                backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
+                boxShadow:
+                  'rgba(50, 50, 93, 0.25) 0px 20px 60px 12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset'
+              }}
+            >
+              <div
+                style={{
+                  background:
+                    'linear-gradient(90deg, rgba(0,0,0,.87) 0%, rgba(0,0,0,0.739670868347339) 28%, rgba(0,0,0,0.5211834733893557) 59%, rgba(0,0,0,0.2914915966386554) 83%, rgba(0,0,0,0) 96%)'
+                }}
+                className="absolute left-0 flex h-full w-[70%] flex-col items-start justify-between py-8 px-6"
+              >
+                <div className="flex w-96 flex-col gap-2">
+                  <h1 className="text-5xl">{movie.title}</h1>
+                  <h3 className="flex items-center gap-2 font-semibold">
+                    {movie.vote_average} <StarIcon className="w-5 text-main" />
+                  </h3>
+                  <p className="mt-1 text-sm">{movie.overview}</p>
+                </div>
+                <button
+                  onClick={() => goToTheMoviePage(movie.id)}
+                  className="flex w-fit items-center gap-2 rounded-md bg-main py-3 px-6 font-bold shadow-md hover:saturate-200"
+                >
+                  Visitar <ArrowUpRightIcon className="w-4" />
+                </button>
+              </div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  )
+}

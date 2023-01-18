@@ -14,7 +14,7 @@ const FavoritesContext = createContext<FavoritesContext | null>(null)
 export const FavoritesProvider: React.FC<FavoritesProviderProps> = ({
   children
 }) => {
-  const [favorites, setFavorites] = useState<number[]>([])
+  const [favorites, setFavorites] = useState<number[]>([315162])
 
   function toogleFavorite(id: number) {
     if (favorites.includes(id)) {

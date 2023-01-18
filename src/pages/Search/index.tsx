@@ -1,30 +1,32 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import { Header } from '../../components/Header'
-import { MovieCard } from '../../components/MovieCard'
-import { MovieType } from '../../components/MovieSection'
-import { Sidebar } from '../../components/Sidebar'
+
+// Components
+import { Header, MovieCard, Sidebar } from '../../components'
+
+// Router
+import { useParams } from 'react-router-dom'
+
+// Services
+import { ApiException } from '../../services/apiException'
+import { MoviesService } from '../../services/apiServices'
+
+// Types
+import { MovieType } from '../../@types/movies'
 
 export const Search: React.FC = () => {
-  const navigate = useNavigate()
   const [movies, setMovies] = useState<MovieType[]>([])
   const { id } = useParams()
 
-  function goToTheMoviePage(id: number) {
-    navigate(`/movie/${id}`)
-  }
-
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/search/movie?api_key=${
-        import.meta.env.VITE_API_KEY
-      }&language=pt-BR&query=${id}&page=1&include_adult=false`
-    )
-      .then(response => response.json())
-      .then(data => {
-        console.log(data.results)
-        setMovies(data.results)
-      })
+    if (!id) return
+
+    MoviesService.searchMovies(id).then(response => {
+      if (response instanceof ApiException) {
+        return console.log(response.message)
+      }
+
+      setMovies(response.results)
+    })
   }, [id])
 
   return (
@@ -33,7 +35,7 @@ export const Search: React.FC = () => {
       <div className="flex w-full flex-col lg:max-w-[84%]">
         <Header />
         <main className="flex w-full flex-col px-8 py-4">
-          <section className="grid gap-x-6 max-lg:gap-y-4 md:grid-cols-3 lg:grid-cols-4">
+          <section className="grid gap-6 max-lg:gap-y-4 md:grid-cols-3 lg:grid-cols-4">
             {movies.map(movie => (
               <div
                 className="group flex cursor-pointer flex-col gap-3"
