@@ -12,6 +12,14 @@
     outline: none;
   }
 
+  ::-webkit-scrollbar {
+    width: 0.4rem;
+    @apply bg-darkest bg-opacity-95;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-md bg-main;
+  }
+
   h1,
   h2,
   h3 {
@@ -43,6 +51,32 @@
 @layer components {
   .sidebar-link {
     @apply flex cursor-pointer items-center gap-3 rounded-md p-3 transition-colors duration-200 hover:bg-main hover:text-darkest;
+  }
+}
+
+@layer utilities {
+  .banner-gradient {
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.87) 0%,
+      rgba(0, 0, 0, 0.739670868347339) 28%,
+      rgba(0, 0, 0, 0.5211834733893557) 59%,
+      rgba(0, 0, 0, 0.2914915966386554) 83%,
+      rgba(0, 0, 0, 0) 96%
+    );
+  }
+
+  @media (max-width: 769px) {
+    .banner-gradient {
+      background: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.87) 0%,
+        rgba(0, 0, 0, 0.739670868347339) 28%,
+        rgba(0, 0, 0, 0.5211834733893557) 59%,
+        rgba(0, 0, 0, 0.2914915966386554) 83%,
+        rgba(0, 0, 0, 0) 96%
+      );
+    }
   }
 }
 

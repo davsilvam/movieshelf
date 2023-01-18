@@ -64,22 +64,16 @@ export const HottestMovieBanner: React.FC = () => {
         pagination={pagination}
       >
         {movies?.slice(0, 5)?.map(movie => (
-          <SwiperSlide className="h-[60vh]">
+          <SwiperSlide className="h-[70vh] shadow-lg">
             <div
-              className="relative mb-6 h-[60vh] w-full bg-cover max-lg:bg-center"
+              className="relative mb-6 h-full w-full bg-cover max-lg:bg-center"
               style={{
                 backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
                 boxShadow:
                   'rgba(50, 50, 93, 0.25) 0px 20px 60px 12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset'
               }}
             >
-              <div
-                style={{
-                  background:
-                    'linear-gradient(90deg, rgba(0,0,0,.87) 0%, rgba(0,0,0,0.739670868347339) 28%, rgba(0,0,0,0.5211834733893557) 59%, rgba(0,0,0,0.2914915966386554) 83%, rgba(0,0,0,0) 96%)'
-                }}
-                className="absolute left-0 flex h-full w-[70%] flex-col items-start justify-between py-8 px-6"
-              >
+              <div className="banner-gradient absolute left-0 bottom-0 flex h-full w-full flex-col items-start justify-end py-8 px-6 pt-24 max-lg:gap-7 lg:w-[70%] lg:justify-between">
                 <div className="flex w-96 flex-col gap-2">
                   <h1 className="text-5xl">{movie.title}</h1>
                   <h3 className="flex items-center gap-2 font-semibold">
