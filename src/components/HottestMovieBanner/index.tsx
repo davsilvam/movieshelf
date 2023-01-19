@@ -16,7 +16,8 @@ import { MoviesService } from '../../services/apiServices'
 
 // Swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper'
+import { Autoplay, EffectFade, Pagination } from 'swiper'
+import { PaginationOptions } from 'swiper/types'
 import 'swiper/css'
 import 'swiper/css/autoplay'
 import 'swiper/css/effect-fade'
@@ -25,7 +26,6 @@ import 'swiper/css/pagination'
 
 // Types
 import { MovieType } from '../../@types/movies'
-import { PaginationOptions } from 'swiper/types'
 
 export const HottestMovieBanner: React.FC = () => {
   const [movies, setMovies] = useState<MovieType[]>()

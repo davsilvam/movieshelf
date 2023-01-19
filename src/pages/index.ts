@@ -1,4 +1,5 @@
 export * from './Favorites'
+export * from './Genres'
 export * from './Home'
 export * from './MovieDetails'
 export * from './Search'

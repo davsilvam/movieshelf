@@ -31,8 +31,8 @@ export const Sidebar: React.FC = () => {
             </Link>
           </li>
           <li>
-            <Link to="/categories" className="sidebar-link">
-              <Square3Stack3DIcon className="w-5" /> Categorias
+            <Link to="/genres" className="sidebar-link">
+              <Square3Stack3DIcon className="w-5" /> Gêneros
             </Link>
           </li>
         </ul>

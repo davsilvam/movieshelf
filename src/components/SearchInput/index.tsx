@@ -12,7 +12,7 @@ export const SearchInput: React.FC = () => {
   const [searchStatus, setSearchStatus] = useState<boolean>(false)
 
   function toogleSearch() {
-    setSearchStatus(state => (state = !state))
+    setSearchStatus(state => !state)
   }
 
   const searchMovies: React.KeyboardEventHandler<HTMLInputElement> =
@@ -26,9 +26,11 @@ export const SearchInput: React.FC = () => {
     )
 
   return (
-    <div className="flex h-10 cursor-pointer items-center gap-3 rounded-lg border border-cadet bg-darkest py-2 px-4 text-sm text-lightest">
+    <div
+      onClick={toogleSearch}
+      className="flex h-10 cursor-pointer items-center gap-3 rounded-lg border border-cadet bg-darkest py-2 px-4 text-sm text-lightest"
+    >
       <MagnifyingGlassIcon
-        onClick={toogleSearch}
         className={`w-4 ${search.length === 0 && 'text-cadet'}`}
       />
       <input
