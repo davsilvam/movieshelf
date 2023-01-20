@@ -64,7 +64,7 @@ export const HottestMovieBanner: React.FC = () => {
         pagination={pagination}
       >
         {movies?.slice(0, 5)?.map(movie => (
-          <SwiperSlide className="h-[70vh] shadow-lg">
+          <SwiperSlide key={movie.id} className="h-[70vh] shadow-lg">
             <div
               className="relative mb-6 h-full w-full bg-cover max-lg:bg-center"
               style={{
@@ -75,11 +75,11 @@ export const HottestMovieBanner: React.FC = () => {
             >
               <div className="banner-gradient absolute left-0 bottom-0 flex h-full w-full flex-col items-start justify-end py-8 px-6 pt-24 max-lg:gap-7 lg:w-[70%] lg:justify-between">
                 <div className="flex w-full flex-col gap-2 lg:w-96">
-                  <h1 className="text-5xl">{movie.title}</h1>
+                  <h1 className="text-4xl">{movie.title}</h1>
                   <h3 className="flex items-center gap-2 font-semibold">
                     <StarIcon className="w-5 text-main" /> {movie.vote_average}
                   </h3>
-                  <p className="mt-1 text-sm">{movie.overview}</p>
+                  <p className="mt-1 text-xs max-lg:hidden">{movie.overview}</p>
                 </div>
                 <div className="flex gap-3">
                   <button

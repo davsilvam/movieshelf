@@ -3,6 +3,9 @@ module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        lato: 'Lato, sans-serif'
+      },
       colors: {
         darkest: '#0f0e17',
         lightest: '#fffffe',

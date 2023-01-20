@@ -34,7 +34,7 @@ export function useFavorites(): FavoritesContext {
   const context = useContext(FavoritesContext)
 
   if (!context) {
-    throw new Error('useFavorites must be used within a MusicalContext.')
+    throw new Error('useFavorites must be used within a FavoritesContext.')
   }
 
   return context

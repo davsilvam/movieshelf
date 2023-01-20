@@ -19,3 +19,9 @@ export type MovieResponse = {
   total_pages: number
   total_results: number
 }
+
+export type TokenResponse = {
+  expires_at: string
+  request_token: string
+  success: boolean
+}
