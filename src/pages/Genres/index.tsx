@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import { FC, useEffect, useMemo, useState } from 'react'
 
 // Components
 import { Header, MovieCard, Sidebar } from '../../components'
@@ -19,7 +19,7 @@ type GenreCollection = {
   movies: MovieType[]
 }
 
-export const Genres: React.FC = () => {
+export const Genres: FC = () => {
   const [genres, setGenres] = useState<GenreType[]>([])
   const [activeGenres, setActiveGenres] = useState<number[]>([])
   const [activeGenresCollection, setActiveGenresCollection] = useState<
@@ -70,8 +70,10 @@ export const Genres: React.FC = () => {
   return (
     <div className="flex min-h-screen w-full bg-darkest text-lightest">
       <Sidebar />
+
       <div className="relative flex w-full flex-col lg:max-w-[84%]">
         <Header />
+
         <main className="flex w-full flex-col px-8 py-4 pt-20">
           <section className="mb-8 flex flex-wrap gap-2">
             {genres.map(genre => (

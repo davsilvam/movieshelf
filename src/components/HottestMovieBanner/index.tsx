@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { FC } from 'react'
 
 // Icons
 import {
@@ -11,13 +11,11 @@ import {
 import { useNavigate } from 'react-router-dom'
 
 // Services
-import { ApiException } from '../../services/apiException'
-import { MoviesService } from '../../services/apiServices'
+import { instance } from '../../services/apiConfig'
 
 // Swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, EffectFade, Pagination } from 'swiper'
-import { PaginationOptions } from 'swiper/types'
 import 'swiper/css'
 import 'swiper/css/autoplay'
 import 'swiper/css/effect-fade'
@@ -27,31 +25,23 @@ import 'swiper/css/pagination'
 // Types
 import { MovieType } from '../../@types/movies'
 
-export const HottestMovieBanner: React.FC = () => {
-  const [movies, setMovies] = useState<MovieType[]>()
-  const movieURL = `/movie/popular?api_key=${
+// Query
+import { useQuery } from 'react-query'
+
+export const HottestMovieBanner: FC = () => {
+  const navigate = useNavigate()
+
+  const popularMoviesURL = `/movie/popular?api_key=${
     import.meta.env.VITE_API_KEY
   }&language=pt-BR`
 
-  useEffect(() => {
-    MoviesService.getMovies(movieURL).then(response => {
-      if (response instanceof ApiException) {
-        return console.log(response.message)
-      }
-
-      setMovies(response.results)
-    })
-  }, [])
-
-  const navigate = useNavigate()
+  const { data: movies } = useQuery<MovieType[]>('banner', async () => {
+    const { data } = await instance.get(popularMoviesURL)
+    return data.results
+  })
 
   function goToTheMoviePage(id: number) {
     navigate(`/movie/${id}`)
-  }
-
-  const pagination: PaginationOptions = {
-    clickable: true,
-    dynamicBullets: true
   }
 
   return (
@@ -60,8 +50,10 @@ export const HottestMovieBanner: React.FC = () => {
         modules={[Autoplay, EffectFade, Pagination]}
         autoplay={{ delay: 8000 }}
         effect={'fade'}
-        // navigation
-        pagination={pagination}
+        pagination={{
+          clickable: true,
+          dynamicBullets: true
+        }}
       >
         {movies?.slice(0, 5)?.map(movie => (
           <SwiperSlide key={movie.id} className="h-[70vh] shadow-lg">

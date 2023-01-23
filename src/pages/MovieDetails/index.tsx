@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { FC } from 'react'
 
 // Components
 import { Comments } from './Comments'
@@ -20,8 +20,7 @@ import {
 import { useNavigate, useParams } from 'react-router-dom'
 
 // Services
-import { ApiException } from '../../services/apiException'
-import { MoviesService } from '../../services/apiServices'
+import { instance } from '../../services/apiConfig'
 
 // Types
 import { MovieDetailsType } from '../../@types/movies'
@@ -29,23 +28,26 @@ import { MovieDetailsType } from '../../@types/movies'
 // Utils
 import { GoToTop } from '../../utils/GoToTop'
 
-export const MovieDetails: React.FC = () => {
-  const { id } = useParams()
+// Query
+import { useQuery } from 'react-query'
+
+export const MovieDetails: FC = () => {
   const navigate = useNavigate()
+  const { id } = useParams()
   const { favorites, toogleFavorite } = useFavorites()
-  const [details, setDetails] = useState<MovieDetailsType>()
 
-  useEffect(() => {
-    if (!id) return
+  const { data: details } = useQuery<MovieDetailsType>(
+    ['details', id],
+    async () => {
+      const MOVIE_DETAILS_URL = `/movie/${id}?api_key=${
+        import.meta.env.VITE_API_KEY
+      }&language=pt-BR`
 
-    MoviesService.getMovieDetails(id).then(response => {
-      if (response instanceof ApiException) {
-        return console.log(response.message)
-      }
+      const { data } = await instance.get(MOVIE_DETAILS_URL)
 
-      setDetails(response)
-    })
-  }, [id])
+      return data
+    }
+  )
 
   function handleMovieFavorite(id: number) {
     toogleFavorite(id)

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react'
+import { createContext, FC, useContext, useState } from 'react'
 
 interface FavoritesContext {
   favorites: number[]
@@ -11,9 +11,7 @@ interface FavoritesProviderProps {
 
 const FavoritesContext = createContext<FavoritesContext | null>(null)
 
-export const FavoritesProvider: React.FC<FavoritesProviderProps> = ({
-  children
-}) => {
+export const FavoritesProvider: FC<FavoritesProviderProps> = ({ children }) => {
   const [favorites, setFavorites] = useState<number[]>([315162])
 
   function toogleFavorite(id: number) {

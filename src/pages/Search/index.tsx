@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { FC } from 'react'
 
 // Components
 import { Header, MovieCard, Sidebar } from '../../components'
@@ -7,27 +7,26 @@ import { Header, MovieCard, Sidebar } from '../../components'
 import { useParams } from 'react-router-dom'
 
 // Services
-import { ApiException } from '../../services/apiException'
-import { MoviesService } from '../../services/apiServices'
+import { instance } from '../../services/apiConfig'
 
 // Types
 import { MovieType } from '../../@types/movies'
 
-export const Search: React.FC = () => {
-  const [movies, setMovies] = useState<MovieType[]>([])
+// Query
+import { useQuery } from 'react-query'
+
+export const Search: FC = () => {
   const { id } = useParams()
 
-  useEffect(() => {
-    if (!id) return
+  const { data: movies } = useQuery<MovieType[]>(['details', id], async () => {
+    const SEARCH_MOVIES_URL = `/search/movie?api_key=${
+      import.meta.env.VITE_API_KEY
+    }&language=pt-BR&query=${id}&page=1&include_adult=false`
 
-    MoviesService.searchMovies(id).then(response => {
-      if (response instanceof ApiException) {
-        return console.log(response.message)
-      }
+    const { data } = await instance.get(SEARCH_MOVIES_URL)
 
-      setMovies(response.results)
-    })
-  }, [id])
+    return data.results
+  })
 
   return (
     <div className="flex min-h-screen w-full bg-darkest text-lightest">
@@ -36,7 +35,7 @@ export const Search: React.FC = () => {
         <Header />
         <main className="flex w-full flex-col px-8 py-4 pt-20">
           <section className="grid gap-6 max-lg:gap-y-4 md:grid-cols-3 lg:grid-cols-4">
-            {movies.map(movie => (
+            {movies?.map(movie => (
               <div
                 className="group flex cursor-pointer flex-col gap-3"
                 key={movie.id}

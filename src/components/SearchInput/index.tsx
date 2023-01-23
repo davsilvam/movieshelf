@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import { FC, useCallback, useState } from 'react'
 
 // Icons
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
@@ -6,7 +6,7 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 // Router
 import { useNavigate } from 'react-router-dom'
 
-export const SearchInput: React.FC = () => {
+export const SearchInput: FC = () => {
   const navigate = useNavigate()
   const [search, setSearch] = useState('')
   const [searchStatus, setSearchStatus] = useState<boolean>(false)

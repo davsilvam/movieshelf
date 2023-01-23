@@ -1,17 +1,15 @@
-import React from 'react'
+import { FC } from 'react'
 
 // Router
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 // Pages
-import { Favorites, Genres, Home, Login, MovieDetails, Search, Success } from '../pages'
+import { Favorites, Genres, Home, MovieDetails, Search } from '../pages'
 
-export const RouterPage: React.FC = () => {
+export const RouterPage: FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/login/success" element={<Success />} />
         <Route path="/" element={<Home />} />
         <Route path="/search/:id" element={<Search />} />
         <Route path="/genres" element={<Genres />} />

@@ -1,14 +1,11 @@
-import React from 'react'
-import { AuthenticationProvider } from './contexts/AuthenticationContext'
+import { FC } from 'react'
 import { FavoritesProvider } from './contexts/FavoritesContext'
 import { RouterPage } from './router'
 
-export const App: React.FC = () => {
+export const App: FC = () => {
   return (
-    <AuthenticationProvider>
-      <FavoritesProvider>
-        <RouterPage />
-      </FavoritesProvider>
-    </AuthenticationProvider>
+    <FavoritesProvider>
+      <RouterPage />
+    </FavoritesProvider>
   )
 }

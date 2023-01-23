@@ -1,14 +1,6 @@
 import { GenreType } from './movies.d'
 import { CommentType, MovieType } from './movies'
 
-export type CommentResponse = {
-  id: number
-  page: number
-  results: CommentType[]
-  total_pages: number
-  total_results: number
-}
-
 export type GenresResponse = {
   genres: GenreType[]
 }
@@ -18,10 +10,4 @@ export type MovieResponse = {
   results: MovieType[]
   total_pages: number
   total_results: number
-}
-
-export type TokenResponse = {
-  expires_at: string
-  request_token: string
-  success: boolean
 }

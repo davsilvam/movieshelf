@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 
 // Components
 import { useNavigate } from 'react-router-dom'
@@ -11,7 +11,7 @@ interface MovieCardProps {
   movie: MovieType
 }
 
-export const MovieCard: React.FC<MovieCardProps> = ({ children, movie }) => {
+export const MovieCard: FC<MovieCardProps> = ({ children, movie }) => {
   const navigate = useNavigate()
 
   function goToTheMoviePage(id: number) {
@@ -27,7 +27,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ children, movie }) => {
         alt={movie.title + 'Poster.'}
       />
 
-      { children }
+      {children}
     </>
   )
 }

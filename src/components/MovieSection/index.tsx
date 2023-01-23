@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import { FC } from 'react'
 
 // Components
 import { MovieCard } from '../MovieCard'
 
 // Services
-import { ApiException } from '../../services/apiException'
-import { MoviesService } from '../../services/apiServices'
+import { instance } from '../../services/apiConfig'
 
 // Swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -16,32 +15,32 @@ import 'swiper/css/free-mode'
 // Types
 import { MovieType } from '../../@types/movies'
 
+// Query
+import { useQuery } from 'react-query'
+
 interface MovieSectionProps {
   movieURL: string
   title: string
   amount?: number
 }
 
-export const MovieSection: React.FC<MovieSectionProps> = ({
+export const MovieSection: FC<MovieSectionProps> = ({
   movieURL,
   title,
   amount
 }) => {
-  const [movies, setMovies] = useState<MovieType[]>([])
-
-  useEffect(() => {
-    MoviesService.getMovies(movieURL).then(response => {
-      if (response instanceof ApiException) {
-        return console.log(response.message)
-      }
+  const { data: movies } = useQuery<MovieType[]>(
+    ['movies', movieURL],
+    async () => {
+      const { data } = await instance.get(movieURL)
 
       if (amount) {
-        return setMovies(response.results.slice(0, amount))
+        return data.results.slice(0, amount)
       }
 
-      setMovies(response.results)
-    })
-  }, [movieURL])
+      return data.results
+    }
+  )
 
   return (
     <section className="flex w-full flex-col gap-6">
@@ -53,24 +52,24 @@ export const MovieSection: React.FC<MovieSectionProps> = ({
           modules={[FreeMode]}
           breakpoints={{
             0: {
-              slidesPerView: amount ? amount : 3,
+              slidesPerView: amount ?? 3,
               spaceBetween: 30
             },
             640: {
-              slidesPerView: amount ? amount : 4,
+              slidesPerView: amount ?? 4,
               spaceBetween: 40
             },
             769: {
-              slidesPerView: amount ? amount : 4,
+              slidesPerView: amount ?? 4,
               spaceBetween: 45
             },
             1280: {
-              slidesPerView: amount ? amount : 5,
+              slidesPerView: amount ?? 5,
               spaceBetween: 50
             }
           }}
         >
-          {movies.map(movie => (
+          {movies?.map(movie => (
             <SwiperSlide
               className="group flex cursor-pointer flex-col gap-3"
               key={movie.id}

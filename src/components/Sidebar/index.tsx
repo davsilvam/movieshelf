@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 
 // Contexts
 import { useFavorites } from '../../contexts/FavoritesContext'
@@ -15,7 +15,7 @@ import {
 // Router
 import { Link } from 'react-router-dom'
 
-export const Sidebar: React.FC = () => {
+export const Sidebar: FC = () => {
   const { favorites } = useFavorites()
 
   return (
