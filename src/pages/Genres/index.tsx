@@ -4,12 +4,6 @@ import { FC, useState } from 'react'
 import { Header, MovieCard, Sidebar } from '../../components'
 import { SelectPrimitive } from '../../primitives/SelectPrimitive'
 
-// Swiper
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { FreeMode } from 'swiper'
-import 'swiper/css'
-import 'swiper/css/free-mode'
-
 // Services
 import { instance } from '../../services/apiConfig'
 
@@ -47,9 +41,12 @@ export const Genres: FC = () => {
     return data.genres
   })
 
+  const genreTitle = genreId
+    ? genres?.find(genre => genre.id === Number(genreId))?.name
+    : ''
+
   function getGenreMovies(genre: string) {
     setGenreId(genre)
-    console.log('oi')
   }
 
   return (
@@ -65,12 +62,7 @@ export const Genres: FC = () => {
           </section>
           <section className="flex flex-col gap-8">
             <article className="flex w-full flex-col gap-8">
-              <h1>
-                {genreId
-                  ? genres?.filter(genre => genre.id === Number(genreId))[0]
-                      .name
-                  : ''}
-              </h1>
+              <h1>{genreTitle}</h1>
               <section className="grid w-full grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {genreMovies?.map(movie => (
                   <div key={movie.id} className="cursor-pointer">

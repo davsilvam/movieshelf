@@ -13,7 +13,7 @@ import { StarIcon } from '@heroicons/react/24/outline'
 import { instance } from '../../services/apiConfig'
 
 // Types
-import { MovieType } from '../../@types/movies'
+import { MovieType } from '../../@types/tmdb'
 
 // Query
 import { useQuery } from 'react-query'

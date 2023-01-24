@@ -13,7 +13,7 @@ import 'swiper/css'
 import 'swiper/css/free-mode'
 
 // Types
-import { MovieType } from '../../@types/movies'
+import { MovieType } from '../../@types/tmdb'
 
 // Query
 import { useQuery } from 'react-query'

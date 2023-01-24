@@ -23,7 +23,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
 // Types
-import { MovieType } from '../../@types/movies'
+import { MovieType } from '../../@types/tmdb'
 
 // Query
 import { useQuery } from 'react-query'

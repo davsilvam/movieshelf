@@ -4,7 +4,7 @@ import { FC } from 'react'
 import { instance } from '../../../services/apiConfig'
 
 // Types
-import { CommentType } from '../../../@types/movies'
+import { CommentType } from '../../../@types/tmdb'
 
 // Query
 import { useQuery } from 'react-query'

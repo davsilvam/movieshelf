@@ -23,7 +23,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { instance } from '../../services/apiConfig'
 
 // Types
-import { MovieDetailsType } from '../../@types/movies'
+import { MovieDetailsType } from '../../@types/tmdb'
 
 // Utils
 import { GoToTop } from '../../utils/GoToTop'
