@@ -1,9 +1,8 @@
-import { FC, useEffect, useMemo, useState } from 'react'
+import { FC, useState } from 'react'
 
 // Components
 import { Header, MovieCard, Sidebar } from '../../components'
-import { ApiException } from '../../services/apiException'
-import { MoviesService } from '../../services/apiServices'
+import { SelectPrimitive } from '../../primitives/SelectPrimitive'
 
 // Swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -11,61 +10,47 @@ import { FreeMode } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/free-mode'
 
-// Types
-import { GenreType, MovieType } from '../../@types/movies'
+// Services
+import { instance } from '../../services/apiConfig'
 
-type GenreCollection = {
-  id: number
-  movies: MovieType[]
-}
+// Types
+import { GenreType, MovieType } from '../../@types/tmdb'
+
+// Query
+import { useQuery } from 'react-query'
 
 export const Genres: FC = () => {
-  const [genres, setGenres] = useState<GenreType[]>([])
-  const [activeGenres, setActiveGenres] = useState<number[]>([])
-  const [activeGenresCollection, setActiveGenresCollection] = useState<
-    GenreCollection[]
-  >([])
+  const [genreId, setGenreId] = useState<string>()
 
-  function handleMovieGenre(id: number) {
-    if (activeGenres.includes(id)) {
-      return setActiveGenres(state => [...state.filter(item => item !== id)])
+  const { data: genreMovies } = useQuery<MovieType[]>(
+    ['genreMovies', genreId],
+    async () => {
+      if (!genreId) return
+
+      const GENRE_MOVIES_URL = `/discover/movie?api_key=${
+        import.meta.env.VITE_API_KEY
+      }&with_genres=${genreId}&language=pt-BR`
+
+      const { data } = await instance.get(GENRE_MOVIES_URL)
+
+      return data.results
     }
+  )
 
-    setActiveGenres(state => [...state, id])
+  const { data: genres } = useQuery<GenreType[]>('genres', async () => {
+    const GENRES_URL = `/genre/movie/list?api_key=${
+      import.meta.env.VITE_API_KEY
+    }&language=pt-BR`
+
+    const { data } = await instance.get(GENRES_URL)
+
+    return data.genres
+  })
+
+  function getGenreMovies(genre: string) {
+    setGenreId(genre)
+    console.log('oi')
   }
-
-  const getMoviesByGenre = useMemo(() => {
-    const moviesFilteredByGenre: GenreCollection[] = []
-
-    activeGenres.map(id => {
-      if (!id) return
-
-      MoviesService.getMovieByGenre(id).then(response => {
-        if (response instanceof ApiException) {
-          return console.log(response.message)
-        }
-
-        moviesFilteredByGenre.push({ id: id, movies: response.results })
-
-        setActiveGenresCollection(moviesFilteredByGenre)
-      })
-    })
-  }, [activeGenres])
-
-  useEffect(() => {
-    MoviesService.getGenres().then(response => {
-      if (response instanceof ApiException) {
-        return console.log(response.message)
-      }
-
-      setGenres([...response.genres])
-    })
-  }, [])
-
-  useEffect(() => {
-    if (activeGenres.length === 0) setActiveGenresCollection([])
-    getMoviesByGenre
-  }, [activeGenres])
 
   return (
     <div className="flex min-h-screen w-full bg-darkest text-lightest">
@@ -75,60 +60,25 @@ export const Genres: FC = () => {
         <Header />
 
         <main className="flex w-full flex-col px-8 py-4 pt-20">
-          <section className="mb-8 flex flex-wrap gap-2">
-            {genres.map(genre => (
-              <span
-                onClick={() => handleMovieGenre(genre.id)}
-                className={`cursor-pointer rounded-lg border  py-1 px-3 text-sm font-medium ${
-                  activeGenres.includes(genre.id)
-                    ? 'border-main text-main'
-                    : 'border-cadet text-cadet hover:border-lightest hover:text-lightest'
-                }`}
-                key={genre.id}
-              >
-                {genre.name}
-              </span>
-            ))}
+          <section className="mb-8 flex w-full flex-wrap justify-end gap-2">
+            <SelectPrimitive getGenreMovies={getGenreMovies} />
           </section>
           <section className="flex flex-col gap-8">
-            {activeGenresCollection.map(collection => (
-              <article className="flex w-full flex-col gap-3">
-                <h3>
-                  {genres.filter(genre => genre.id === collection.id)[0].name}
-                </h3>
-                <div>
-                  <Swiper
-                    freeMode={true}
-                    grabCursor={true}
-                    modules={[FreeMode]}
-                    breakpoints={{
-                      0: {
-                        slidesPerView: 3,
-                        spaceBetween: 30
-                      },
-                      640: {
-                        slidesPerView: 4,
-                        spaceBetween: 40
-                      },
-                      769: {
-                        slidesPerView: 4,
-                        spaceBetween: 45
-                      },
-                      1280: {
-                        slidesPerView: 5,
-                        spaceBetween: 50
-                      }
-                    }}
-                  >
-                    {collection.movies.map(movie => (
-                      <SwiperSlide>
-                        <MovieCard key={movie.id} movie={movie} />
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-                </div>
-              </article>
-            ))}
+            <article className="flex w-full flex-col gap-8">
+              <h1>
+                {genreId
+                  ? genres?.filter(genre => genre.id === Number(genreId))[0]
+                      .name
+                  : ''}
+              </h1>
+              <section className="grid w-full grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {genreMovies?.map(movie => (
+                  <div key={movie.id} className="cursor-pointer">
+                    <MovieCard key={movie.id} movie={movie} />
+                  </div>
+                ))}
+              </section>
+            </article>
           </section>
         </main>
       </div>
