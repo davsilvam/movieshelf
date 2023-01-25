@@ -6,10 +6,10 @@ import {
   HottestMovieBanner,
   MovieSection,
   Sidebar
-} from '../../components'
+} from '../components/exports'
 
 // Utils
-import { GoToTop } from '../../utils/GoToTop'
+import { GoToTop } from '../utils/GoToTop'
 
 export const Home: FC = () => {
   return (

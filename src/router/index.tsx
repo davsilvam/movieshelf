@@ -4,7 +4,7 @@ import { FC } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 // Pages
-import { Favorites, Genres, Home, MovieDetails, Search } from '../pages'
+import { Favorites, Genres, Home, MovieDetails, Search } from '../pages/exports'
 
 export const RouterPage: FC = () => {
   return (

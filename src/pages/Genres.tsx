@@ -1,14 +1,14 @@
 import { FC, useState } from 'react'
 
 // Components
-import { Header, MovieCard, Sidebar } from '../../components'
-import { SelectPrimitive } from '../../primitives/SelectPrimitive'
+import { Header, MovieCard, Sidebar } from '../components/exports'
+import { SelectPrimitive } from '../primitives/SelectPrimitive'
 
 // Services
-import { instance } from '../../services/apiConfig'
+import { instance } from '../services/apiConfig'
 
 // Types
-import { GenreType, MovieType } from '../../@types/tmdb'
+import { GenreType, MovieType } from '../@types/tmdb'
 
 // Query
 import { useQuery } from 'react-query'

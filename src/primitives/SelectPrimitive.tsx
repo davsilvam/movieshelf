@@ -11,10 +11,10 @@ import {
 import * as Select from '@radix-ui/react-select'
 
 // Services
-import { instance } from '../../services/apiConfig'
+import { instance } from '../services/apiConfig'
 
 // Types
-import { GenreType } from '../../@types/tmdb'
+import { GenreType } from '../@types/tmdb'
 
 // Query
 import { useQuery } from 'react-query'

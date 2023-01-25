@@ -1,10 +1,10 @@
 import { FC } from 'react'
 
 // Components
-import { MovieCard } from '../MovieCard'
+import { MovieCard } from './MovieCard'
 
 // Services
-import { instance } from '../../services/apiConfig'
+import { instance } from '../services/apiConfig'
 
 // Swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -13,7 +13,7 @@ import 'swiper/css'
 import 'swiper/css/free-mode'
 
 // Types
-import { MovieType } from '../../@types/tmdb'
+import { MovieType } from '../@types/tmdb'
 
 // Query
 import { useQuery } from 'react-query'

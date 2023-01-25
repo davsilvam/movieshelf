@@ -4,7 +4,7 @@ import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 // Types
-import { MovieType } from '../../@types/tmdb'
+import { MovieType } from '../@types/tmdb'
 
 interface MovieCardProps {
   children?: React.ReactNode

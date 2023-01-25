@@ -1,11 +1,10 @@
 import { FC } from 'react'
 
 // Components
-import { Comments } from './Comments'
-import { MovieSection, Sidebar } from '../../components'
+import { Comments, MovieSection, Sidebar } from '../components/exports'
 
 // Contexts
-import { useFavorites } from '../../contexts/FavoritesContext'
+import { useFavorites } from '../contexts/FavoritesContext'
 
 // Icons
 import { ArrowLeftIcon } from '@heroicons/react/20/solid'
@@ -20,13 +19,13 @@ import {
 import { useNavigate, useParams } from 'react-router-dom'
 
 // Services
-import { instance } from '../../services/apiConfig'
+import { instance } from '../services/apiConfig'
 
 // Types
-import { MovieDetailsType } from '../../@types/tmdb'
+import { MovieDetailsType } from '../@types/tmdb'
 
 // Utils
-import { GoToTop } from '../../utils/GoToTop'
+import { GoToTop } from '../utils/GoToTop'
 
 // Query
 import { useQuery } from 'react-query'
@@ -36,7 +35,7 @@ export const MovieDetails: FC = () => {
   const { id } = useParams()
   const { favorites, toogleFavorite } = useFavorites()
 
-  const { data: details } = useQuery<MovieDetailsType>(
+  const { data: details, isFetching } = useQuery<MovieDetailsType>(
     ['details', id],
     async () => {
       const MOVIE_DETAILS_URL = `/movie/${id}?api_key=${

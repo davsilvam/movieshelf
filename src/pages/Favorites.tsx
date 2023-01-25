@@ -1,19 +1,19 @@
 import { FC, useState } from 'react'
 
 // Components
-import { MovieCard, Sidebar } from '../../components'
+import { MovieCard, Sidebar } from '../components/exports'
 
 // Contexts
-import { useFavorites } from '../../contexts/FavoritesContext'
+import { useFavorites } from '../contexts/FavoritesContext'
 
 // Icons
 import { StarIcon } from '@heroicons/react/24/outline'
 
 // Services
-import { instance } from '../../services/apiConfig'
+import { instance } from '../services/apiConfig'
 
 // Types
-import { MovieType } from '../../@types/tmdb'
+import { MovieType } from '../@types/tmdb'
 
 // Query
 import { useQuery } from 'react-query'

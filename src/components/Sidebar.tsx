@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 // Contexts
-import { useFavorites } from '../../contexts/FavoritesContext'
+import { useFavorites } from '../contexts/FavoritesContext'
 
 // Icons
 import {

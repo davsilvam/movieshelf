@@ -1,10 +1,10 @@
-import { useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
-export function GoToTop() {
+export const GoToTop: FC = () => {
   const routePath = useLocation()
 
-  const onTop = () => {
+  function onTop() {
     window.scrollTo(0, 0)
   }
 

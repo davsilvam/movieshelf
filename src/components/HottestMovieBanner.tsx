@@ -11,7 +11,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 
 // Services
-import { instance } from '../../services/apiConfig'
+import { instance } from '../services/apiConfig'
 
 // Swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -23,7 +23,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
 // Types
-import { MovieType } from '../../@types/tmdb'
+import { MovieType } from '../@types/tmdb'
 
 // Query
 import { useQuery } from 'react-query'

@@ -1,16 +1,16 @@
 import { FC } from 'react'
 
 // Components
-import { Header, MovieCard, Sidebar } from '../../components'
+import { Header, MovieCard, Sidebar } from '../components/exports'
 
 // Router
 import { useParams } from 'react-router-dom'
 
 // Services
-import { instance } from '../../services/apiConfig'
+import { instance } from '../services/apiConfig'
 
 // Types
-import { MovieType } from '../../@types/tmdb'
+import { MovieType } from '../@types/tmdb'
 
 // Query
 import { useQuery } from 'react-query'

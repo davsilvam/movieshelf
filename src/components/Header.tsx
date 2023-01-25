@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 // Components
-import { SearchInput } from '../SearchInput'
+import { SearchInput } from './SearchInput'
 
 export const Header: FC = () => {
   return (

@@ -1,10 +1,10 @@
 import { FC } from 'react'
 
 // Services
-import { instance } from '../../../services/apiConfig'
+import { instance } from '../services/apiConfig'
 
 // Types
-import { CommentType } from '../../../@types/tmdb'
+import { CommentType } from '../@types/tmdb'
 
 // Query
 import { useQuery } from 'react-query'
