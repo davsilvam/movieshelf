@@ -21,6 +21,10 @@ import { useNavigate, useParams } from 'react-router-dom'
 // Services
 import { instance } from '../services/apiConfig'
 
+// Skeleton
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
+
 // Types
 import { MovieDetailsType } from '../@types/tmdb'
 
@@ -60,7 +64,13 @@ export const MovieDetails: FC = () => {
     <div className="flex min-h-screen w-full bg-darkest text-lightest">
       <Sidebar />
       <div className="flex w-full flex-col pb-6 lg:max-w-[80%] xl:max-w-[84%]">
-        {details?.backdrop_path && (
+        {isFetching ? (
+          <Skeleton
+            baseColor="#1b1a27"
+            className="mb-6 h-[50vh] w-full"
+            highlightColor="#303030"
+          />
+        ) : (
           <div
             className="relative mb-6 h-[50vh] w-full bg-cover max-lg:bg-center"
             style={{
@@ -80,34 +90,68 @@ export const MovieDetails: FC = () => {
         )}
         <div className="flex w-full flex-col gap-3 px-6">
           <header className="flex w-full items-center justify-between ">
-            <h3 className="flex items-center gap-2 font-semibold">
-              <StarIcon className="w-5 text-main" /> {details?.vote_average}{' '}
-              <div className="h-4 w-px bg-lightest"></div>
-              <span className="text-sm">{details?.vote_count}</span>
-            </h3>
-            <div className="flex items-center gap-3">
-              <BookmarkIcon className="w-7 cursor-pointer fill-transparent text-tertiary transition-colors hover:fill-tertiary" />
-              <HeartIcon
-                onClick={() => {
-                  if (!details?.id) return
-                  handleMovieFavorite(details?.id)
-                }}
-                className={`w-7 cursor-pointer fill-transparent text-secondary transition-colors hover:fill-secondary ${
-                  favorites.some(id => details?.id === id) && 'fill-secondary'
-                } `}
+            {isFetching ? (
+              <Skeleton
+                baseColor="#1b1a27"
+                className="h-8 w-32"
+                highlightColor="#303030"
               />
-            </div>
+            ) : (
+              <h3 className="flex items-center gap-2 font-semibold">
+                <StarIcon className="w-5 text-main" /> {details?.vote_average}{' '}
+                <div className="h-4 w-px bg-lightest"></div>
+                <span className="text-sm">{details?.vote_count}</span>
+              </h3>
+            )}
+            {isFetching ? (
+              <Skeleton
+                baseColor="#1b1a27"
+                className="h-8 w-20"
+                highlightColor="#303030"
+              />
+            ) : (
+              <div className="flex items-center gap-3">
+                <BookmarkIcon className="w-7 cursor-pointer fill-transparent text-tertiary transition-colors hover:fill-tertiary" />
+                <HeartIcon
+                  onClick={() => {
+                    if (!details?.id) return
+                    handleMovieFavorite(details?.id)
+                  }}
+                  className={`w-7 cursor-pointer fill-transparent text-secondary transition-colors hover:fill-secondary ${
+                    favorites.some(id => details?.id === id) && 'fill-secondary'
+                  } `}
+                />
+              </div>
+            )}
           </header>
-          <h1>{details?.title}</h1>
+          {isFetching ? (
+            <Skeleton
+              baseColor="#1b1a27"
+              className="h-10 w-48"
+              highlightColor="#303030"
+            />
+          ) : (
+            <h1>{details?.title}</h1>
+          )}
           <div className="mb-3 flex flex-wrap items-center gap-2">
-            {details?.genres.map(genre => (
-              <span
-                key={genre.id}
-                className="rounded-lg bg-secondary py-1 px-2 text-xs font-medium"
-              >
-                {genre.name}
-              </span>
-            ))}
+            {isFetching ? (
+              <Skeleton
+                baseColor="#1b1a27"
+                className="mr-3 h-5 w-16"
+                count={3}
+                inline={true}
+                highlightColor="#303030"
+              />
+            ) : (
+              details?.genres.map(genre => (
+                <span
+                  key={genre.id}
+                  className="rounded-lg bg-secondary py-1 px-2 text-xs font-medium"
+                >
+                  {genre.name}
+                </span>
+              ))
+            )}
           </div>
           <p className="mb-2 text-cadet">{details?.overview}</p>
 
