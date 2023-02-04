@@ -4,13 +4,14 @@ import { FC } from 'react'
 import { Comments, MovieSection, Sidebar } from '../components/exports'
 
 // Contexts
-import { useFavorites } from '../contexts/FavoritesContext'
+import { useShelf } from '../contexts/ShelfContext'
 
 // Icons
 import { ArrowLeftIcon } from '@heroicons/react/20/solid'
 import {
   BookmarkIcon,
   HeartIcon,
+  Squares2X2Icon,
   SquaresPlusIcon,
   StarIcon
 } from '@heroicons/react/24/outline'
@@ -37,7 +38,7 @@ import { useQuery } from 'react-query'
 export const MovieDetails: FC = () => {
   const navigate = useNavigate()
   const { id } = useParams()
-  const { favorites, toogleFavorite } = useFavorites()
+  const { addToShelf, favorites, shelf, toogleFavorite } = useShelf()
 
   const { data: details, isFetching } = useQuery<MovieDetailsType>(
     ['details', id],
@@ -51,6 +52,14 @@ export const MovieDetails: FC = () => {
       return data
     }
   )
+
+  function moviesIsOnTheShelf() {
+    return shelf.some(movie => movie.id === details?.id)
+  }
+
+  function handleAddToShelf(id: number, rate: number) {
+    addToShelf(id, rate)
+  }
 
   function handleMovieFavorite(id: number) {
     toogleFavorite(id)
@@ -117,8 +126,9 @@ export const MovieDetails: FC = () => {
                     if (!details?.id) return
                     handleMovieFavorite(details?.id)
                   }}
-                  className={`w-7 cursor-pointer fill-transparent text-secondary transition-colors hover:fill-secondary ${
-                    favorites.some(id => details?.id === id) && 'fill-secondary'
+                  className={`w-7 cursor-pointer fill-transparent text-secondary transition-colors ${
+                    favorites.some(movie => details?.id === movie.id) &&
+                    'fill-secondary'
                   } `}
                 />
               </div>
@@ -155,9 +165,20 @@ export const MovieDetails: FC = () => {
           </div>
           <p className="mb-2 text-cadet">{details?.overview}</p>
 
-          <button className="mb-8 flex w-fit items-center gap-2 rounded-md bg-main py-3 px-6 text-sm font-bold shadow-md transition-all duration-300 hover:saturate-200">
-            <SquaresPlusIcon className="w-5" />
-            Adicionar à estante
+          <button
+            className={`mb-8 flex w-fit items-center gap-2 rounded-md py-3 px-6 text-sm font-bold shadow-md transition-all duration-300 hover:saturate-200 ${
+              moviesIsOnTheShelf() ? 'bg-gray-500' : 'bg-main'
+            }`}
+            onClick={() => details?.id && handleAddToShelf(details?.id, 2)}
+          >
+            {moviesIsOnTheShelf() ? (
+              <Squares2X2Icon className="w-5" />
+            ) : (
+              <SquaresPlusIcon className="w-5" />
+            )}
+            {moviesIsOnTheShelf()
+              ? 'Adicionado à estante'
+              : 'Adicionar à estante'}
           </button>
 
           {details?.id && (

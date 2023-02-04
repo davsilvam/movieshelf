@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 // Contexts
-import { useFavorites } from '../contexts/FavoritesContext'
+import { useShelf } from '../contexts/ShelfContext'
 
 // Icons
 import {
@@ -16,7 +16,7 @@ import {
 import { Link } from 'react-router-dom'
 
 export const Sidebar: FC = () => {
-  const { favorites } = useFavorites()
+  const { favorites } = useShelf()
 
   return (
     <aside className="flex w-[20%] flex-shrink-0 flex-col gap-8 border-r border-r-cadet py-10 px-6 max-lg:hidden xl:w-[16%]">

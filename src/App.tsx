@@ -1,11 +1,11 @@
 import { FC } from 'react'
-import { FavoritesProvider } from './contexts/FavoritesContext'
+import { ShelfProvider } from './contexts/ShelfContext'
 import { RouterPage } from './router'
 
 export const App: FC = () => {
   return (
-    <FavoritesProvider>
+    <ShelfProvider>
       <RouterPage />
-    </FavoritesProvider>
+    </ShelfProvider>
   )
 }

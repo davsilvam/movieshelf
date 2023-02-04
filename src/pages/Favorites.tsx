@@ -4,7 +4,7 @@ import { FC, useState } from 'react'
 import { MovieCard, Sidebar } from '../components/exports'
 
 // Contexts
-import { useFavorites } from '../contexts/FavoritesContext'
+import { useShelf } from '../contexts/ShelfContext'
 
 // Icons
 import { StarIcon } from '@heroicons/react/24/outline'
@@ -19,7 +19,7 @@ import { MovieType } from '../@types/tmdb'
 import { useQuery } from 'react-query'
 
 export const Favorites: FC = () => {
-  const { favorites } = useFavorites()
+  const { favorites } = useShelf()
   const [favoritesList, setFavoritesList] = useState<MovieType[]>([])
 
   useQuery(['favorites', favorites], () => {
@@ -30,7 +30,7 @@ export const Favorites: FC = () => {
       if (!favorite) return
 
       const { data }: { data: MovieType } = await instance.get(
-        MOVIE_DETAILS_URL(favorite)
+        MOVIE_DETAILS_URL(favorite.id)
       )
 
       setFavoritesList(state => [...state, data])
