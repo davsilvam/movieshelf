@@ -4,7 +4,14 @@ import { FC } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 // Pages
-import { Favorites, Genres, Home, MovieDetails, Search } from '../pages/exports'
+import {
+  Favorites,
+  Genres,
+  Home,
+  MovieDetails,
+  Search,
+  Shelf
+} from '../pages/exports'
 
 export const RouterPage: FC = () => {
   return (
@@ -13,6 +20,7 @@ export const RouterPage: FC = () => {
         <Route path="/" element={<Home />} />
         <Route path="/search/:id" element={<Search />} />
         <Route path="/genres" element={<Genres />} />
+        <Route path="/shelf" element={<Shelf />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/movie/:id" element={<MovieDetails />} />
       </Routes>
