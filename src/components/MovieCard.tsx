@@ -20,12 +20,14 @@ export const MovieCard: FC<MovieCardProps> = ({ children, movie }) => {
 
   return (
     <>
-      <img
-        onClick={() => goToTheMoviePage(movie.id)}
-        className="rounded-md"
-        src={'https://image.tmdb.org/t/p/w500' + movie.poster_path}
-        alt={movie.title + 'Poster.'}
-      />
+      <div className="relative">
+        <img
+          onClick={() => goToTheMoviePage(movie.id)}
+          className="rounded-md"
+          src={'https://image.tmdb.org/t/p/w500' + movie.poster_path}
+          alt={movie.title + 'Poster.'}
+        />
+      </div>
 
       {children}
     </>

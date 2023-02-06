@@ -17,6 +17,8 @@ import { MovieType } from '../@types/tmdb'
 
 // Query
 import { useQuery } from 'react-query'
+import { StarIcon } from '@heroicons/react/20/solid'
+import { HeartIcon } from '@heroicons/react/24/outline'
 
 interface MovieSectionProps {
   movieURL: string
@@ -71,12 +73,27 @@ export const MovieSection: FC<MovieSectionProps> = ({
         >
           {movies?.map(movie => (
             <SwiperSlide
-              className="group flex cursor-pointer flex-col gap-3"
+              className="relative flex cursor-pointer flex-col gap-3"
               key={movie.id}
             >
               <MovieCard movie={movie}>
-                <div className="-z-10 -translate-y-[200%] transition-transform duration-300 group-hover:translate-y-0 max-lg:hidden">
-                  <h3 className="text-center text-base">{movie.title}</h3>
+                <div className="mt-1 flex w-full flex-col items-start justify-start gap-[2px]">
+                  <h3 className="w-full overflow-hidden overflow-ellipsis whitespace-nowrap text-start text-sm">
+                    {movie.title}
+                  </h3>
+                  <div className="flex w-full items-center justify-between">
+                    <span className="flex items-center gap-1 text-main">
+                      <StarIcon className="w-3" />
+                      <h4 className="pt-[1.75px] text-xs">
+                        {movie.vote_average}
+                      </h4>
+                    </span>
+                    <span className="flex items-center gap-1 text-cadet">
+                      <h4 className="text-xs">
+                        {movie.release_date.slice(0, 4)}
+                      </h4>
+                    </span>
+                  </div>
                 </div>
               </MovieCard>
             </SwiperSlide>

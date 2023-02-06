@@ -126,9 +126,13 @@ export const MovieDetails: FC = () => {
                     if (!details?.id) return
                     handleMovieFavorite(details?.id)
                   }}
-                  className={`w-7 cursor-pointer fill-transparent text-secondary transition-colors ${
+                  className={`w-7 cursor-pointer fill-transparent transition-colors ${
                     favorites.some(movie => details?.id === movie.id) &&
                     'fill-secondary'
+                  } ${
+                    shelf.some(movie => details?.id === movie.id)
+                      ? 'text-secondary'
+                      : 'cursor-not-allowed text-cadet'
                   } `}
                 />
               </div>
