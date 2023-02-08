@@ -3,6 +3,9 @@ import { FC } from 'react'
 // Components
 import { MovieCard } from './MovieCard'
 
+// Icons
+import { StarIcon } from '@heroicons/react/20/solid'
+
 // Services
 import { instance } from '../services/apiConfig'
 
@@ -17,8 +20,6 @@ import { MovieType } from '../@types/tmdb'
 
 // Query
 import { useQuery } from 'react-query'
-import { StarIcon } from '@heroicons/react/20/solid'
-import { HeartIcon } from '@heroicons/react/24/outline'
 
 interface MovieSectionProps {
   movieURL: string

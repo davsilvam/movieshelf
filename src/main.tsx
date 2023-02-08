@@ -1,9 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { QueryClientProvider } from 'react-query'
+
+// App
 import { App } from './App'
-import { queryClient } from './services/queryClient'
+
+// Styles
 import './styles/main.css'
+
+// Query
+import { queryClient } from './services/queryClient'
+import { QueryClientProvider } from 'react-query'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>

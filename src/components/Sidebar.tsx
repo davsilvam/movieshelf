@@ -46,9 +46,6 @@ export const Sidebar: FC = () => {
           <li>
             <Link to="/shelf" className="sidebar-link group">
               <Squares2X2Icon className="w-5" /> Estante{' '}
-              {/* <div className="flex h-5 w-5 items-center justify-center rounded-sm bg-main text-sm group-hover:bg-darkest group-hover:text-main">
-                {favorites.length}
-              </div> */}
             </Link>
           </li>
           <li>
