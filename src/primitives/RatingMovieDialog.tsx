@@ -4,7 +4,7 @@ import { FC, useState } from 'react'
 import { useShelf } from '../contexts/ShelfContext'
 
 // Icons
-import { StarIcon } from '@heroicons/react/24/outline'
+import { StarIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 // Primitives
 import * as Dialog from '@radix-ui/react-dialog'
@@ -48,12 +48,17 @@ export const RatingMovieDialog: FC<RatingMovieDialogProps> = ({
     <Dialog.Root>
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed" />
-        <Dialog.Content className="central-fixed fixed flex h-[300px] w-[450px] flex-col justify-between rounded-md bg-secondary-700 p-4">
+        <Dialog.Overlay className="fixed inset-0 z-20 bg-black/50" />
+        <Dialog.Content className="central-fixed fixed z-30 flex h-[300px] w-[450px] flex-col justify-between rounded-md bg-secondary-700 p-4">
           <section>
-            <Dialog.Title className="border-b-[0.5px] border-b-secondary-400 border-opacity-20 pb-1 text-lg text-secondary-100">
-              Avaliação do Filme
-            </Dialog.Title>
+            <header className="flex w-full items-center justify-between border-b-[0.5px] border-b-secondary-400 border-opacity-20">
+              <Dialog.Title className="text-lg text-secondary-100">
+                Avaliação do Filme
+              </Dialog.Title>
+              <Dialog.Close className="p-2">
+                <XMarkIcon className="w-5 text-secondary-100" />
+              </Dialog.Close>
+            </header>
             <Dialog.Description className="pt-2 text-sm font-medium text-secondary-200">
               E aí, qual nota esse filme merece?
             </Dialog.Description>
