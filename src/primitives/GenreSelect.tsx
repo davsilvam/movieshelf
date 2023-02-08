@@ -23,9 +23,7 @@ interface SelectPrimitiveProps {
   getGenreMovies: (value: string) => void
 }
 
-export const SelectPrimitive: FC<SelectPrimitiveProps> = ({
-  getGenreMovies
-}) => {
+export const GenreSelect: FC<SelectPrimitiveProps> = ({ getGenreMovies }) => {
   const { data: genres } = useQuery<GenreType[]>('genres', async () => {
     const GENRES_URL = `/genre/movie/list?api_key=${
       import.meta.env.VITE_API_KEY
@@ -40,7 +38,7 @@ export const SelectPrimitive: FC<SelectPrimitiveProps> = ({
     <Select.Root onValueChange={value => getGenreMovies(value)}>
       <Select.Trigger
         aria-label="genres"
-        className="bg-secondary-700 text-secondary-50 flex w-40 items-center justify-between gap-2 rounded px-3 py-2 text-sm shadow-lg outline-none"
+        className="flex w-40 items-center justify-between gap-2 rounded bg-secondary-700 px-3 py-2 text-sm text-secondary-50 shadow-lg outline-none"
       >
         <Select.Value placeholder="Gêneros" />
         <Select.Icon>
@@ -51,9 +49,9 @@ export const SelectPrimitive: FC<SelectPrimitiveProps> = ({
       <Select.Portal>
         <Select.Content className="mt-2 h-48" position="popper">
           <Select.ScrollUpButton className="flex w-full items-center justify-center">
-            <ChevronUpIcon className="text-secondary-50 w-5" />
+            <ChevronUpIcon className="w-5 text-secondary-50" />
           </Select.ScrollUpButton>
-          <Select.Viewport className="bg-secondary-700  text-secondary-50 flex w-40 flex-col overflow-hidden rounded-lg py-2 text-sm shadow-lg outline-none">
+          <Select.Viewport className="flex  w-40 flex-col overflow-hidden rounded-lg bg-secondary-700 py-2 text-sm text-secondary-50 shadow-lg outline-none">
             {genres?.map(genre => (
               <Select.Item
                 key={genre.id}
@@ -69,7 +67,7 @@ export const SelectPrimitive: FC<SelectPrimitiveProps> = ({
           </Select.Viewport>
 
           <Select.ScrollDownButton className="flex w-full items-center justify-center">
-            <ChevronDownIcon className="text-secondary-50 w-5" />
+            <ChevronDownIcon className="w-5 text-secondary-50" />
           </Select.ScrollDownButton>
         </Select.Content>
       </Select.Portal>

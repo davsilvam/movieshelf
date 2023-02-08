@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 
 // Components
 import { Header, MovieCard, Sidebar } from '../components/exports'
-import { SelectPrimitive } from '../primitives/SelectPrimitive'
+import { GenreSelect } from '../primitives/exports'
 
 // Services
 import { instance } from '../services/apiConfig'
@@ -58,7 +58,7 @@ export const Genres: FC = () => {
 
         <main className="flex w-full flex-col px-8 py-4 pt-20">
           <section className="mb-8 flex w-full flex-wrap justify-end gap-2">
-            <SelectPrimitive getGenreMovies={getGenreMovies} />
+            <GenreSelect getGenreMovies={getGenreMovies} />
           </section>
           <section className="flex flex-col gap-8">
             <article className="flex w-full flex-col gap-8">

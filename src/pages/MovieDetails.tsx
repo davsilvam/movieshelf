@@ -34,11 +34,12 @@ import { GoToTop } from '../utils/GoToTop'
 
 // Query
 import { useQuery } from 'react-query'
+import { RatingMovieDialog } from '../primitives/RatingMovieDialog'
 
 export const MovieDetails: FC = () => {
   const navigate = useNavigate()
   const { id } = useParams()
-  const { addToShelf, favorites, shelf, toogleFavorite } = useShelf()
+  const { favorites, shelf, toogleFavorite } = useShelf()
 
   const { data: details, isFetching } = useQuery<MovieDetailsType>(
     ['details', id],
@@ -55,10 +56,6 @@ export const MovieDetails: FC = () => {
 
   function moviesIsOnTheShelf() {
     return shelf.some(movie => movie.id === details?.id)
-  }
-
-  function handleAddToShelf(id: number, rate: number) {
-    addToShelf(id, rate)
   }
 
   function handleMovieFavorite(id: number) {
@@ -169,21 +166,25 @@ export const MovieDetails: FC = () => {
           </div>
           <p className="mb-2 text-cadet">{details?.overview}</p>
 
-          <button
-            className={`mb-8 flex w-fit items-center gap-2 rounded-md py-3 px-6 text-sm font-bold shadow-md transition-all duration-300 hover:saturate-200 ${
-              moviesIsOnTheShelf() ? 'bg-secondary-400' : 'bg-pizazz'
-            }`}
-            onClick={() => details?.id && handleAddToShelf(details?.id, 2)}
-          >
-            {moviesIsOnTheShelf() ? (
-              <Squares2X2Icon className="w-5" />
-            ) : (
-              <SquaresPlusIcon className="w-5" />
-            )}
-            {moviesIsOnTheShelf()
-              ? 'Adicionado à estante'
-              : 'Adicionar à estante'}
-          </button>
+          <RatingMovieDialog movieId={id}>
+            <button
+              className={`mb-8 flex w-fit items-center gap-2 rounded-md py-3 px-6 text-sm font-bold shadow-md transition-all duration-300 hover:saturate-200 ${
+                moviesIsOnTheShelf()
+                  ? 'cursor-not-allowed bg-secondary-400'
+                  : 'cursor-pointer bg-pizazz'
+              }`}
+              disabled={moviesIsOnTheShelf()}
+            >
+              {moviesIsOnTheShelf() ? (
+                <Squares2X2Icon className="w-5" />
+              ) : (
+                <SquaresPlusIcon className="w-5" />
+              )}
+              {moviesIsOnTheShelf()
+                ? 'Adicionado à estante'
+                : 'Adicionar à estante'}
+            </button>
+          </RatingMovieDialog>
 
           {details?.id && (
             <div className="mb-8 lg:w-[75%]">
