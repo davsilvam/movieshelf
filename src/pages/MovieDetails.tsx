@@ -70,7 +70,7 @@ export const MovieDetails: FC = () => {
   }
 
   return (
-    <div className="flex min-h-screen w-full bg-darkest text-lightest">
+    <div className="flex min-h-screen w-full bg-secondary-900 text-secondary-50">
       <Sidebar />
       <div className="flex w-full flex-col pb-6 lg:max-w-[80%] xl:max-w-[84%]">
         {isFetching ? (
@@ -90,7 +90,7 @@ export const MovieDetails: FC = () => {
           >
             <button
               onClick={goBack}
-              className="absolute top-2 left-2 flex items-center gap-1 rounded-lg bg-lightest py-1 px-2 text-sm font-semibold text-darkest transition-all hover:bg-opacity-75"
+              className="absolute top-2 left-2 flex items-center gap-1 rounded-lg bg-secondary-50 py-1 px-2 text-sm font-semibold text-secondary-900 transition-all hover:bg-opacity-75"
             >
               <ArrowLeftIcon className="w-4" />
               Voltar
@@ -107,8 +107,8 @@ export const MovieDetails: FC = () => {
               />
             ) : (
               <h3 className="flex items-center gap-2 font-semibold">
-                <StarIcon className="w-5 text-main" /> {details?.vote_average}{' '}
-                <div className="h-4 w-px bg-lightest"></div>
+                <StarIcon className="w-5 text-pizazz" /> {details?.vote_average}{' '}
+                <div className="h-4 w-px bg-secondary-50"></div>
                 <span className="text-sm">{details?.vote_count}</span>
               </h3>
             )}
@@ -128,10 +128,10 @@ export const MovieDetails: FC = () => {
                   }}
                   className={`w-7 cursor-pointer fill-transparent transition-colors ${
                     favorites.some(movie => details?.id === movie.id) &&
-                    'fill-secondary'
+                    'fill-carnation'
                   } ${
                     shelf.some(movie => details?.id === movie.id)
-                      ? 'text-secondary'
+                      ? 'text-carnation'
                       : 'cursor-not-allowed text-cadet'
                   } `}
                 />
@@ -160,7 +160,7 @@ export const MovieDetails: FC = () => {
               details?.genres.map(genre => (
                 <span
                   key={genre.id}
-                  className="rounded-lg bg-secondary py-1 px-2 text-xs font-medium"
+                  className="rounded-lg bg-carnation py-1 px-2 text-xs font-medium"
                 >
                   {genre.name}
                 </span>
@@ -171,7 +171,7 @@ export const MovieDetails: FC = () => {
 
           <button
             className={`mb-8 flex w-fit items-center gap-2 rounded-md py-3 px-6 text-sm font-bold shadow-md transition-all duration-300 hover:saturate-200 ${
-              moviesIsOnTheShelf() ? 'bg-gray-500' : 'bg-main'
+              moviesIsOnTheShelf() ? 'bg-secondary-400' : 'bg-pizazz'
             }`}
             onClick={() => details?.id && handleAddToShelf(details?.id, 2)}
           >

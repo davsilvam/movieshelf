@@ -83,7 +83,7 @@ export const MovieSection: FC<MovieSectionProps> = ({
                     {movie.title}
                   </h3>
                   <div className="flex w-full items-center justify-between">
-                    <span className="flex items-center gap-1 text-main">
+                    <span className="flex items-center gap-1 text-pizazz">
                       <StarIcon className="w-3" />
                       <h4 className="pt-[1.75px] text-xs">
                         {movie.vote_average}

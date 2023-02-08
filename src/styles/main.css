@@ -14,10 +14,10 @@
 
   ::-webkit-scrollbar {
     width: 0.4rem;
-    @apply bg-darkest bg-opacity-95;
+    @apply bg-secondary-900 bg-opacity-95;
   }
   ::-webkit-scrollbar-thumb {
-    @apply rounded-md bg-main;
+    @apply rounded-md bg-pizazz;
   }
 
   h1,
@@ -49,7 +49,7 @@
 
 @layer components {
   .sidebar-link {
-    @apply flex cursor-pointer items-center gap-3 rounded-md p-3 transition-colors duration-200 hover:bg-main hover:text-darkest;
+    @apply flex cursor-pointer items-center gap-3 rounded-md p-3 transition-colors duration-200 hover:bg-pizazz hover:text-secondary-900;
   }
 }
 
@@ -80,5 +80,5 @@
 }
 
 .swiper-pagination-bullet {
-  @apply bg-main;
+  @apply bg-pizazz;
 }

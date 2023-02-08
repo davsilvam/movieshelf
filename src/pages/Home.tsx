@@ -13,7 +13,7 @@ import { GoToTop } from '../utils/GoToTop'
 
 export const Home: FC = () => {
   return (
-    <div className="flex min-h-screen w-full bg-darkest text-lightest">
+    <div className="flex min-h-screen w-full bg-secondary-900 text-secondary-50">
       <Sidebar />
 
       <div className="relative flex w-full flex-col lg:max-w-[80%] xl:max-w-[84%]">

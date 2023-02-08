@@ -38,7 +38,7 @@ export const Favorites: FC = () => {
   })
 
   return (
-    <div className="flex min-h-screen w-full bg-darkest text-lightest">
+    <div className="flex min-h-screen w-full bg-secondary-900 text-secondary-50">
       <Sidebar />
       <div className="flex w-full flex-col lg:max-w-[84%]">
         <main className="flex w-full flex-col gap-6 px-8 py-10">
@@ -56,7 +56,7 @@ export const Favorites: FC = () => {
                         {favorite.title}
                       </h3>
                       <div className="flex w-full items-center justify-between">
-                        <span className="flex items-center gap-1 text-secondary">
+                        <span className="flex items-center gap-1 text-carnation">
                           <HeartIcon className="w-4" />
                         </span>
                         <span className="flex items-center gap-1 text-cadet">

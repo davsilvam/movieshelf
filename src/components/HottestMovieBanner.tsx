@@ -45,7 +45,7 @@ export const HottestMovieBanner: FC = () => {
   }
 
   return (
-    <div>
+    <div className="shadow-xl">
       <Swiper
         modules={[Autoplay, EffectFade, Pagination]}
         autoplay={{ delay: 8000 }}
@@ -69,22 +69,23 @@ export const HottestMovieBanner: FC = () => {
                 <div className="flex w-full flex-col gap-2 lg:w-96">
                   <h1 className="text-4xl">{movie.title}</h1>
                   <h3 className="flex items-center gap-2 font-semibold">
-                    <StarIcon className="w-5 text-main" /> {movie.vote_average}
+                    <StarIcon className="w-5 text-pizazz" />{' '}
+                    {movie.vote_average}
                   </h3>
                   <p className="mt-1 text-xs max-lg:hidden">{movie.overview}</p>
                 </div>
                 <div className="flex gap-3">
                   <button
                     onClick={() => goToTheMoviePage(movie.id)}
-                    className="flex w-fit items-center gap-2 rounded-md bg-main py-3 px-6 font-bold shadow-md hover:saturate-200"
+                    className="flex w-fit items-center gap-2 rounded-md bg-pizazz py-3 px-6 font-bold shadow-md hover:saturate-200"
                   >
                     Visitar <ArrowUpRightIcon className="w-4" />
                   </button>
                   <button
                     onClick={() => goToTheMoviePage(movie.id)}
-                    className="group flex w-fit items-center gap-2 rounded-md bg-darkest px-4 font-bold shadow-md transition-colors duration-300 hover:bg-secondary"
+                    className="bg-secondary-900 group flex w-fit items-center gap-2 rounded-md px-4 font-bold shadow-md transition-colors duration-300 hover:bg-carnation"
                   >
-                    <BookmarkIcon className="w-5 transition-all duration-300 group-hover:fill-lightest" />
+                    <BookmarkIcon className="group-hover:fill-secondary-50 w-5 transition-all duration-300" />
                   </button>
                 </div>
               </div>

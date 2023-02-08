@@ -28,7 +28,7 @@ export const SearchInput: FC = () => {
   return (
     <div
       onClick={toogleSearch}
-      className="flex h-10 cursor-pointer items-center gap-3 rounded-lg border border-cadet bg-darkest py-2 px-4 text-sm text-lightest"
+      className="bg-secondary-900 text-secondary-50 flex h-10 cursor-pointer items-center gap-3 rounded-lg border border-cadet py-2 px-4 text-sm"
     >
       <MagnifyingGlassIcon
         className={`w-4 ${search.length === 0 && 'text-cadet'}`}

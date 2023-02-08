@@ -19,7 +19,10 @@ export const Sidebar: FC = () => {
   const { favorites } = useShelf()
 
   return (
-    <aside className="flex w-[20%] flex-shrink-0 flex-col gap-8 border-r border-r-cadet py-10 px-6 max-lg:hidden xl:w-[16%]">
+    <aside
+      className="border-r-secondary-100 bg-secondary-800 flex
+     w-[20%] flex-shrink-0 flex-col gap-8 border-r py-10 px-6 max-lg:hidden xl:w-[16%]"
+    >
       <h2 className="mb-4">Movieshelf</h2>
 
       <div className="flex flex-col">
@@ -51,7 +54,7 @@ export const Sidebar: FC = () => {
           <li>
             <Link to="/favorites" className="sidebar-link group">
               <HeartIcon className="w-5" /> Favoritos{' '}
-              <div className="flex h-5 w-5 items-center justify-center rounded-sm bg-secondary text-sm group-hover:bg-darkest group-hover:text-main">
+              <div className="group-hover:bg-secondary-900 flex h-5 w-5 items-center justify-center rounded-sm bg-carnation text-sm group-hover:text-pizazz">
                 {favorites.length}
               </div>
             </Link>
