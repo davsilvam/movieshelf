@@ -9,6 +9,7 @@ import {
   Genres,
   Home,
   MovieDetails,
+  Saved,
   Search,
   Shelf
 } from '../pages/exports'
@@ -22,6 +23,7 @@ export const RouterPage: FC = () => {
         <Route path="/genres" element={<Genres />} />
         <Route path="/shelf" element={<Shelf />} />
         <Route path="/favorites" element={<Favorites />} />
+        <Route path="/saved" element={<Saved />} />
         <Route path="/movie/:id" element={<MovieDetails />} />
       </Routes>
     </BrowserRouter>
