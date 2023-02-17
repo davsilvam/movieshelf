@@ -1,7 +1,10 @@
 import { createContext, FC, useContext, useMemo, useState } from 'react'
 
-type ShelfMovie = {
+type Movie = {
   id: number
+}
+
+type ShelfMovie = Movie & {
   rate: number
   isFavorite: boolean
 }
@@ -11,7 +14,7 @@ interface ShelfContext {
   addToShelf: (id: number, rate: number) => void
   favorites: ShelfMovie[]
   toogleFavorite: (id: number) => void
-  saved: ShelfMovie[]
+  saved: Movie[]
 }
 
 interface ShelfProviderProps {
@@ -28,7 +31,7 @@ export const ShelfProvider: FC<ShelfProviderProps> = ({ children }) => {
       rate: 2
     }
   ])
-  const [saved, setSaved] = useState<ShelfMovie[]>([])
+  const [saved, setSaved] = useState<Movie[]>([])
 
   function addToShelf(id: number, rate: number) {
     const newMovie = { id, rate, isFavorite: false }
@@ -64,7 +67,7 @@ export function useShelf(): ShelfContext {
   const context = useContext(ShelfContext)
 
   if (!context) {
-    throw new Error('useFavorites must be used within a FavoritesContext.')
+    throw new Error('useShelf must be used within a ShelfContext.')
   }
 
   return context
