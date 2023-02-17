@@ -16,6 +16,9 @@ import {
   StarIcon
 } from '@heroicons/react/24/outline'
 
+// Primitives
+import { RatingMovieDialog } from '../primitives/RatingMovieDialog'
+
 // Router
 import { useNavigate, useParams } from 'react-router-dom'
 
@@ -34,7 +37,6 @@ import { GoToTop } from '../utils/GoToTop'
 
 // Query
 import { useQuery } from 'react-query'
-import { RatingMovieDialog } from '../primitives/RatingMovieDialog'
 
 export const MovieDetails: FC = () => {
   const navigate = useNavigate()
