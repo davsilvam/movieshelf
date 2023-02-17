@@ -22,9 +22,11 @@ export const MobileNavbar: FC = () => {
 
   return (
     <div
-      className={`fixed -bottom-[484px] ${
-        isNavbarOpen ? '-translate-y-[484px]' : 'translate-y-0'
-      } z-20 flex w-full items-center justify-center border-t border-t-secondary-500 bg-secondary-800 transition-transform duration-300`}
+      className={`fixed -bottom-[484px] md:-bottom-[268px] ${
+        isNavbarOpen
+          ? '-translate-y-[484px] md:-translate-y-[268px]'
+          : 'translate-y-0'
+      } z-20 flex w-full items-center justify-center border-t border-t-secondary-500 bg-secondary-800 transition-transform duration-300 lg:hidden`}
     >
       <div className="flex w-full flex-col items-center justify-center">
         <button
@@ -34,8 +36,8 @@ export const MobileNavbar: FC = () => {
           <Bars3Icon className="w-8" />
           <h3>Menu</h3>
         </button>
-        <nav className="flex w-full flex-col items-start gap-4 px-4 pb-4">
-          <div className="flex w-full flex-col">
+        <nav className="flex w-full flex-col items-start gap-4 px-4 pb-4 md:flex-row">
+          <div className="flex w-full flex-col md:items-center">
             <h3 className="mb-4 text-sm uppercase text-cadet">Navegue</h3>
             <ul className="flex w-full flex-col gap-2">
               <li>
@@ -53,7 +55,7 @@ export const MobileNavbar: FC = () => {
 
           <hr className="border-secondary-500" />
 
-          <div className="flex w-full flex-col">
+          <div className="flex w-full flex-col md:items-center">
             <h3 className="mb-4 text-sm uppercase text-cadet">Biblioteca</h3>
             <ul className="flex w-full flex-col gap-2">
               <li>

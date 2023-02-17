@@ -83,9 +83,9 @@ export const HottestMovieBanner: FC = () => {
                   </button>
                   <button
                     onClick={() => goToTheMoviePage(movie.id)}
-                    className="bg-secondary-900 group flex w-fit items-center gap-2 rounded-md px-4 font-bold shadow-md transition-colors duration-300 hover:bg-carnation"
+                    className="group flex w-fit items-center gap-2 rounded-md bg-secondary-900 px-4 font-bold shadow-md transition-colors duration-300 hover:bg-carnation"
                   >
-                    <BookmarkIcon className="group-hover:fill-secondary-50 w-5 transition-all duration-300" />
+                    <BookmarkIcon className="w-5 transition-all duration-300 group-hover:fill-secondary-50" />
                   </button>
                 </div>
               </div>
