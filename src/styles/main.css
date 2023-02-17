@@ -51,6 +51,10 @@
   .sidebar-link {
     @apply flex cursor-pointer items-center gap-3 rounded-md p-3 transition-colors duration-200 hover:bg-pizazz hover:text-secondary-900;
   }
+
+  .navbar-link {
+    @apply flex w-full cursor-pointer items-center justify-center gap-3 rounded-md p-5 text-lg transition-colors duration-200 hover:bg-pizazz hover:text-secondary-900;
+  }
 }
 
 @layer utilities {

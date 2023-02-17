@@ -1,7 +1,12 @@
 import { FC } from 'react'
 
 // Components
-import { Comments, MovieSection, Sidebar } from '../components/exports'
+import {
+  Comments,
+  MobileNavbar,
+  MovieSection,
+  Sidebar
+} from '../components/exports'
 
 // Contexts
 import { useShelf } from '../contexts/ShelfContext'
@@ -69,8 +74,9 @@ export const MovieDetails: FC = () => {
   }
 
   return (
-    <div className="flex min-h-screen w-full bg-secondary-900 text-secondary-50">
+    <div className="flex min-h-screen w-full bg-secondary-900 text-secondary-50 max-md:pb-20">
       <Sidebar />
+      <MobileNavbar />
       <div className="flex w-full flex-col pb-6 lg:max-w-[80%] xl:max-w-[84%]">
         {isFetching ? (
           <Skeleton
@@ -204,7 +210,6 @@ export const MovieDetails: FC = () => {
           {details?.id && (
             <div className="mb-8 lg:w-[75%]">
               <MovieSection
-                amount={4}
                 movieURL={`https://api.themoviedb.org/3/movie/${
                   details?.id
                 }/recommendations?api_key=${

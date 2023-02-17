@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 // Components
-import { Header, MovieCard, Sidebar } from '../components/exports'
+import { Header, MobileNavbar, MovieCard, Sidebar } from '../components/exports'
 
 // Router
 import { useParams } from 'react-router-dom'
@@ -29,8 +29,9 @@ export const Search: FC = () => {
   })
 
   return (
-    <div className="flex min-h-screen w-full bg-secondary-900 text-secondary-50">
+    <div className="flex min-h-screen w-full bg-secondary-900 text-secondary-50 max-md:pb-20">
       <Sidebar />
+      <MobileNavbar />
       <div className="relative flex w-full flex-col lg:max-w-[84%]">
         <Header />
         <main className="flex w-full flex-col px-8 py-4 pt-20">

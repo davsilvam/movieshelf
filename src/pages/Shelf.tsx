@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 
 // Components
-import { MovieCard, Sidebar } from '../components/exports'
+import { MobileNavbar, MovieCard, Sidebar } from '../components/exports'
 
 // Contexts
 import { useShelf } from '../contexts/ShelfContext'
@@ -38,8 +38,9 @@ export const Shelf: FC = () => {
   })
 
   return (
-    <div className="flex min-h-screen w-full bg-secondary-900 text-secondary-50">
+    <div className="flex min-h-screen w-full bg-secondary-900 text-secondary-50 max-md:pb-20">
       <Sidebar />
+      <MobileNavbar />
       <div className="flex w-full flex-col lg:max-w-[84%]">
         <main className="flex w-full flex-col gap-6 px-8 py-10">
           <h1>Estante</h1>
