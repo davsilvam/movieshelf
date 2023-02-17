@@ -20,13 +20,13 @@ export const Sidebar: FC = () => {
 
   return (
     <aside
-      className="border-r-secondary-100 bg-secondary-800 flex
-     w-[20%] flex-shrink-0 flex-col gap-8 border-r py-10 px-6 max-lg:hidden xl:w-[16%]"
+      className="flex w-[20%] flex-shrink-0
+     flex-col gap-8 border-r border-r-secondary-500 bg-secondary-800 py-10 px-6 max-lg:hidden xl:w-[16%]"
     >
       <h2 className="mb-4">Movieshelf</h2>
 
       <div className="flex flex-col">
-        <h3 className="mb-4 text-xs text-cadet">NAVEGUE</h3>
+        <h3 className="mb-4 text-xs uppercase text-cadet">Navegue</h3>
         <ul className="flex flex-col gap-2">
           <li>
             <Link to="/" className="sidebar-link">
@@ -41,10 +41,10 @@ export const Sidebar: FC = () => {
         </ul>
       </div>
 
-      <hr className="border-cadet opacity-50" />
+      <hr className="border-secondary-500" />
 
       <div className="flex flex-col">
-        <h3 className="mb-4 text-xs text-cadet">BIBLIOTECA</h3>
+        <h3 className="mb-4 text-xs uppercase text-cadet">Biblioteca</h3>
         <ul className="flex flex-col gap-2">
           <li>
             <Link to="/shelf" className="sidebar-link group">
@@ -54,7 +54,7 @@ export const Sidebar: FC = () => {
           <li>
             <Link to="/favorites" className="sidebar-link group">
               <HeartIcon className="w-5" /> Favoritos{' '}
-              <div className="group-hover:bg-secondary-900 flex h-5 w-5 items-center justify-center rounded-sm bg-carnation text-sm group-hover:text-pizazz">
+              <div className="flex h-5 w-5 items-center justify-center rounded-sm bg-carnation text-sm group-hover:bg-secondary-900 group-hover:text-pizazz">
                 {favorites.length}
               </div>
             </Link>
