@@ -15,6 +15,7 @@ interface ShelfContext {
   favorites: ShelfMovie[]
   toogleFavorite: (id: number) => void
   saved: Movie[]
+  addToSaved: (id: number) => void
 }
 
 interface ShelfProviderProps {
@@ -34,9 +35,18 @@ export const ShelfProvider: FC<ShelfProviderProps> = ({ children }) => {
   const [saved, setSaved] = useState<Movie[]>([])
 
   function addToShelf(id: number, rate: number) {
+    if (saved.some(movie => movie.id === id)) {
+      setSaved(state => state.filter(movie => movie.id !== id))
+    }
+
     const newMovie = { id, rate, isFavorite: false }
     setShelf(state => [...state, newMovie])
   }
+
+  const favorites: ShelfMovie[] = useMemo(
+    () => shelf.filter(movie => movie.isFavorite),
+    [shelf]
+  )
 
   function toogleFavorite(id: number) {
     const updatedMovies = [...shelf]
@@ -49,14 +59,22 @@ export const ShelfProvider: FC<ShelfProviderProps> = ({ children }) => {
     setShelf(updatedMovies)
   }
 
-  const favorites: ShelfMovie[] = useMemo(
-    () => shelf.filter(movie => movie.isFavorite),
-    [shelf]
-  )
+  function addToSaved(id: number) {
+    if (saved.some(movie => movie.id === id)) return
+    const newMovie = { id }
+    setSaved(state => [...state, newMovie])
+  }
 
   return (
     <ShelfContext.Provider
-      value={{ shelf, addToShelf, favorites, toogleFavorite, saved }}
+      value={{
+        shelf,
+        addToShelf,
+        favorites,
+        toogleFavorite,
+        saved,
+        addToSaved
+      }}
     >
       {children}
     </ShelfContext.Provider>

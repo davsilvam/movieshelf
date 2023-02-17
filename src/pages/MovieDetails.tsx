@@ -41,7 +41,7 @@ import { useQuery } from 'react-query'
 export const MovieDetails: FC = () => {
   const navigate = useNavigate()
   const { id } = useParams()
-  const { favorites, shelf, toogleFavorite } = useShelf()
+  const { addToSaved, favorites, saved, shelf, toogleFavorite } = useShelf()
 
   const { data: details, isFetching } = useQuery<MovieDetailsType>(
     ['details', id],
@@ -119,7 +119,20 @@ export const MovieDetails: FC = () => {
               />
             ) : (
               <div className="flex items-center gap-3">
-                <BookmarkIcon className="w-7 cursor-pointer fill-transparent text-tertiary transition-colors hover:fill-tertiary" />
+                <BookmarkIcon
+                  onClick={() => {
+                    if (!details?.id) return
+                    addToSaved(details?.id)
+                  }}
+                  className={`w-7 cursor-pointer fill-transparent transition-colors ${
+                    saved.some(movie => details?.id === movie.id) &&
+                    'fill-tertiary'
+                  } ${
+                    shelf.some(movie => details?.id === movie.id)
+                      ? 'cursor-not-allowed text-cadet'
+                      : 'text-tertiary hover:fill-tertiary'
+                  }`}
+                />
                 <HeartIcon
                   onClick={() => {
                     if (!details?.id) return
@@ -132,7 +145,7 @@ export const MovieDetails: FC = () => {
                     shelf.some(movie => details?.id === movie.id)
                       ? 'text-carnation'
                       : 'cursor-not-allowed text-cadet'
-                  } `}
+                  }`}
                 />
               </div>
             )}
