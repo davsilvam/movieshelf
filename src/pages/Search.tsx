@@ -3,6 +3,9 @@ import { FC } from 'react'
 // Components
 import { Header, MobileNavbar, MovieCard, Sidebar } from '../components/exports'
 
+// Layout
+import { PageLayout } from './PageLayout'
+
 // Router
 import { useParams } from 'react-router-dom'
 
@@ -29,24 +32,20 @@ export const Search: FC = () => {
   })
 
   return (
-    <div className="flex min-h-screen w-full bg-secondary-900 text-secondary-50 max-md:pb-20">
-      <Sidebar />
-      <MobileNavbar />
-      <div className="relative flex w-full flex-col lg:max-w-[84%]">
-        <Header />
-        <main className="flex w-full flex-col px-8 py-4 pt-20">
-          <section className="grid gap-6 max-lg:gap-y-4 md:grid-cols-3 lg:grid-cols-4">
-            {movies?.map(movie => (
-              <div
-                className="group flex cursor-pointer flex-col gap-3"
-                key={movie.id}
-              >
-                <MovieCard movie={movie} />
-              </div>
-            ))}
-          </section>
-        </main>
-      </div>
-    </div>
+    <PageLayout>
+      <Header />
+      <main className="flex w-full flex-col px-8 py-4 pt-20">
+        <section className="grid gap-6 max-lg:gap-y-4 md:grid-cols-3 lg:grid-cols-4">
+          {movies?.map(movie => (
+            <div
+              className="group flex cursor-pointer flex-col gap-3"
+              key={movie.id}
+            >
+              <MovieCard movie={movie} />
+            </div>
+          ))}
+        </section>
+      </main>
+    </PageLayout>
   )
 }

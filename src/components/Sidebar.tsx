@@ -20,7 +20,7 @@ export const Sidebar: FC = () => {
 
   return (
     <aside
-      className="flex w-[20%] flex-shrink-0
+      className="fixed left-0 z-10 flex h-screen w-[20%] flex-shrink-0
      flex-col gap-8 border-r border-r-secondary-500 bg-secondary-800 py-10 px-6 max-lg:hidden xl:w-[16%]"
     >
       <h2 className="mb-4">Movieshelf</h2>

@@ -1,8 +1,11 @@
 import { FC, useState } from 'react'
 
 // Components
-import { Header, MobileNavbar, MovieCard, Sidebar } from '../components/exports'
+import { Header, MovieCard } from '../components/exports'
 import { GenreSelect } from '../primitives/exports'
+
+// Layout
+import { PageLayout } from './PageLayout'
 
 // Services
 import { instance } from '../services/apiConfig'
@@ -50,29 +53,25 @@ export const Genres: FC = () => {
   }
 
   return (
-    <div className="flex min-h-screen w-full bg-secondary-900 text-secondary-50 max-md:pb-20">
-      <Sidebar />
-      <MobileNavbar />
-      <div className="relative flex w-full flex-col lg:max-w-[84%]">
-        <Header />
-        <main className="flex w-full flex-col px-8 py-4 pt-20">
-          <section className="mb-8 flex w-full flex-wrap justify-end gap-2">
-            <GenreSelect getGenreMovies={getGenreMovies} />
-          </section>
-          <section className="flex flex-col gap-8">
-            <article className="flex w-full flex-col gap-8">
-              <h1>{genreTitle}</h1>
-              <section className="grid w-full grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {genreMovies?.map(movie => (
-                  <div key={movie.id} className="cursor-pointer">
-                    <MovieCard key={movie.id} movie={movie} />
-                  </div>
-                ))}
-              </section>
-            </article>
-          </section>
-        </main>
-      </div>
-    </div>
+    <PageLayout>
+      <Header />
+      <main className="flex w-full flex-col px-8 py-4 pt-20">
+        <section className="mb-8 flex w-full flex-wrap justify-end gap-2">
+          <GenreSelect getGenreMovies={getGenreMovies} />
+        </section>
+        <section className="flex flex-col gap-8">
+          <article className="flex w-full flex-col gap-8">
+            <h1>{genreTitle}</h1>
+            <section className="grid w-full grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {genreMovies?.map(movie => (
+                <div key={movie.id} className="cursor-pointer">
+                  <MovieCard key={movie.id} movie={movie} />
+                </div>
+              ))}
+            </section>
+          </article>
+        </section>
+      </main>
+    </PageLayout>
   )
 }
