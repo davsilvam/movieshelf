@@ -87,9 +87,9 @@ export const MovieDetails: FC = () => {
         >
           <button
             onClick={goBack}
-            className="absolute top-2 left-2 flex items-center gap-1 rounded-lg bg-secondary-50 py-1 px-2 text-sm font-semibold text-secondary-900 transition-all hover:bg-opacity-75"
+            className="absolute top-2 left-2 flex items-center gap-1 rounded-lg bg-secondary-700 py-1 px-2 font-semibold text-secondary-100 transition-all hover:bg-opacity-75"
           >
-            <ArrowLeftIcon className="w-4" />
+            <ArrowLeftIcon className="w-6" />
             Voltar
           </button>
         </div>
@@ -157,7 +157,7 @@ export const MovieDetails: FC = () => {
         ) : (
           <h1>{details?.title}</h1>
         )}
-        <div className="mb-3 flex flex-wrap items-center gap-2">
+        <div className="mb-1 flex flex-wrap items-center gap-2">
           {isFetching ? (
             <Skeleton
               baseColor="#1b1a27"
@@ -179,23 +179,31 @@ export const MovieDetails: FC = () => {
         </div>
         <p className="mb-2 text-cadet">{details?.overview}</p>
         <RatingMovieDialog movieId={id}>
-          <button
-            className={`mb-8 flex w-fit items-center gap-2 rounded-md py-3 px-6 text-sm font-bold shadow-md transition-all duration-300 hover:saturate-200 ${
-              moviesIsOnTheShelf()
-                ? 'cursor-not-allowed bg-secondary-400'
-                : 'cursor-pointer bg-pizazz'
-            }`}
-            disabled={moviesIsOnTheShelf()}
-          >
-            {moviesIsOnTheShelf() ? (
-              <Squares2X2Icon className="w-5" />
-            ) : (
-              <SquaresPlusIcon className="w-5" />
-            )}
-            {moviesIsOnTheShelf()
-              ? 'Adicionado à estante'
-              : 'Adicionar à estante'}
-          </button>
+          {isFetching ? (
+            <Skeleton
+              baseColor="#1b1a27"
+              className="mb-8 h-12 w-60"
+              highlightColor="#303030"
+            />
+          ) : (
+            <button
+              className={`mb-8 flex w-fit items-center gap-2 rounded-md py-3 px-6 text-sm font-bold shadow-md transition-all duration-300 hover:saturate-200 ${
+                moviesIsOnTheShelf()
+                  ? 'cursor-not-allowed bg-secondary-400'
+                  : 'cursor-pointer bg-pizazz'
+              }`}
+              disabled={moviesIsOnTheShelf()}
+            >
+              {moviesIsOnTheShelf() ? (
+                <Squares2X2Icon className="w-5" />
+              ) : (
+                <SquaresPlusIcon className="w-5" />
+              )}
+              {moviesIsOnTheShelf()
+                ? 'Adicionado à estante'
+                : 'Adicionar à estante'}
+            </button>
+          )}
         </RatingMovieDialog>
         {details?.id && (
           <div className="mb-8 lg:w-[75%]">
