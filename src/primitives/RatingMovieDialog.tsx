@@ -4,7 +4,11 @@ import { FC, useState } from 'react'
 import { useShelf } from '../contexts/ShelfContext'
 
 // Icons
-import { StarIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import {
+  ChatBubbleOvalLeftEllipsisIcon,
+  StarIcon,
+  XMarkIcon
+} from '@heroicons/react/24/outline'
 
 // Primitives
 import * as Dialog from '@radix-ui/react-dialog'
@@ -49,22 +53,30 @@ export const RatingMovieDialog: FC<RatingMovieDialogProps> = ({
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-20 bg-black/50" />
-        <Dialog.Content className="central-fixed fixed z-30 flex h-[300px] w-[450px] flex-col justify-between rounded-md bg-secondary-700 p-4">
+        <Dialog.Content className="central-fixed fixed z-30 flex h-[300px] w-[90%] max-w-[450px] flex-col justify-between rounded-md bg-secondary-700 p-4">
           <section>
-            <header className="flex w-full items-center justify-between border-b-[0.5px] border-b-secondary-400 border-opacity-20">
-              <Dialog.Title className="text-lg text-secondary-100">
-                Avaliação do Filme
-              </Dialog.Title>
+            <header className="flex w-full items-start justify-between">
+              <div className="flex items-start gap-2">
+                <ChatBubbleOvalLeftEllipsisIcon className="w-6 text-secondary-100" />
+                <div className="flex flex-col">
+                  <Dialog.Title className="text-lg text-secondary-100">
+                    Avaliação do Filme
+                  </Dialog.Title>
+                  <Dialog.Description>
+                    <p className="text-sm font-medium text-secondary-300">
+                      Dê uma nota e escreva uma resenha!
+                    </p>
+                  </Dialog.Description>
+                </div>
+              </div>
               <Dialog.Close className="p-2">
                 <XMarkIcon className="w-5 text-secondary-100" />
               </Dialog.Close>
             </header>
-            <Dialog.Description className="pt-2 text-sm font-medium text-secondary-200">
-              E aí, qual nota esse filme merece?
-            </Dialog.Description>
             <div className="mt-5 flex w-full flex-row-reverse items-center justify-center">
               {[4, 3, 2, 1, 0].map(id => (
                 <StarIcon
+                  key={id}
                   className={`rate-star ${currentRate === id && 'rated-star'}`}
                   onMouseEnter={() => handleRateMessage(id)}
                   onMouseLeave={() => handleRateMessage(currentRate)}
@@ -82,7 +94,7 @@ export const RatingMovieDialog: FC<RatingMovieDialogProps> = ({
             <button
               className={`flex h-12 w-full items-center justify-center gap-1 rounded-md py-1 px-2 text-base font-bold text-secondary-50 ${
                 currentRate !== null
-                  ? 'bg-pizazz'
+                  ? 'bg-pizazz hover:saturate-200'
                   : 'cursor-not-allowed bg-secondary-900 opacity-50'
               }`}
               onClick={() => {
