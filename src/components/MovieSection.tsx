@@ -53,6 +53,7 @@ export const MovieSection: FC<MovieSectionProps> = ({
           freeMode={true}
           grabCursor={true}
           modules={[FreeMode]}
+          touchEventsTarget={'container'}
           breakpoints={{
             0: {
               slidesPerView: amount ?? 3,
