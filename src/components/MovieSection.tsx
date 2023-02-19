@@ -86,7 +86,7 @@ export const MovieSection: FC<MovieSectionProps> = ({
                     <span className="flex items-center gap-1 text-pizazz">
                       <StarIcon className="w-3" />
                       <h4 className="pt-[1.75px] text-xs">
-                        {movie.vote_average}
+                        {(movie.vote_average / 2).toFixed(1)}
                       </h4>
                     </span>
                     <span className="flex items-center gap-1 text-cadet">
