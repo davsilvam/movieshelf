@@ -52,7 +52,7 @@ export const Comments: FC<CommentsProps> = ({ id }) => {
 
             <div>
               <h4>{comment.author}</h4>
-              <p className="text-secondary-50 text-xs opacity-80">
+              <p className="text-xs text-secondary-50 opacity-80">
                 {comment.content}
               </p>
             </div>

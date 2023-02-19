@@ -46,8 +46,6 @@ export const RatingMovieDialog: FC<RatingMovieDialogProps> = ({
     setRateMessage(rate === null ? '' : rateMessages[rate])
   }
 
-  console.log(movieId)
-
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
