@@ -58,7 +58,7 @@ export const MovieDetails: FC = () => {
     }
   )
 
-  function moviesIsOnTheShelf() {
+  function movieIsOnTheShelf() {
     return shelf.some(movie => movie.id === details?.id)
   }
 
@@ -113,14 +113,7 @@ export const MovieDetails: FC = () => {
                     {id && shelf.find(movie => movie.id === Number(id))?.rate}
                   </h3>
                   {shelf.find(movie => movie.id === Number(id))?.review && (
-                    <div
-                      className="flex h-8 w-8 cursor-pointer items-center justify-center"
-                      onClick={() =>
-                        console.log(
-                          shelf.find(movie => movie.id === Number(id))?.review
-                        )
-                      }
-                    >
+                    <div className="flex h-8 w-8 cursor-pointer items-center justify-center">
                       <ChatBubbleOvalLeftEllipsisIcon className="w-6" />
                     </div>
                   )}
@@ -155,7 +148,7 @@ export const MovieDetails: FC = () => {
                   saved.some(movie => details?.id === movie.id) &&
                   'fill-tertiary'
                 } ${
-                  shelf.some(movie => details?.id === movie.id)
+                  movieIsOnTheShelf()
                     ? 'cursor-not-allowed text-cadet'
                     : 'text-tertiary hover:fill-tertiary'
                 }`}
@@ -217,18 +210,18 @@ export const MovieDetails: FC = () => {
           ) : (
             <button
               className={`mb-8 flex w-fit items-center gap-2 rounded-md py-3 px-6 text-sm font-bold shadow-md transition-all duration-300 hover:saturate-200 ${
-                moviesIsOnTheShelf()
+                movieIsOnTheShelf()
                   ? 'cursor-not-allowed bg-secondary-400'
                   : 'cursor-pointer bg-pizazz'
               }`}
-              disabled={moviesIsOnTheShelf()}
+              disabled={movieIsOnTheShelf()}
             >
-              {moviesIsOnTheShelf() ? (
+              {movieIsOnTheShelf() ? (
                 <Squares2X2Icon className="w-5" />
               ) : (
                 <SquaresPlusIcon className="w-5" />
               )}
-              {moviesIsOnTheShelf()
+              {movieIsOnTheShelf()
                 ? 'Adicionado à estante'
                 : 'Adicionar à estante'}
             </button>

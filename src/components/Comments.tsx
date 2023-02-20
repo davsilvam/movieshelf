@@ -23,8 +23,6 @@ export const Comments: FC<CommentsProps> = ({ id }) => {
 
       const { data } = await instance.get(MOVIE_REVIEWS_URL)
 
-      console.log(data.results)
-
       return data.results
     }
   )
