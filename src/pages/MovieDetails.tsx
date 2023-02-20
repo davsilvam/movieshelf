@@ -10,6 +10,7 @@ import { useShelf } from '../contexts/ShelfContext'
 import { ArrowLeftIcon } from '@heroicons/react/20/solid'
 import {
   BookmarkIcon,
+  ChatBubbleOvalLeftEllipsisIcon,
   HeartIcon,
   Squares2X2Icon,
   SquaresPlusIcon,
@@ -96,7 +97,7 @@ export const MovieDetails: FC = () => {
         </div>
       )}
       <div className="flex w-full flex-col gap-3 px-6">
-        <header className="flex w-full items-center justify-between ">
+        <header className="flex w-full items-center justify-between">
           {isFetching ? (
             <Skeleton
               baseColor="#1b1a27"
@@ -111,6 +112,18 @@ export const MovieDetails: FC = () => {
                     <StarIcon className="w-5 fill-pizazz text-pizazz" />{' '}
                     {id && shelf.find(movie => movie.id === Number(id))?.rate}
                   </h3>
+                  {shelf.find(movie => movie.id === Number(id))?.review && (
+                    <div
+                      className="flex h-8 w-8 cursor-pointer items-center justify-center"
+                      onClick={() =>
+                        console.log(
+                          shelf.find(movie => movie.id === Number(id))?.review
+                        )
+                      }
+                    >
+                      <ChatBubbleOvalLeftEllipsisIcon className="w-6" />
+                    </div>
+                  )}
                   <div className="mx-2 h-6 w-px bg-secondary-50"></div>
                 </>
               )}

@@ -7,11 +7,12 @@ type Movie = {
 type ShelfMovie = Movie & {
   rate: number
   isFavorite: boolean
+  review?: string
 }
 
 interface ShelfContext {
   shelf: ShelfMovie[]
-  addToShelf: (id: number, rate: number) => void
+  addToShelf: (id: number, rate: number, review?: string) => void
   favorites: ShelfMovie[]
   toogleFavorite: (id: number) => void
   saved: Movie[]
@@ -29,17 +30,18 @@ export const ShelfProvider: FC<ShelfProviderProps> = ({ children }) => {
     {
       id: 315162,
       isFavorite: true,
-      rate: 2
+      rate: 2,
+      review: 'Animação muito massa, curti demais!'
     }
   ])
   const [saved, setSaved] = useState<Movie[]>([])
 
-  function addToShelf(id: number, rate: number) {
+  function addToShelf(id: number, rate: number, review?: string) {
     if (saved.some(movie => movie.id === id)) {
       setSaved(state => state.filter(movie => movie.id !== id))
     }
 
-    const newMovie = { id, rate, isFavorite: false }
+    const newMovie = { id, rate, isFavorite: false, review }
     setShelf(state => [...state, newMovie])
   }
 
@@ -60,7 +62,11 @@ export const ShelfProvider: FC<ShelfProviderProps> = ({ children }) => {
   }
 
   function addToSaved(id: number) {
-    if (saved.some(movie => movie.id === id)) return
+    if (
+      saved.some(movie => movie.id === id) ||
+      shelf.some(movie => movie.id === id)
+    )
+      return
     const newMovie = { id }
     setSaved(state => [...state, newMovie])
   }
