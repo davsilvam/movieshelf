@@ -22,7 +22,7 @@ import {
 import { PageLayout } from './PageLayout'
 
 // Primitives
-import { RatingMovieDialog } from '../primitives/RatingMovieDialog'
+import { RatingMovieDialog } from '../primitives/exports'
 
 // Router
 import { useNavigate, useParams } from 'react-router-dom'
@@ -97,79 +97,39 @@ export const MovieDetails: FC = () => {
         </div>
       )}
       <div className="flex w-full flex-col gap-3 px-6">
-        <header className="flex w-full items-center justify-between">
-          {isFetching ? (
-            <Skeleton
-              baseColor="#1b1a27"
-              className="h-8 w-32"
-              highlightColor="#303030"
-            />
-          ) : (
-            <div className="flex items-center gap-2">
-              {shelf.find(movie => movie.id === Number(id)) && (
-                <>
-                  <h3 className="flex items-center gap-2 font-semibold">
-                    <StarIcon className="w-5 fill-pizazz text-pizazz" />{' '}
-                    {id && shelf.find(movie => movie.id === Number(id))?.rate}
-                  </h3>
-                  {shelf.find(movie => movie.id === Number(id))?.review && (
-                    <div className="flex h-8 w-8 cursor-pointer items-center justify-center">
-                      <ChatBubbleOvalLeftEllipsisIcon className="w-6" />
-                    </div>
-                  )}
-                  <div className="mx-2 h-6 w-px bg-secondary-50"></div>
-                </>
-              )}
-              <h4 className="flex items-center gap-2 font-semibold">
-                <StarIcon className="w-5 text-pizazz" />{' '}
-                {details && (details?.vote_average / 2).toFixed(1)}{' '}
-                <UsersIcon className="w-5" />
-                <div className="h-4 w-px bg-secondary-50"></div>
-                <span className="text-xs text-secondary-300">
-                  {details?.vote_count.toLocaleString()} Avaliações
-                </span>
-              </h4>
-            </div>
-          )}
-          {isFetching ? (
-            <Skeleton
-              baseColor="#1b1a27"
-              className="h-8 w-20"
-              highlightColor="#303030"
-            />
-          ) : (
-            <div className="flex items-center gap-3">
-              <BookmarkIcon
-                onClick={() => {
-                  if (!details?.id) return
-                  addToSaved(details?.id)
-                }}
-                className={`w-7 cursor-pointer fill-transparent transition-colors ${
-                  saved.some(movie => details?.id === movie.id) &&
-                  'fill-tertiary'
-                } ${
-                  movieIsOnTheShelf()
-                    ? 'cursor-not-allowed text-cadet'
-                    : 'text-tertiary hover:fill-tertiary'
-                }`}
-              />
-              <HeartIcon
-                onClick={() => {
-                  if (!details?.id) return
-                  handleMovieFavorite(details?.id)
-                }}
-                className={`w-7 cursor-pointer fill-transparent transition-colors ${
-                  favorites.some(movie => details?.id === movie.id) &&
-                  'fill-carnation'
-                } ${
-                  shelf.some(movie => details?.id === movie.id)
-                    ? 'text-carnation'
-                    : 'cursor-not-allowed text-cadet'
-                }`}
-              />
-            </div>
-          )}
-        </header>
+        {isFetching ? (
+          <Skeleton
+            baseColor="#1b1a27"
+            className="h-8 w-32"
+            highlightColor="#303030"
+          />
+        ) : (
+          <header className="flex w-full items-center justify-between">
+            {shelf.find(movie => movie.id === Number(id)) && (
+              <div className="flex items-center gap-2">
+                <h3 className="flex items-center gap-2 font-semibold">
+                  <StarIcon className="w-5 fill-pizazz text-pizazz" />{' '}
+                  {id && shelf.find(movie => movie.id === Number(id))?.rate}
+                </h3>
+                {shelf.find(movie => movie.id === Number(id))?.review && (
+                  <div className="flex h-8 w-8 cursor-pointer items-center justify-center">
+                    <ChatBubbleOvalLeftEllipsisIcon className="w-6" />
+                  </div>
+                )}
+              </div>
+            )}
+            <h4 className="flex items-center gap-2 font-semibold">
+              <StarIcon className="w-5 text-pizazz" />{' '}
+              {details && (details?.vote_average / 2).toFixed(1)}{' '}
+              <UsersIcon className="w-5" />
+              <div className="h-4 w-px bg-secondary-50"></div>
+              <span className="text-xs text-secondary-300">
+                {details?.vote_count.toLocaleString()} Avaliações
+              </span>
+            </h4>
+          </header>
+        )}
+
         {isFetching ? (
           <Skeleton
             baseColor="#1b1a27"
@@ -200,33 +160,77 @@ export const MovieDetails: FC = () => {
           )}
         </div>
         <p className="mb-2 text-cadet">{details?.overview}</p>
-        <RatingMovieDialog movieId={id}>
+        <div className="mb-8 flex items-center gap-5">
+          <RatingMovieDialog movieId={id}>
+            {isFetching ? (
+              <Skeleton
+                baseColor="#1b1a27"
+                className="mb-8 h-12 w-60"
+                highlightColor="#303030"
+              />
+            ) : (
+              <button
+                className={`flex h-12 w-fit items-center gap-2 rounded-md py-3 px-6 text-sm font-bold shadow-md transition-all duration-300 hover:saturate-200 ${
+                  movieIsOnTheShelf()
+                    ? 'cursor-not-allowed bg-secondary-400'
+                    : 'cursor-pointer bg-pizazz'
+                }`}
+                disabled={movieIsOnTheShelf()}
+              >
+                {movieIsOnTheShelf() ? (
+                  <Squares2X2Icon className="w-5" />
+                ) : (
+                  <SquaresPlusIcon className="w-5" />
+                )}
+                {movieIsOnTheShelf()
+                  ? 'Adicionado à estante'
+                  : 'Adicionar à estante'}
+              </button>
+            )}
+          </RatingMovieDialog>
           {isFetching ? (
             <Skeleton
               baseColor="#1b1a27"
-              className="mb-8 h-12 w-60"
+              className="h-8 w-20"
               highlightColor="#303030"
             />
+          ) : movieIsOnTheShelf() ? (
+            <button
+              className={`group flex h-12 w-12 items-center justify-center rounded-md bg-secondary-700 hover:bg-carnation ${
+                favorites.some(movie => details?.id === movie.id) &&
+                'bg-carnation'
+              }`}
+              onClick={() => {
+                if (!details?.id) return
+                handleMovieFavorite(details?.id)
+              }}
+            >
+              <HeartIcon
+                className={`w-7 cursor-pointer fill-transparent text-secondary-50 transition-colors group-hover:fill-secondary-50 ${
+                  favorites.some(movie => details?.id === movie.id) &&
+                  'fill-secondary-50'
+                }`}
+              />
+            </button>
           ) : (
             <button
-              className={`mb-8 flex w-fit items-center gap-2 rounded-md py-3 px-6 text-sm font-bold shadow-md transition-all duration-300 hover:saturate-200 ${
-                movieIsOnTheShelf()
-                  ? 'cursor-not-allowed bg-secondary-400'
-                  : 'cursor-pointer bg-pizazz'
+              className={`group flex h-12 w-12 items-center justify-center rounded-md bg-secondary-700 hover:bg-tertiary ${
+                saved.some(movie => details?.id === movie.id) && 'bg-tertiary'
               }`}
-              disabled={movieIsOnTheShelf()}
+              onClick={() => {
+                if (!details?.id) return
+                addToSaved(details?.id)
+              }}
             >
-              {movieIsOnTheShelf() ? (
-                <Squares2X2Icon className="w-5" />
-              ) : (
-                <SquaresPlusIcon className="w-5" />
-              )}
-              {movieIsOnTheShelf()
-                ? 'Adicionado à estante'
-                : 'Adicionar à estante'}
+              <BookmarkIcon
+                className={`w-6 cursor-pointer fill-transparent text-secondary-50 transition-colors group-hover:fill-secondary-50 ${
+                  saved.some(movie => details?.id === movie.id) &&
+                  'fill-secondary-50'
+                }`}
+              />
             </button>
           )}
-        </RatingMovieDialog>
+        </div>
         {details?.id && (
           <div className="mb-8 lg:w-[75%]">
             <MovieSection
