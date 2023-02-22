@@ -1,6 +1,10 @@
 import { FC } from 'react'
-import * as Popover from '@radix-ui/react-popover'
+
+// Icons
 import { XMarkIcon } from '@heroicons/react/24/outline'
+
+// Primitives
+import * as Popover from '@radix-ui/react-popover'
 
 interface ReviewPopoverProps {
   children: React.ReactNode
