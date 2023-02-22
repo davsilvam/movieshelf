@@ -22,7 +22,7 @@ import {
 import { PageLayout } from './PageLayout'
 
 // Primitives
-import { RatingMovieDialog } from '../primitives/exports'
+import { RatingMovieDialog, ReviewPopover } from '../primitives/exports'
 
 // Router
 import { useNavigate, useParams } from 'react-router-dom'
@@ -112,9 +112,15 @@ export const MovieDetails: FC = () => {
                   {id && shelf.find(movie => movie.id === Number(id))?.rate}
                 </h3>
                 {shelf.find(movie => movie.id === Number(id))?.review && (
-                  <div className="flex h-8 w-8 cursor-pointer items-center justify-center">
-                    <ChatBubbleOvalLeftEllipsisIcon className="w-6" />
-                  </div>
+                  <ReviewPopover
+                    review={
+                      shelf.find(movie => movie.id === Number(id))?.review
+                    }
+                  >
+                    <div className="flex h-8 w-8 cursor-pointer items-center justify-center">
+                      <ChatBubbleOvalLeftEllipsisIcon className="w-6" />
+                    </div>
+                  </ReviewPopover>
                 )}
               </div>
             )}
