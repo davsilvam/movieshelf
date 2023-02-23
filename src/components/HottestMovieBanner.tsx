@@ -36,7 +36,7 @@ import { MovieType } from '../@types/tmdb'
 import { useQuery } from 'react-query'
 
 export const HottestMovieBanner: FC = () => {
-  const { addToSaved, saved } = useShelf()
+  const { toogleSaved, saved } = useShelf()
   const navigate = useNavigate()
 
   const popularMoviesURL = `/movie/popular?api_key=${
@@ -57,7 +57,7 @@ export const HottestMovieBanner: FC = () => {
 
   function saveMovie(id: number) {
     if (!id) return
-    addToSaved(id)
+    toogleSaved(id)
   }
 
   return (

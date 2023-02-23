@@ -16,7 +16,7 @@ interface ShelfContext {
   favorites: ShelfMovie[]
   toogleFavorite: (id: number) => void
   saved: Movie[]
-  addToSaved: (id: number) => void
+  toogleSaved: (id: number) => void
 }
 
 interface ShelfProviderProps {
@@ -61,12 +61,18 @@ export const ShelfProvider: FC<ShelfProviderProps> = ({ children }) => {
     setShelf(updatedMovies)
   }
 
-  function addToSaved(id: number) {
-    if (
-      saved.some(movie => movie.id === id) ||
-      shelf.some(movie => movie.id === id)
-    )
-      return
+  function toogleSaved(id: number) {
+    if (shelf.some(movie => movie.id === id)) return
+
+    if (saved.some(movie => movie.id === id)) {
+      const updatedSaved = [...saved]
+      const updatedSavedMovie = updatedSaved.find(movie => movie.id === id)
+
+      return setSaved(state =>
+        state.filter(movie => movie.id !== updatedSavedMovie?.id)
+      )
+    }
+
     const newMovie = { id }
     setSaved(state => [...state, newMovie])
   }
@@ -79,7 +85,7 @@ export const ShelfProvider: FC<ShelfProviderProps> = ({ children }) => {
         favorites,
         toogleFavorite,
         saved,
-        addToSaved
+        toogleSaved
       }}
     >
       {children}

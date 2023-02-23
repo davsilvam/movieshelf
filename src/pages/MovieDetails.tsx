@@ -43,7 +43,7 @@ import { useQuery } from 'react-query'
 export const MovieDetails: FC = () => {
   const navigate = useNavigate()
   const { id } = useParams()
-  const { addToSaved, favorites, saved, shelf, toogleFavorite } = useShelf()
+  const { toogleSaved, favorites, saved, shelf, toogleFavorite } = useShelf()
 
   const { data: details, isFetching } = useQuery<MovieDetailsType>(
     ['details', id],
@@ -225,7 +225,7 @@ export const MovieDetails: FC = () => {
               }`}
               onClick={() => {
                 if (!details?.id) return
-                addToSaved(details?.id)
+                toogleSaved(details?.id)
               }}
             >
               <BookmarkIcon
