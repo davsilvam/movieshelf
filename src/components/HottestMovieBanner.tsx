@@ -1,5 +1,8 @@
 import { FC } from 'react'
 
+// Contexts
+import { useShelf } from '../contexts/ShelfContext'
+
 // Icons
 import {
   ArrowUpRightIcon,
@@ -33,6 +36,7 @@ import { MovieType } from '../@types/tmdb'
 import { useQuery } from 'react-query'
 
 export const HottestMovieBanner: FC = () => {
+  const { addToSaved, saved } = useShelf()
   const navigate = useNavigate()
 
   const popularMoviesURL = `/movie/popular?api_key=${
@@ -49,6 +53,11 @@ export const HottestMovieBanner: FC = () => {
 
   function goToTheMoviePage(id: number) {
     navigate(`/movie/${id}`)
+  }
+
+  function saveMovie(id: number) {
+    if (!id) return
+    addToSaved(id)
   }
 
   return (
@@ -98,10 +107,19 @@ export const HottestMovieBanner: FC = () => {
                       Visitar <ArrowUpRightIcon className="w-4" />
                     </button>
                     <button
-                      onClick={() => goToTheMoviePage(movie.id)}
-                      className="group flex w-fit items-center gap-2 rounded-md bg-secondary-900 px-4 font-bold shadow-md transition-colors duration-300 hover:bg-carnation"
+                      onClick={() => saveMovie(movie.id)}
+                      className={`group flex w-fit items-center gap-2 rounded-md bg-secondary-900 px-4 font-bold shadow-md transition-colors duration-300 hover:bg-tertiary ${
+                        saved.some(savedMovie => savedMovie.id === movie.id) &&
+                        'bg-tertiary'
+                      }`}
                     >
-                      <BookmarkIcon className="w-5 transition-all duration-300 group-hover:fill-secondary-50" />
+                      <BookmarkIcon
+                        className={`w-5 transition-all duration-300 group-hover:fill-secondary-50 ${
+                          saved.some(
+                            savedMovie => savedMovie.id === movie.id
+                          ) && 'fill-secondary-50'
+                        }`}
+                      />
                     </button>
                   </div>
                 </div>
