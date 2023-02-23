@@ -7,7 +7,7 @@ import { MobileNavbar, MovieCard, Sidebar } from '../components/exports'
 import { useShelf } from '../contexts/ShelfContext'
 
 // Icons
-import { HeartIcon } from '@heroicons/react/20/solid'
+import { BookmarkIcon } from '@heroicons/react/20/solid'
 
 // Layout
 import { PageLayout } from './PageLayout'
@@ -57,8 +57,8 @@ export const Saved: FC = () => {
                       {savedItem.title}
                     </h3>
                     <div className="flex w-full items-center justify-between">
-                      <span className="flex items-center gap-1 text-carnation">
-                        <HeartIcon className="w-4" />
+                      <span className="flex items-center gap-1 text-tertiary">
+                        <BookmarkIcon className="w-3" />
                       </span>
                       <span className="flex items-center gap-1 text-cadet">
                         <h4 className="text-xs">
