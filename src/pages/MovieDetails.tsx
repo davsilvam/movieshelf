@@ -24,7 +24,11 @@ import {
 import { PageLayout } from './PageLayout'
 
 // Primitives
-import { RatingMovieDialog, ToastMessage } from '../primitives/exports'
+import {
+  RatingMovieDialog,
+  ToastMessage,
+  TooltipMessage
+} from '../primitives/exports'
 
 // Router
 import { useParams } from 'react-router-dom'
@@ -202,47 +206,63 @@ export const MovieDetails: FC = () => {
             />
           ) : movieIsOnTheShelf() ? (
             <ToastMessage toastConfig={toastConfig}>
-              <button
-                className={`group flex h-12 w-12 items-center justify-center rounded-md ${
+              <TooltipMessage
+                message={
                   favorites.some(movie => details?.id === movie.id)
-                    ? 'bg-carnation hover:saturate-150'
-                    : 'bg-secondary-700 hover:bg-secondary-800'
-                }`}
-                onClick={() => {
-                  if (!details?.id) return
-                  handleMovieFavorite(details?.id)
-                }}
+                    ? 'Remover dos Favoritos'
+                    : 'Adicionar aos Favoritos'
+                }
               >
-                <HeartIcon
-                  className={`w-7 cursor-pointer text-secondary-50 transition-colors group-hover:fill-secondary-50 ${
+                <button
+                  className={`group flex h-12 w-12 items-center justify-center rounded-md ${
                     favorites.some(movie => details?.id === movie.id)
-                      ? 'fill-secondary-50'
-                      : 'fill-transparent'
+                      ? 'bg-carnation hover:saturate-150'
+                      : 'bg-secondary-700 hover:bg-secondary-800'
                   }`}
-                />
-              </button>
+                  onClick={() => {
+                    if (!details?.id) return
+                    handleMovieFavorite(details?.id)
+                  }}
+                >
+                  <HeartIcon
+                    className={`w-7 cursor-pointer text-secondary-50 transition-colors group-hover:fill-secondary-50 ${
+                      favorites.some(movie => details?.id === movie.id)
+                        ? 'fill-secondary-50'
+                        : 'fill-transparent'
+                    }`}
+                  />
+                </button>
+              </TooltipMessage>
             </ToastMessage>
           ) : (
             <ToastMessage toastConfig={toastConfig}>
-              <button
-                className={`group flex h-12 w-12 items-center justify-center rounded-md ${
+              <TooltipMessage
+                message={
                   saved.some(movie => details?.id === movie.id)
-                    ? 'bg-tertiary hover:saturate-150'
-                    : 'bg-secondary-700 hover:bg-secondary-800'
-                }`}
-                onClick={() => {
-                  if (!details?.id) return
-                  handleMovieSave(details?.id)
-                }}
+                    ? 'Remover dos Salvos'
+                    : 'Adicionar aos Salvos'
+                }
               >
-                <BookmarkIcon
-                  className={`w-6 cursor-pointer text-secondary-50 transition-colors group-hover:fill-secondary-50 ${
+                <button
+                  className={`group flex h-12 w-12 items-center justify-center rounded-md ${
                     saved.some(movie => details?.id === movie.id)
-                      ? 'fill-secondary-50'
-                      : 'fill-transparent'
+                      ? 'bg-tertiary hover:saturate-150'
+                      : 'bg-secondary-700 hover:bg-secondary-800'
                   }`}
-                />
-              </button>
+                  onClick={() => {
+                    if (!details?.id) return
+                    handleMovieSave(details?.id)
+                  }}
+                >
+                  <BookmarkIcon
+                    className={`w-6 cursor-pointer text-secondary-50 transition-colors group-hover:fill-secondary-50 ${
+                      saved.some(movie => details?.id === movie.id)
+                        ? 'fill-secondary-50'
+                        : 'fill-transparent'
+                    }`}
+                  />
+                </button>
+              </TooltipMessage>
             </ToastMessage>
           )}
         </div>
