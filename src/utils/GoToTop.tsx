@@ -1,4 +1,6 @@
 import { FC, useEffect } from 'react'
+
+// Router
 import { useLocation } from 'react-router-dom'
 
 export const GoToTop: FC = () => {

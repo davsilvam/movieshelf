@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 // Components
-import { Header, MobileNavbar, MovieCard, Sidebar } from '../components/exports'
+import { Header, MovieCard } from '../components/exports'
 
 // Layout
 import { PageLayout } from './PageLayout'

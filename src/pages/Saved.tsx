@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 
 // Components
-import { MobileNavbar, MovieCard, Sidebar } from '../components/exports'
+import { MovieCard } from '../components/exports'
 
 // Contexts
 import { useShelf } from '../contexts/ShelfContext'

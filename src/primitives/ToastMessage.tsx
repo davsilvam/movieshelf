@@ -1,12 +1,7 @@
 import { FC } from 'react'
 
 // Icons
-import {
-  BookmarkIcon,
-  BarsArrowUpIcon,
-  CheckIcon,
-  BarsArrowDownIcon
-} from '@heroicons/react/20/solid'
+import { BarsArrowUpIcon, BarsArrowDownIcon } from '@heroicons/react/20/solid'
 
 // Primitives
 import * as Toast from '@radix-ui/react-toast'
