@@ -1,4 +1,4 @@
-import { Children, FC } from 'react'
+import { FC } from 'react'
 
 // Primitives
 import * as Tooltip from '@radix-ui/react-tooltip'
