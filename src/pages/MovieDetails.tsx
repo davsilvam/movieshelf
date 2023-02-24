@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 // Components
 import { Comments, MovieSection } from '../components/exports'
@@ -22,7 +22,11 @@ import {
 import { PageLayout } from './PageLayout'
 
 // Primitives
-import { RatingMovieDialog, ReviewPopover } from '../primitives/exports'
+import {
+  RatingMovieDialog,
+  ReviewPopover,
+  ToastMessage
+} from '../primitives/exports'
 
 // Router
 import { useNavigate, useParams } from 'react-router-dom'
@@ -40,10 +44,19 @@ import { MovieDetailsType } from '../@types/tmdb'
 // Query
 import { useQuery } from 'react-query'
 
+type ToastConfig = {
+  isOpen: boolean
+  action: string
+}
+
 export const MovieDetails: FC = () => {
   const navigate = useNavigate()
   const { id } = useParams()
   const { toogleSaved, favorites, saved, shelf, toogleFavorite } = useShelf()
+  const [toastConfig, setToastConfig] = useState<ToastConfig>({
+    isOpen: false,
+    action: ''
+  })
 
   const { data: details, isFetching } = useQuery<MovieDetailsType>(
     ['details', id],
@@ -65,6 +78,30 @@ export const MovieDetails: FC = () => {
   function handleMovieFavorite(id: number) {
     toogleFavorite(id)
   }
+
+  function handleMovieSave(id: number) {
+    toogleSaved(id)
+  }
+
+  useEffect(() => {
+    if (!isFetching) {
+      saved.some(movie => details?.id === movie.id)
+        ? setToastConfig({ isOpen: true, action: 'addToSaved' })
+        : setToastConfig({ isOpen: true, action: 'removeFromSaved' })
+
+      setTimeout(() => setToastConfig({ isOpen: false, action: '' }), 5000)
+    }
+  }, [saved.length])
+
+  useEffect(() => {
+    if (!isFetching) {
+      favorites.some(movie => details?.id === movie.id)
+        ? setToastConfig({ isOpen: true, action: 'addToFavorites' })
+        : setToastConfig({ isOpen: true, action: 'removeFromFavorites' })
+
+      setTimeout(() => setToastConfig({ isOpen: false, action: '' }), 5000)
+    }
+  }, [favorites.length])
 
   function goBack() {
     navigate(-1)
@@ -201,40 +238,49 @@ export const MovieDetails: FC = () => {
               highlightColor="#303030"
             />
           ) : movieIsOnTheShelf() ? (
-            <button
-              className={`group flex h-12 w-12 items-center justify-center rounded-md bg-secondary-700 hover:bg-carnation ${
-                favorites.some(movie => details?.id === movie.id) &&
-                'bg-carnation'
-              }`}
-              onClick={() => {
-                if (!details?.id) return
-                handleMovieFavorite(details?.id)
-              }}
-            >
-              <HeartIcon
-                className={`w-7 cursor-pointer fill-transparent text-secondary-50 transition-colors group-hover:fill-secondary-50 ${
-                  favorites.some(movie => details?.id === movie.id) &&
-                  'fill-secondary-50'
+            <ToastMessage toastConfig={toastConfig}>
+              <button
+                className={`group flex h-12 w-12 items-center justify-center rounded-md ${
+                  favorites.some(movie => details?.id === movie.id)
+                    ? 'bg-carnation hover:saturate-150'
+                    : 'bg-secondary-700 hover:bg-secondary-800'
                 }`}
-              />
-            </button>
+                onClick={() => {
+                  if (!details?.id) return
+                  handleMovieFavorite(details?.id)
+                }}
+              >
+                <HeartIcon
+                  className={`w-7 cursor-pointer text-secondary-50 transition-colors group-hover:fill-secondary-50 ${
+                    favorites.some(movie => details?.id === movie.id)
+                      ? 'fill-secondary-50'
+                      : 'fill-transparent'
+                  }`}
+                />
+              </button>
+            </ToastMessage>
           ) : (
-            <button
-              className={`group flex h-12 w-12 items-center justify-center rounded-md bg-secondary-700 hover:bg-tertiary ${
-                saved.some(movie => details?.id === movie.id) && 'bg-tertiary'
-              }`}
-              onClick={() => {
-                if (!details?.id) return
-                toogleSaved(details?.id)
-              }}
-            >
-              <BookmarkIcon
-                className={`w-6 cursor-pointer fill-transparent text-secondary-50 transition-colors group-hover:fill-secondary-50 ${
-                  saved.some(movie => details?.id === movie.id) &&
-                  'fill-secondary-50'
+            <ToastMessage toastConfig={toastConfig}>
+              <button
+                className={`group flex h-12 w-12 items-center justify-center rounded-md ${
+                  saved.some(movie => details?.id === movie.id)
+                    ? 'bg-tertiary hover:saturate-150'
+                    : 'bg-secondary-700 hover:bg-secondary-800'
                 }`}
-              />
-            </button>
+                onClick={() => {
+                  if (!details?.id) return
+                  handleMovieSave(details?.id)
+                }}
+              >
+                <BookmarkIcon
+                  className={`w-6 cursor-pointer text-secondary-50 transition-colors group-hover:fill-secondary-50 ${
+                    saved.some(movie => details?.id === movie.id)
+                      ? 'fill-secondary-50'
+                      : 'fill-transparent'
+                  }`}
+                />
+              </button>
+            </ToastMessage>
           )}
         </div>
         {details?.id && (
