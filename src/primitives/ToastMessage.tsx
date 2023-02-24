@@ -1,7 +1,12 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 // Icons
-import { BookmarkIcon, HeartIcon } from '@heroicons/react/20/solid'
+import {
+  BookmarkIcon,
+  BarsArrowUpIcon,
+  CheckIcon,
+  BarsArrowDownIcon
+} from '@heroicons/react/20/solid'
 
 // Primitives
 import * as Toast from '@radix-ui/react-toast'
@@ -56,14 +61,12 @@ export const ToastMessage: FC<ToastMessageProps> = ({
             </Toast.Description>
           </div>
 
-          {(toastConfig.action === 'addToSaved' ||
-            toastConfig.action === 'removeFromSaved') && (
-            <BookmarkIcon className="w-5 text-tertiary" />
+          {toastConfig.action.startsWith('remove') && (
+            <BarsArrowDownIcon className="w-8 text-carnation" />
           )}
 
-          {(toastConfig.action === 'addToFavorites' ||
-            toastConfig.action === 'removeFromFavorites') && (
-            <HeartIcon className="w-6 text-carnation" />
+          {toastConfig.action.startsWith('add') && (
+            <BarsArrowUpIcon className="w-8 text-pizazz" />
           )}
         </Toast.Root>
       )}
