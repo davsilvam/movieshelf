@@ -27,6 +27,7 @@ export const MovieCard: FC<MovieCardProps> = ({ children, movie }) => {
             className="rounded-md"
             src={'https://image.tmdb.org/t/p/w500' + movie.poster_path}
             alt={movie.title + 'Poster.'}
+            loading="lazy"
           />
         )}
       </div>
