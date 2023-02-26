@@ -1,4 +1,11 @@
-import { createContext, FC, useContext, useMemo, useState } from 'react'
+import {
+  createContext,
+  FC,
+  useContext,
+  useEffect,
+  useMemo,
+  useState
+} from 'react'
 
 type Movie = {
   id: number
@@ -26,15 +33,25 @@ interface ShelfProviderProps {
 const ShelfContext = createContext<ShelfContext | null>(null)
 
 export const ShelfProvider: FC<ShelfProviderProps> = ({ children }) => {
-  const [shelf, setShelf] = useState<ShelfMovie[]>([
-    {
-      id: 315162,
-      isFavorite: true,
-      rate: 2,
-      review: 'Animação muito massa, curti demais!'
-    }
-  ])
-  const [saved, setSaved] = useState<Movie[]>([])
+  const [shelf, setShelf] = useState<ShelfMovie[]>(() => {
+    const localStorageShelf = localStorage.getItem('shelf')
+
+    return localStorageShelf ? JSON.parse(localStorageShelf) : []
+  })
+
+  useEffect(() => {
+    localStorage.setItem('shelf', JSON.stringify(shelf))
+  }, [shelf])
+
+  const [saved, setSaved] = useState<Movie[]>(() => {
+    const localStorageSaved = localStorage.getItem('saved')
+
+    return localStorageSaved ? JSON.parse(localStorageSaved) : []
+  })
+
+  useEffect(() => {
+    localStorage.setItem('saved', JSON.stringify(saved))
+  }, [saved])
 
   function addToShelf(id: number, rate: number, review?: string) {
     if (saved.some(movie => movie.id === id)) {
