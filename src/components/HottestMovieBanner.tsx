@@ -93,7 +93,7 @@ export const HottestMovieBanner: FC = () => {
                     <h1 className="text-4xl">{movie.title}</h1>
                     <h3 className="flex items-center gap-2 font-semibold">
                       <StarIcon className="w-5 text-pizazz" />{' '}
-                      {movie.vote_average}
+                      {(movie.vote_average / 2).toFixed(1)}
                     </h3>
                     <p className="mt-1 text-xs max-lg:hidden">
                       {movie.overview}
