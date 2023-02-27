@@ -44,8 +44,9 @@ A Movieshelf é uma estante virtual de filmes, na qual você pode adicionar os f
 - [Tailwind CSS](https://tailwindcss.com)
 - [Heroicons](https://heroicons.com)
 - [Radix UI](https://www.radix-ui.com)
-- [Google Fonts](https://fonts.google.com)
 - [React Loading Skeleton](https://www.npmjs.com/package/react-loading-skeleton)
+- [Swiper](https://swiperjs.com)
+- [Google Fonts](https://fonts.google.com)
 
 ### :open_file_folder: **IDE, Versionamento e Deploy**
 
