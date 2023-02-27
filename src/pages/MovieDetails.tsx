@@ -175,7 +175,7 @@ export const MovieDetails: FC = () => {
             {isFetching ? (
               <Skeleton
                 baseColor="#1b1a27"
-                className="mb-8 h-12 w-60"
+                className="h-12 w-60"
                 highlightColor="#303030"
               />
             ) : (
@@ -201,7 +201,7 @@ export const MovieDetails: FC = () => {
           {isFetching ? (
             <Skeleton
               baseColor="#1b1a27"
-              className="h-8 w-20"
+              className="h-12 w-12"
               highlightColor="#303030"
             />
           ) : movieIsOnTheShelf() ? (
