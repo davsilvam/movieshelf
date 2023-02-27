@@ -7,6 +7,7 @@ import { useShelf } from '../contexts/ShelfContext'
 import {
   ArrowUpRightIcon,
   BookmarkIcon,
+  HeartIcon,
   StarIcon
 } from '@heroicons/react/24/outline'
 
@@ -36,7 +37,7 @@ import { MovieType } from '../@types/tmdb'
 import { useQuery } from 'react-query'
 
 export const HottestMovieBanner: FC = () => {
-  const { toogleSaved, saved } = useShelf()
+  const { favorites, toogleFavorite, toogleSaved, saved, shelf } = useShelf()
   const navigate = useNavigate()
 
   const popularMoviesURL = `/movie/popular?api_key=${
@@ -55,9 +56,14 @@ export const HottestMovieBanner: FC = () => {
     navigate(`/movie/${id}`)
   }
 
-  function saveMovie(id: number) {
+  function handleToogleFavorite(id: number) {
     if (!id) return
     toogleSaved(id)
+  }
+
+  function handleToogleMovie(id: number) {
+    if (!id) return
+    toogleFavorite(id)
   }
 
   return (
@@ -106,21 +112,43 @@ export const HottestMovieBanner: FC = () => {
                     >
                       Visitar <ArrowUpRightIcon className="w-4" />
                     </button>
-                    <button
-                      onClick={() => saveMovie(movie.id)}
-                      className={`group flex w-fit items-center gap-2 rounded-md bg-secondary-900 px-4 font-bold shadow-md transition-colors duration-300 hover:bg-tertiary ${
-                        saved.some(savedMovie => savedMovie.id === movie.id) &&
-                        'bg-tertiary'
-                      }`}
-                    >
-                      <BookmarkIcon
-                        className={`w-5 transition-all duration-300 group-hover:fill-secondary-50 ${
-                          saved.some(
-                            savedMovie => savedMovie.id === movie.id
-                          ) && 'fill-secondary-50'
+                    {shelf.some(shelfMovie => shelfMovie.id === movie.id) ? (
+                      <button
+                        onClick={() => handleToogleMovie(movie.id)}
+                        className={`group flex  h-12 w-12 items-center justify-center gap-2 rounded-md font-bold shadow-md transition-colors duration-300 ${
+                          favorites.some(
+                            favoriteMovie => favoriteMovie.id === movie.id
+                          )
+                            ? 'bg-carnation hover:saturate-150'
+                            : 'bg-secondary-900 hover:bg-secondary-700'
                         }`}
-                      />
-                    </button>
+                      >
+                        <HeartIcon
+                          className={`w-6 transition-all duration-300 group-hover:fill-secondary-50 ${
+                            favorites.some(
+                              favoriteMovie => favoriteMovie.id === movie.id
+                            ) && 'fill-secondary-50'
+                          }`}
+                        />
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => handleToogleFavorite(movie.id)}
+                        className={`group flex h-12 w-12 items-center justify-center gap-2 rounded-md font-bold shadow-md transition-colors duration-300 ${
+                          saved.some(savedMovie => savedMovie.id === movie.id)
+                            ? 'bg-tertiary hover:saturate-150'
+                            : 'bg-secondary-900 hover:bg-secondary-700'
+                        }`}
+                      >
+                        <BookmarkIcon
+                          className={`w-5 transition-all duration-300 group-hover:fill-secondary-50 ${
+                            saved.some(
+                              savedMovie => savedMovie.id === movie.id
+                            ) && 'fill-secondary-50'
+                          }`}
+                        />
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
