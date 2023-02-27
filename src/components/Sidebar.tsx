@@ -24,8 +24,8 @@ export const Sidebar: FC = () => {
      flex-col gap-8 border-r border-r-secondary-500 bg-secondary-800 py-10 px-6 max-lg:hidden xl:w-[16%]"
     >
       <div className="flex w-full items-center gap-3 xl:pl-2">
-        <img src="/logo.png" alt="" className="w-7" />
-        <h2>Movieshelf</h2>
+        <img src="/logo.png" alt="" className="w-6" />
+        <h2 className="text-xl">Movieshelf</h2>
       </div>
 
       <div className="flex flex-col">
