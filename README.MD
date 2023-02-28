@@ -34,6 +34,7 @@ A Movieshelf é uma estante virtual de filmes, na qual você pode adicionar os f
 
 - [TypeScript](https://www.typescriptlang.org)
 - [React](https://pt-br.reactjs.org)
+- [The Movie Database API](https://developers.themoviedb.org/3)
 - [React Query](https://react-query-v3.tanstack.com)
 - [Node e NPM](https://nodejs.org/)
 - [Vite](https://vitejs.dev/)
