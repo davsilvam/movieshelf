@@ -2,9 +2,9 @@
 
 ## :movie_camera: **Projeto**
 
-<!-- <h1 align="center">
+<h1 align="center">
     <img src="./.github/banner.png" style="width: 100%">
-</h1> -->
+</h1>
 
 > Uma estante de filmes, para o seu "eu cinéfilo".
 
