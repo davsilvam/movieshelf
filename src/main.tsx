@@ -9,7 +9,7 @@ import './styles/main.css'
 
 // Query
 import { queryClient } from './services/queryClient'
-import { QueryClientProvider } from 'react-query'
+import { QueryClientProvider } from '@tanstack/react-query'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>

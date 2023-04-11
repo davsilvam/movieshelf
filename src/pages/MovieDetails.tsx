@@ -2,12 +2,12 @@ import { FC, useEffect, useState } from 'react'
 
 // Components
 import {
-  Comments,
+  CommentsContainer,
   GoBackButton,
   MovieSection,
   ReviewInfo,
   UsersInfo
-} from '../components/exports'
+} from '../components'
 
 // Contexts
 import { useShelf } from '../contexts/ShelfContext'
@@ -34,7 +34,7 @@ import {
 import { useParams } from 'react-router-dom'
 
 // Services
-import { instance } from '../services/apiConfig'
+import { api } from '../services/api'
 
 // Skeleton
 import Skeleton from 'react-loading-skeleton'
@@ -44,7 +44,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { MovieDetailsType } from '../@types/tmdb'
 
 // Query
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 
 type ToastConfig = {
   isOpen: boolean
@@ -66,7 +66,7 @@ export const MovieDetails: FC = () => {
         import.meta.env.VITE_API_KEY
       }&language=pt-BR`
 
-      const { data } = await instance.get(MOVIE_DETAILS_URL)
+      const { data } = await api.get(MOVIE_DETAILS_URL)
 
       return data
     }
@@ -278,7 +278,7 @@ export const MovieDetails: FC = () => {
             />
           </div>
         )}
-        {details?.id && <Comments id={details?.id} />}
+        {details?.id && <CommentsContainer id={details?.id} />}
       </div>
     </PageLayout>
   )

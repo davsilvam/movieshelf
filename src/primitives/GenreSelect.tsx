@@ -11,25 +11,25 @@ import {
 import * as Select from '@radix-ui/react-select'
 
 // Services
-import { instance } from '../services/apiConfig'
+import { api } from '../services/api'
 
 // Types
 import { GenreType } from '../@types/tmdb'
 
 // Query
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 
 interface SelectPrimitiveProps {
   getGenreMovies: (value: string) => void
 }
 
 export const GenreSelect: FC<SelectPrimitiveProps> = ({ getGenreMovies }) => {
-  const { data: genres } = useQuery<GenreType[]>('genres', async () => {
+  const { data: genres } = useQuery<GenreType[]>(['genres'], async () => {
     const GENRES_URL = `/genre/movie/list?api_key=${
       import.meta.env.VITE_API_KEY
     }&language=pt-BR`
 
-    const { data } = await instance.get(GENRES_URL)
+    const { data } = await api.get(GENRES_URL)
 
     return data.genres
   })

@@ -1,20 +1,20 @@
 import { FC, useState } from 'react'
 
 // Components
-import { Header, MovieCard } from '../components/exports'
+import { Header, MovieCard } from '../components'
 import { GenreSelect } from '../primitives/exports'
 
 // Layout
 import { PageLayout } from './PageLayout'
 
 // Services
-import { instance } from '../services/apiConfig'
+import { api } from '../services/api'
 
 // Types
 import { GenreType, MovieType } from '../@types/tmdb'
 
 // Query
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 
 export const Genres: FC = () => {
   const [genreId, setGenreId] = useState<string>()
@@ -28,18 +28,18 @@ export const Genres: FC = () => {
         import.meta.env.VITE_API_KEY
       }&with_genres=${genreId}&language=pt-BR`
 
-      const { data } = await instance.get(GENRE_MOVIES_URL)
+      const { data } = await api.get(GENRE_MOVIES_URL)
 
       return data.results
     }
   )
 
-  const { data: genres } = useQuery<GenreType[]>('genres', async () => {
+  const { data: genres } = useQuery<GenreType[]>(['genres'], async () => {
     const GENRES_URL = `/genre/movie/list?api_key=${
       import.meta.env.VITE_API_KEY
     }&language=pt-BR`
 
-    const { data } = await instance.get(GENRES_URL)
+    const { data } = await api.get(GENRES_URL)
 
     return data.genres
   })

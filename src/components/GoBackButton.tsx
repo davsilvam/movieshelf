@@ -1,12 +1,14 @@
-import { FC } from 'react'
+import { ButtonHTMLAttributes, FC } from 'react'
 
-// Icons
+// icons
 import { ArrowLeftIcon } from '@heroicons/react/20/solid'
 
-// Router
+// router
 import { useNavigate } from 'react-router-dom'
 
-export const GoBackButton: FC = () => {
+export const GoBackButton: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
+  ...rest
+}) => {
   const navigate = useNavigate()
 
   function goBack() {
@@ -17,6 +19,7 @@ export const GoBackButton: FC = () => {
     <button
       onClick={goBack}
       className="absolute top-2 left-2 flex items-center gap-1 rounded-lg bg-secondary-700 py-1 px-2 font-semibold text-secondary-100 transition-all hover:bg-opacity-75"
+      {...rest}
     >
       <ArrowLeftIcon className="w-6" />
       Voltar

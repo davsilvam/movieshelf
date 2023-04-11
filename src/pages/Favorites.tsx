@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 
 // Components
-import { MovieCard } from '../components/exports'
+import { MovieCard } from '../components'
 
 // Contexts
 import { useShelf } from '../contexts/ShelfContext'
@@ -13,13 +13,13 @@ import { HeartIcon } from '@heroicons/react/20/solid'
 import { PageLayout } from './PageLayout'
 
 // Services
-import { instance } from '../services/apiConfig'
+import { api } from '../services/api'
 
 // Types
 import { MovieType } from '../@types/tmdb'
 
 // Query
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 
 export const Favorites: FC = () => {
   const { favorites } = useShelf()
@@ -32,7 +32,7 @@ export const Favorites: FC = () => {
     favorites.map(async favorite => {
       if (!favorite) return
 
-      const { data }: { data: MovieType } = await instance.get(
+      const { data }: { data: MovieType } = await api.get(
         MOVIE_DETAILS_URL(favorite.id)
       )
 

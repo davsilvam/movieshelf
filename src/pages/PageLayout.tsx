@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 // Components
-import { MobileNavbar, Sidebar } from '../components/exports'
+import { MobileNavbar, Sidebar } from '../components'
 
 // Utils
 import { GoToTop } from '../utils/GoToTop'

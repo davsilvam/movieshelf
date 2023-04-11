@@ -1,9 +1,9 @@
 import { FC } from 'react'
 
-// Contexts
+// contexts
 import { useShelf } from '../contexts/ShelfContext'
 
-// Icons
+// icons
 import {
   BookmarkIcon,
   HeartIcon,
@@ -12,7 +12,7 @@ import {
   Squares2X2Icon
 } from '@heroicons/react/24/outline'
 
-// Router
+// router
 import { Link } from 'react-router-dom'
 
 export const Sidebar: FC = () => {

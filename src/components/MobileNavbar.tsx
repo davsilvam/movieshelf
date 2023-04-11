@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 
-// Icons
+// icons
 import {
   BookmarkIcon,
   Bars3Icon,
@@ -10,7 +10,7 @@ import {
   Squares2X2Icon
 } from '@heroicons/react/24/outline'
 
-// Router
+// router
 import { Link } from 'react-router-dom'
 
 export const MobileNavbar: FC = () => {

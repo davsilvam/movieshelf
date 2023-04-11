@@ -1,9 +1,9 @@
 import { FC } from 'react'
 
-// Contexts
+// contexts
 import { useShelf } from '../contexts/ShelfContext'
 
-// Icons
+// icons
 import {
   ArrowUpRightIcon,
   BookmarkIcon,
@@ -11,17 +11,17 @@ import {
   StarIcon
 } from '@heroicons/react/24/outline'
 
-// Router
+// hooks
+import { useMovies } from '../hooks/useMovies'
+
+// router
 import { useNavigate } from 'react-router-dom'
 
-// Services
-import { instance } from '../services/apiConfig'
-
-// Skeleton
+// skeleton
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
-// Swiper
+// swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, EffectFade, Pagination } from 'swiper'
 import 'swiper/css'
@@ -29,12 +29,6 @@ import 'swiper/css/autoplay'
 import 'swiper/css/effect-fade'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-
-// Types
-import { MovieType } from '../@types/tmdb'
-
-// Query
-import { useQuery } from 'react-query'
 
 export const HottestMovieBanner: FC = () => {
   const { favorites, toogleFavorite, toogleSaved, saved, shelf } = useShelf()
@@ -44,13 +38,7 @@ export const HottestMovieBanner: FC = () => {
     import.meta.env.VITE_API_KEY
   }&language=pt-BR`
 
-  const { data: movies, isFetching } = useQuery<MovieType[]>(
-    'banner',
-    async () => {
-      const { data } = await instance.get(popularMoviesURL)
-      return data.results
-    }
-  )
+  const { movies, isFetching } = useMovies(popularMoviesURL)
 
   function goToTheMoviePage(id: number) {
     navigate(`/movie/${id}`)

@@ -1,15 +1,15 @@
 import { FC } from 'react'
 
-// Contexts
+// contexts
 import { useShelf } from '../contexts/ShelfContext'
 
-// Icons
+// icons
 import {
   ChatBubbleOvalLeftEllipsisIcon,
   StarIcon
 } from '@heroicons/react/24/outline'
 
-// Primitives
+// primitives
 import { ReviewPopover, TooltipMessage } from '../primitives/exports'
 
 interface ReviewInfoProps {

@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 // Components
-import { Header, MovieCard } from '../components/exports'
+import { Header, MovieCard } from '../components'
 
 // Layout
 import { PageLayout } from './PageLayout'
@@ -10,13 +10,13 @@ import { PageLayout } from './PageLayout'
 import { useParams } from 'react-router-dom'
 
 // Services
-import { instance } from '../services/apiConfig'
+import { api } from '../services/api'
 
 // Types
 import { MovieType } from '../@types/tmdb'
 
 // Query
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 
 export const Search: FC = () => {
   const { id } = useParams()
@@ -26,7 +26,7 @@ export const Search: FC = () => {
       import.meta.env.VITE_API_KEY
     }&language=pt-BR&query=${id}&page=1&include_adult=false`
 
-    const { data } = await instance.get(SEARCH_MOVIES_URL)
+    const { data } = await api.get(SEARCH_MOVIES_URL)
 
     return data.results
   })

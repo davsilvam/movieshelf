@@ -12,7 +12,7 @@ import {
   Saved,
   Search,
   Shelf
-} from '../pages/exports'
+} from '../pages'
 
 export const RouterPage: FC = () => {
   return (

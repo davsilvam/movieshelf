@@ -1,66 +1,35 @@
 import { FC } from 'react'
 
-// Components
+// components
 import { MovieCard } from './MovieCard'
 
-// Icons
+// icons
 import { StarIcon } from '@heroicons/react/20/solid'
 
-// Services
-import { instance } from '../services/apiConfig'
+// hooks
+import { useMovies } from '../hooks/useMovies'
 
-// Skeleton
+// skeleton
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
-// Swiper
+// swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { FreeMode } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/free-mode'
 
-// Types
-import { MovieType } from '../@types/tmdb'
-
-// Query
-import { useQuery } from 'react-query'
+// utils
+import { skeletonBreakpoints } from '../utils/movieSkeletonsBreakpoints'
 
 interface MovieSectionProps {
-  movieURL: string
+  url: string
   title: string
   amount?: number
 }
 
-export const MovieSection: FC<MovieSectionProps> = ({
-  movieURL,
-  title,
-  amount
-}) => {
-  const { data: movies, isFetching } = useQuery<MovieType[]>(
-    ['movies', movieURL],
-    async () => {
-      const { data } = await instance.get(movieURL)
-
-      if (amount) {
-        return data.results.slice(0, amount)
-      }
-
-      return data.results
-    }
-  )
-
-  function skeletonBreakpoints() {
-    const tabletBreakpoint = 640
-    const desktopBreakpoint = 1280
-
-    if (window.innerWidth < tabletBreakpoint) {
-      return 3
-    } else if (window.innerWidth < desktopBreakpoint) {
-      return 4
-    }
-
-    return 5
-  }
+export const MovieSection: FC<MovieSectionProps> = ({ url, title, amount }) => {
+  const { movies, isFetching } = useMovies(url, amount)
 
   return (
     <section className="flex w-full flex-col gap-6">

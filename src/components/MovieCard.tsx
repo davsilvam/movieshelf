@@ -1,9 +1,9 @@
-import { FC } from 'react'
+import { FC, Fragment } from 'react'
 
-// Components
+// components
 import { useNavigate } from 'react-router-dom'
 
-// Types
+// types
 import { MovieType } from '../@types/tmdb'
 
 interface MovieCardProps {
@@ -19,7 +19,7 @@ export const MovieCard: FC<MovieCardProps> = ({ children, movie }) => {
   }
 
   return (
-    <>
+    <Fragment>
       <div className="relative">
         {movie.poster_path && (
           <img
@@ -33,6 +33,6 @@ export const MovieCard: FC<MovieCardProps> = ({ children, movie }) => {
       </div>
 
       {children}
-    </>
+    </Fragment>
   )
 }
