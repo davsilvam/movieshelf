@@ -1,44 +1,19 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
-// Components
+// components
 import { MovieCard } from '../components'
 
-// Contexts
-import { useShelf } from '../contexts/ShelfContext'
-
-// Icons
+// icons
 import { HeartIcon } from '@heroicons/react/20/solid'
 
-// Layout
-import { PageLayout } from './PageLayout'
+// layout
+import { PageLayout } from './'
 
-// Services
-import { api } from '../services/api'
-
-// Types
-import { Movie } from '../@types/tmdb'
-
-// Query
-import { useQuery } from '@tanstack/react-query'
+// hooks
+import { useFavoriteMovies } from '../hooks'
 
 export const Favorites: FC = () => {
-  const { favorites } = useShelf()
-  const [favoritesList, setFavoritesList] = useState<Movie[]>([])
-
-  useQuery(['favorites', favorites], () => {
-    const MOVIE_DETAILS_URL = (id: number) =>
-      `/movie/${id}?api_key=${import.meta.env.VITE_API_KEY}&language=pt-BR`
-
-    favorites.map(async favorite => {
-      if (!favorite) return
-
-      const { data }: { data: Movie } = await api.get(
-        MOVIE_DETAILS_URL(favorite.id)
-      )
-
-      setFavoritesList(state => [...state, data])
-    })
-  })
+  const { favoritesList } = useFavoriteMovies()
 
   return (
     <PageLayout>

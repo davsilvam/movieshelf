@@ -12,7 +12,7 @@ import {
 } from '@heroicons/react/24/outline'
 
 // hooks
-import { useMovies } from '../hooks/useMovies'
+import { useMovies } from '../hooks'
 
 // router
 import { useNavigate } from 'react-router-dom'

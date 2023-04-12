@@ -1,48 +1,24 @@
 import { FC, useState } from 'react'
 
-// Components
+// components
 import { Header, MovieCard } from '../components'
+
+// hooks
+import { useMovies, useGenres } from '../hooks'
+
+// layout
+import { PageLayout } from './'
+
+// primitives
 import { GenreSelect } from '../primitives'
 
-// Layout
-import { PageLayout } from './PageLayout'
-
-// Services
-import { api } from '../services/api'
-
-// Types
-import { Genre, Movie } from '../@types/tmdb'
-
-// Query
-import { useQuery } from '@tanstack/react-query'
+// utils
+import { GENRE_MOVIES_URL } from '../utils/apiEndpoints'
 
 export const Genres: FC = () => {
-  const [genreId, setGenreId] = useState<string>()
-
-  const { data: genreMovies } = useQuery<Movie[]>(
-    ['genreMovies', genreId],
-    async () => {
-      if (!genreId) return
-
-      const GENRE_MOVIES_URL = `/discover/movie?api_key=${
-        import.meta.env.VITE_API_KEY
-      }&with_genres=${genreId}&language=pt-BR`
-
-      const { data } = await api.get(GENRE_MOVIES_URL)
-
-      return data.results
-    }
-  )
-
-  const { data: genres } = useQuery<Genre[]>(['genres'], async () => {
-    const GENRES_URL = `/genre/movie/list?api_key=${
-      import.meta.env.VITE_API_KEY
-    }&language=pt-BR`
-
-    const { data } = await api.get(GENRES_URL)
-
-    return data.genres
-  })
+  const [genreId, setGenreId] = useState<string>('')
+  const { data: genres } = useGenres()
+  const { data: genreMovies } = useMovies(GENRE_MOVIES_URL(genreId))
 
   const genreTitle = genreId
     ? genres?.find(genre => genre.id === Number(genreId))?.name
@@ -59,6 +35,7 @@ export const Genres: FC = () => {
         <section className="mb-8 flex w-full flex-wrap justify-end gap-2">
           <GenreSelect getGenreMovies={getGenreMovies} />
         </section>
+
         <section className="flex flex-col gap-8">
           <article className="flex w-full flex-col gap-8">
             <h1>{genreTitle}</h1>

@@ -7,7 +7,7 @@ import { MovieCard } from './MovieCard'
 import { StarIcon } from '@heroicons/react/20/solid'
 
 // hooks
-import { useMovies } from '../hooks/useMovies'
+import { useMovies } from '../hooks'
 
 // skeleton
 import Skeleton from 'react-loading-skeleton'

@@ -4,15 +4,15 @@ import { AxiosError } from 'axios'
 import { useQuery } from '@tanstack/react-query'
 
 // types
-import { CommentResponse } from '../@types/tmdb'
+import { MovieResponse } from '../@types/tmdb'
 
 // utils
-import { MOVIE_REVIEWS_URL } from '../utils/apiEndpoints'
+import { SEARCH_MOVIES_URL } from '../utils/apiEndpoints'
 
-export function useComments(id: number) {
-  async function getMovieComments() {
+export function useSearchMovies(id: string | undefined) {
+  async function getMoviesFromSearch() {
     try {
-      const { data } = await api.get<CommentResponse>(MOVIE_REVIEWS_URL(id))
+      const { data } = await api.get<MovieResponse>(SEARCH_MOVIES_URL(id))
       return data.results
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -22,8 +22,8 @@ export function useComments(id: number) {
   }
 
   const query = useQuery({
-    queryKey: ['comments', id],
-    queryFn: getMovieComments
+    queryKey: ['search-movies', id],
+    queryFn: getMoviesFromSearch
   })
 
   return query

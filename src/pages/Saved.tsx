@@ -1,44 +1,19 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
-// Components
+// components
 import { MovieCard } from '../components'
 
-// Contexts
-import { useShelf } from '../contexts/ShelfContext'
-
-// Icons
+// icons
 import { BookmarkIcon } from '@heroicons/react/20/solid'
 
-// Layout
-import { PageLayout } from './PageLayout'
+// layout
+import { PageLayout } from './'
 
-// Services
-import { api } from '../services/api'
-
-// Types
-import { Movie } from '../@types/tmdb'
-
-// Query
-import { useQuery } from '@tanstack/react-query'
+// hooks
+import { useSavedMovies } from '../hooks'
 
 export const Saved: FC = () => {
-  const { saved } = useShelf()
-  const [savedList, setSavedList] = useState<Movie[]>([])
-
-  useQuery(['saved', saved], () => {
-    const MOVIE_DETAILS_URL = (id: number) =>
-      `/movie/${id}?api_key=${import.meta.env.VITE_API_KEY}&language=pt-BR`
-
-    saved.map(async savedItem => {
-      if (!savedItem) return
-
-      const { data }: { data: Movie } = await api.get(
-        MOVIE_DETAILS_URL(savedItem.id)
-      )
-
-      setSavedList(state => [...state, data])
-    })
-  })
+  const { savedList } = useSavedMovies()
 
   return (
     <PageLayout>

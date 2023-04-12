@@ -6,11 +6,10 @@ import { useQuery } from '@tanstack/react-query'
 // types
 import { GenreResponse } from '../@types/tmdb'
 
-export function useGenres() {
-  const GENRES_URL = `/genre/movie/list?api_key=${
-    import.meta.env.VITE_API_KEY
-  }&language=pt-BR`
+// utils
+import { GENRES_URL } from '../utils/apiEndpoints'
 
+export function useGenres() {
   async function getMovieGenres() {
     try {
       const { data } = await api.get<GenreResponse>(GENRES_URL)

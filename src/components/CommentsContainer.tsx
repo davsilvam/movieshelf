@@ -4,7 +4,7 @@ import { FC } from 'react'
 import { CommentCard } from './'
 
 // hooks
-import { useComments } from '../hooks/useComments'
+import { useComments } from '../hooks'
 
 interface CommentsProps {
   id: number

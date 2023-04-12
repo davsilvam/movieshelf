@@ -1,44 +1,23 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
-// Components
+// components
 import { MovieCard } from '../components'
 
-// Contexts
+// contexts
 import { useShelf } from '../contexts/ShelfContext'
 
-// Icons
+// hooks
+import { useShelfMovies } from '../hooks'
+
+// icons
 import { HeartIcon, StarIcon } from '@heroicons/react/20/solid'
 
-// Layout
-import { PageLayout } from './PageLayout'
-
-// Services
-import { api } from '../services/api'
-
-// Types
-import { Movie } from '../@types/tmdb'
-
-// Query
-import { useQuery } from '@tanstack/react-query'
+// layout
+import { PageLayout } from './'
 
 export const Shelf: FC = () => {
   const { favorites, shelf } = useShelf()
-  const [shelfList, setShelfList] = useState<Movie[]>([])
-
-  useQuery(['shelf', shelf], () => {
-    const MOVIE_DETAILS_URL = (id: number) =>
-      `/movie/${id}?api_key=${import.meta.env.VITE_API_KEY}&language=pt-BR`
-
-    shelf.map(async movie => {
-      if (!movie) return
-
-      const { data }: { data: Movie } = await api.get(
-        MOVIE_DETAILS_URL(movie.id)
-      )
-
-      setShelfList(state => [...state, data])
-    })
-  })
+  const { shelfList } = useShelfMovies()
 
   return (
     <PageLayout>

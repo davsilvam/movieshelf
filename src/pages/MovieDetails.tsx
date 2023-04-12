@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 
-// Components
+// components
 import {
   CommentsContainer,
   GoBackButton,
@@ -9,10 +9,10 @@ import {
   UsersInfo
 } from '../components'
 
-// Contexts
+// contexts
 import { useShelf } from '../contexts/ShelfContext'
 
-// Icons
+// icons
 import {
   BookmarkIcon,
   HeartIcon,
@@ -20,26 +20,26 @@ import {
   SquaresPlusIcon
 } from '@heroicons/react/24/outline'
 
-// Layout
-import { PageLayout } from './PageLayout'
+// layout
+import { PageLayout } from './'
 
-// Primitives
+// primitives
 import { RatingMovieDialog, ToastMessage, TooltipMessage } from '../primitives'
 
-// Router
+// router
 import { useParams } from 'react-router-dom'
 
-// Services
+// services
 import { api } from '../services/api'
 
-// Skeleton
+// skeleton
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
-// Types
+// types
 import * as Types from '../@types/tmdb'
 
-// Query
+// query
 import { useQuery } from '@tanstack/react-query'
 
 type ToastConfig = {
