@@ -1,13 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 
-// App
+// app
 import { App } from './App'
 
-// Styles
+// styles
 import './styles/main.css'
 
-// Query
+// query
 import { queryClient } from './services/queryClient'
 import { QueryClientProvider } from '@tanstack/react-query'
 

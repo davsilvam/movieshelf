@@ -1,7 +1,9 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, Fragment, useEffect, useState } from 'react'
 
 // components
 import {
+  ActionButton,
+  BaseButton,
   CommentsContainer,
   GoBackButton,
   MovieSection,
@@ -35,6 +37,7 @@ import { useMovieDetails } from '../hooks'
 // skeleton
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import { MOVIE_RECOMMENDATIONS_URL } from '../utils'
 
 export const MovieDetails: FC = () => {
   const { id } = useParams()
@@ -145,7 +148,9 @@ export const MovieDetails: FC = () => {
             ))
           )}
         </div>
+
         <p className="mb-2 text-cadet">{details?.overview}</p>
+
         <div className="mb-8 flex items-center gap-5">
           <RatingMovieDialog movieId={id}>
             {isFetching ? (
@@ -155,25 +160,27 @@ export const MovieDetails: FC = () => {
                 highlightColor="#303030"
               />
             ) : (
-              <button
-                className={`flex h-12 w-fit items-center gap-2 rounded-md py-3 px-6 text-sm font-bold shadow-md transition-all duration-300 hover:saturate-200 ${
+              <BaseButton
+                className={
                   movieIsOnTheShelf()
                     ? 'cursor-not-allowed bg-secondary-400'
                     : 'cursor-pointer bg-pizazz'
-                }`}
+                }
                 disabled={movieIsOnTheShelf()}
               >
                 {movieIsOnTheShelf() ? (
-                  <Squares2X2Icon className="w-5" />
+                  <Fragment>
+                    <Squares2X2Icon className="w-5" /> Adicionado à estante
+                  </Fragment>
                 ) : (
-                  <SquaresPlusIcon className="w-5" />
+                  <Fragment>
+                    <SquaresPlusIcon className="w-5" /> Adicionar à estante
+                  </Fragment>
                 )}
-                {movieIsOnTheShelf()
-                  ? 'Adicionado à estante'
-                  : 'Adicionar à estante'}
-              </button>
+              </BaseButton>
             )}
           </RatingMovieDialog>
+
           {isFetching ? (
             <Skeleton
               baseColor="#1b1a27"
@@ -193,12 +200,12 @@ export const MovieDetails: FC = () => {
                     : 'Adicionar aos Favoritos'
                 }
               >
-                <button
-                  className={`group flex h-12 w-12 items-center justify-center rounded-md ${
+                <ActionButton
+                  className={
                     favorites.some(movie => details?.id === movie.id)
                       ? 'bg-carnation hover:saturate-150'
                       : 'bg-secondary-700 hover:bg-secondary-800'
-                  }`}
+                  }
                   onClick={() => {
                     if (!details?.id) return
                     handleMovieFavorite(details?.id)
@@ -211,7 +218,7 @@ export const MovieDetails: FC = () => {
                         : 'fill-transparent'
                     }`}
                   />
-                </button>
+                </ActionButton>
               </TooltipMessage>
             </ToastMessage>
           ) : (
@@ -227,12 +234,12 @@ export const MovieDetails: FC = () => {
                     : 'Adicionar aos Salvos'
                 }
               >
-                <button
-                  className={`group flex h-12 w-12 items-center justify-center rounded-md ${
+                <ActionButton
+                  className={
                     saved.some(movie => details?.id === movie.id)
                       ? 'bg-tertiary hover:saturate-150'
                       : 'bg-secondary-700 hover:bg-secondary-800'
-                  }`}
+                  }
                   onClick={() => {
                     if (!details?.id) return
                     handleMovieSave(details?.id)
@@ -245,24 +252,24 @@ export const MovieDetails: FC = () => {
                         : 'fill-transparent'
                     }`}
                   />
-                </button>
+                </ActionButton>
               </TooltipMessage>
             </ToastMessage>
           )}
         </div>
+
         {details?.id && (
-          <div className="mb-8 lg:w-[75%]">
-            <MovieSection
-              url={`https://api.themoviedb.org/3/movie/${
-                details?.id
-              }/recommendations?api_key=${
-                import.meta.env.VITE_API_KEY
-              }&language=pt-BR&page=1`}
-              title="Recomendações"
-            />
-          </div>
+          <Fragment>
+            <div className="mb-8 lg:w-[75%]">
+              <MovieSection
+                url={MOVIE_RECOMMENDATIONS_URL(details?.id)}
+                title="Recomendações"
+              />
+            </div>
+
+            <CommentsContainer id={details?.id} />
+          </Fragment>
         )}
-        {details?.id && <CommentsContainer id={details?.id} />}
       </div>
     </PageLayout>
   )

@@ -27,6 +27,7 @@ export const MobileNavbar: FC = () => {
           ? '-translate-y-[484px] md:-translate-y-[268px]'
           : 'translate-y-0'
       } z-20 flex w-full items-center justify-center border-t border-t-secondary-500 bg-secondary-800 transition-transform duration-300 lg:hidden`}
+      role="tab"
     >
       <div className="flex w-full flex-col items-center justify-center">
         <button
@@ -60,12 +61,12 @@ export const MobileNavbar: FC = () => {
             <ul className="flex w-full flex-col gap-2">
               <li>
                 <Link to="/shelf" className="navbar-link group">
-                  <Squares2X2Icon className="w-5" /> Estante{' '}
+                  <Squares2X2Icon className="w-5" /> Estante
                 </Link>
               </li>
               <li>
                 <Link to="/favorites" className="navbar-link group">
-                  <HeartIcon className="w-5" /> Favoritos{' '}
+                  <HeartIcon className="w-5" /> Favoritos
                 </Link>
               </li>
               <li>

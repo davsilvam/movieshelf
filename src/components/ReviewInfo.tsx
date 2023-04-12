@@ -28,6 +28,7 @@ export const ReviewInfo: FC<ReviewInfoProps> = ({ id }) => {
           {id && reviewRate}
         </h3>
       </TooltipMessage>
+
       {shelf.find(movie => movie.id === Number(id))?.review && (
         <ReviewPopover
           review={shelf.find(movie => movie.id === Number(id))?.review}

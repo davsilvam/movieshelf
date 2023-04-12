@@ -6,7 +6,6 @@ export const api = axios.create({
 
 api.interceptors.response.use(
   function (response) {
-    console.log(response)
     return response
   },
   function (error) {

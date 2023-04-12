@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 // components
-import { MovieCard } from './MovieCard'
+import { MovieCard, MovieSkeleton } from './'
 
 // icons
 import { StarIcon } from '@heroicons/react/20/solid'
@@ -9,18 +9,11 @@ import { StarIcon } from '@heroicons/react/20/solid'
 // hooks
 import { useMovies } from '../hooks'
 
-// skeleton
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
-
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { FreeMode } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/free-mode'
-
-// utils
-import { skeletonBreakpoints } from '../utils'
 
 interface MovieSectionProps {
   url: string
@@ -31,49 +24,38 @@ interface MovieSectionProps {
 export const MovieSection: FC<MovieSectionProps> = ({ url, title, amount }) => {
   const { data: movies, isLoading } = useMovies(url, amount)
 
+  const swiperBreakpoints = {
+    0: {
+      slidesPerView: amount ?? 3,
+      spaceBetween: 30
+    },
+    640: {
+      slidesPerView: amount ?? 4,
+      spaceBetween: 40
+    },
+    769: {
+      slidesPerView: amount ?? 4,
+      spaceBetween: 45
+    },
+    1280: {
+      slidesPerView: amount ?? 5,
+      spaceBetween: 50
+    }
+  }
+
   return (
     <section className="flex w-full flex-col gap-6">
       <h2>{title}</h2>
       <div className="flex w-full">
         {isLoading ? (
-          <Skeleton
-            baseColor="#1b1a27"
-            className="h-[148px] w-[96px] rounded-md md:h-[196px] md:w-[142px] xl:h-[240px] xl:w-[160px]"
-            containerClassName={`flex ${
-              skeletonBreakpoints() < 4
-                ? 'gap-[30px]'
-                : skeletonBreakpoints() < 5
-                ? 'gap-[40px]'
-                : 'gap-[45px]'
-            }`}
-            count={skeletonBreakpoints()}
-            highlightColor="#303030"
-            inline={true}
-          />
+          <MovieSkeleton />
         ) : (
           <Swiper
             freeMode={true}
             grabCursor={true}
             modules={[FreeMode]}
             touchEventsTarget={'container'}
-            breakpoints={{
-              0: {
-                slidesPerView: amount ?? 3,
-                spaceBetween: 30
-              },
-              640: {
-                slidesPerView: amount ?? 4,
-                spaceBetween: 40
-              },
-              769: {
-                slidesPerView: amount ?? 4,
-                spaceBetween: 45
-              },
-              1280: {
-                slidesPerView: amount ?? 5,
-                spaceBetween: 50
-              }
-            }}
+            breakpoints={swiperBreakpoints}
           >
             {movies?.map(movie => (
               <SwiperSlide
@@ -85,6 +67,7 @@ export const MovieSection: FC<MovieSectionProps> = ({ url, title, amount }) => {
                     <h3 className="w-full overflow-hidden overflow-ellipsis whitespace-nowrap text-start text-sm">
                       {movie.title}
                     </h3>
+
                     <div className="flex w-full items-center justify-between">
                       <span className="flex items-center gap-1 text-pizazz">
                         <StarIcon className="w-3" />
@@ -92,6 +75,7 @@ export const MovieSection: FC<MovieSectionProps> = ({ url, title, amount }) => {
                           {(movie.vote_average / 2).toFixed(1)}
                         </h4>
                       </span>
+
                       <span className="flex items-center gap-1 text-cadet">
                         <h4 className="text-xs">
                           {movie.release_date.slice(0, 4)}
