@@ -1,9 +1,9 @@
 import { FC } from 'react'
 
-// Router
+// router
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-// Pages
+// pages
 import {
   Favorites,
   Genres,
@@ -14,18 +14,16 @@ import {
   Shelf
 } from '../pages'
 
-export const RouterPage: FC = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/search/:id" element={<Search />} />
-        <Route path="/genres" element={<Genres />} />
-        <Route path="/shelf" element={<Shelf />} />
-        <Route path="/favorites" element={<Favorites />} />
-        <Route path="/saved" element={<Saved />} />
-        <Route path="/movie/:id" element={<MovieDetails />} />
-      </Routes>
-    </BrowserRouter>
-  )
-}
+export const RouterPage: FC = () => (
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/search/:id" element={<Search />} />
+      <Route path="/genres" element={<Genres />} />
+      <Route path="/shelf" element={<Shelf />} />
+      <Route path="/favorites" element={<Favorites />} />
+      <Route path="/saved" element={<Saved />} />
+      <Route path="/movie/:id" element={<MovieDetails />} />
+    </Routes>
+  </BrowserRouter>
+)

@@ -1,9 +1,9 @@
 import { FC } from 'react'
 
-// Contexts
+// contexts
 import { ShelfProvider } from './contexts/ShelfContext'
 
-// Router
+// router
 import { RouterPage } from './router'
 
 export const App: FC = () => {

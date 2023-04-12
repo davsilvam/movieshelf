@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @layer base {
+  :root,
   html {
     font-family: Poppins, sans-serif;
     -webkit-font-smoothing: antialiased;

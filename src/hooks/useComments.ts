@@ -7,11 +7,11 @@ import { useQuery } from '@tanstack/react-query'
 import { CommentType } from '../@types/tmdb'
 
 export function useComments(id: number) {
-  async function getMovieComments() {
-    const MOVIE_REVIEWS_URL = `/movie/${id}/reviews?api_key=${
-      import.meta.env.VITE_API_KEY
-    }&language=pt_BR&page=1`
+  const MOVIE_REVIEWS_URL = `/movie/${id}/reviews?api_key=${
+    import.meta.env.VITE_API_KEY
+  }&language=pt_BR&page=1`
 
+  async function getMovieComments() {
     try {
       const { data } = await api.get<{ results: CommentType[] }>(
         MOVIE_REVIEWS_URL

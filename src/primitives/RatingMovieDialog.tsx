@@ -1,20 +1,29 @@
-import { FC, useRef, useState } from 'react'
+import { FC, Fragment, ReactNode, useRef, useState } from 'react'
 
-// Contexts
+// contexts
 import { useShelf } from '../contexts/ShelfContext'
 
-// Icons
+// icons
 import {
   ChatBubbleOvalLeftEllipsisIcon,
   StarIcon,
   XMarkIcon
 } from '@heroicons/react/24/outline'
 
-// Primitives
-import * as Dialog from '@radix-ui/react-dialog'
+// primitives
+import {
+  Close,
+  Content,
+  Description,
+  Overlay,
+  Portal,
+  Root,
+  Title,
+  Trigger
+} from '@radix-ui/react-dialog'
 
 interface RatingMovieDialogProps {
-  children: React.ReactNode
+  children: ReactNode
   movieId: string | undefined
 }
 
@@ -60,33 +69,41 @@ export const RatingMovieDialog: FC<RatingMovieDialogProps> = ({
     formStep === 1 ? setFormStep(0) : setFormStep(1)
   }
 
+  function resetForm() {
+    setCurrentRate(null)
+    setFormStep(0)
+    setRateMessage('')
+  }
+
   return (
-    <Dialog.Root>
-      <Dialog.Trigger asChild>{children}</Dialog.Trigger>
-      <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-20 bg-black/50" />
-        <Dialog.Content className="central-fixed fixed z-30 flex h-[300px] w-[90%] max-w-[450px] flex-col justify-between rounded-md bg-secondary-700 p-4">
+    <Root onOpenChange={resetForm}>
+      <Trigger asChild>{children}</Trigger>
+      <Portal>
+        <Overlay className="fixed inset-0 z-20 bg-black/50" />
+        <Content className="central-fixed fixed z-30 flex h-[300px] w-[90%] max-w-[450px] flex-col justify-between rounded-md bg-secondary-700 p-4">
           <section>
             <header className="flex w-full items-start justify-between">
               <div className="flex items-start gap-2">
                 <ChatBubbleOvalLeftEllipsisIcon className="w-6 text-secondary-100" />
                 <div className="flex flex-col">
-                  <Dialog.Title className="text-lg text-secondary-100">
+                  <Title className="text-lg text-secondary-100">
                     Avaliação do Filme
-                  </Dialog.Title>
-                  <Dialog.Description>
+                  </Title>
+                  <Description>
                     <p className="text-sm font-medium text-secondary-300">
                       Dê uma nota e escreva uma resenha!
                     </p>
-                  </Dialog.Description>
+                  </Description>
                 </div>
               </div>
-              <Dialog.Close className="p-2">
+
+              <Close className="p-2">
                 <XMarkIcon className="w-5 text-secondary-100" />
-              </Dialog.Close>
+              </Close>
             </header>
+
             {formStep === 0 ? (
-              <>
+              <Fragment>
                 <div className="mt-5 flex w-full flex-row-reverse items-center justify-center">
                   {[4, 3, 2, 1, 0].map(id => (
                     <StarIcon
@@ -103,48 +120,25 @@ export const RatingMovieDialog: FC<RatingMovieDialogProps> = ({
                 <p className="mt-4 text-center text-secondary-100">
                   {rateMessage}
                 </p>
-              </>
+              </Fragment>
             ) : (
-              <>
-                <textarea
-                  className="mt-5 h-28 w-full rounded-sm bg-secondary-800 p-2 text-sm text-secondary-50 shadow-md"
-                  ref={reviewText}
-                  style={{ resize: 'none' }}
-                />
-              </>
+              <textarea
+                className="mt-5 h-28 w-full rounded-sm bg-secondary-800 p-2 text-sm text-secondary-50 shadow-md"
+                ref={reviewText}
+                style={{ resize: 'none' }}
+              />
             )}
           </section>
           <div className="flex items-center gap-4">
-            {formStep === 0 ? (
-              <button
-                className={`flex h-10 w-full items-center justify-center gap-1 rounded-md py-1 px-2 text-sm font-semibold text-secondary-50 ${
-                  currentRate !== null
-                    ? 'border border-secondary-50 bg-transparent hover:opacity-80'
-                    : 'cursor-not-allowed bg-secondary-900 opacity-50'
-                }`}
-                onClick={() => {
-                  if (currentRate === null) return
-                  toogleFormStep()
-                }}
-              >
-                Adicionar Resenha
-              </button>
-            ) : (
-              <button
-                className={`flex h-10 w-full items-center justify-center gap-1 rounded-md py-1 px-2 text-sm font-semibold text-secondary-50 ${
-                  currentRate !== null
-                    ? 'border border-secondary-50 bg-transparent hover:opacity-80'
-                    : 'cursor-not-allowed bg-secondary-900 opacity-50'
-                }`}
-                onClick={() => {
-                  if (currentRate === null) return
-                  toogleFormStep()
-                }}
-              >
-                Voltar
-              </button>
-            )}
-            <Dialog.Close asChild disabled={currentRate === null}>
+            <button
+              className="flex h-10 w-full items-center justify-center gap-1 rounded-md border-secondary-50 bg-transparent py-1 px-2 text-sm font-semibold text-secondary-50 hover:opacity-80 disabled:cursor-not-allowed disabled:bg-secondary-900 disabled:opacity-50 [&:not(:disabled)]:border"
+              disabled={!currentRate}
+              onClick={toogleFormStep}
+            >
+              {formStep === 0 ? 'Adicionar Resenha' : 'Voltar'}
+            </button>
+
+            <Close asChild disabled={currentRate === null}>
               <button
                 className={`flex h-10 w-full items-center justify-center gap-1 rounded-md py-1 px-2 text-sm font-semibold text-secondary-50 ${
                   currentRate !== null
@@ -162,10 +156,10 @@ export const RatingMovieDialog: FC<RatingMovieDialogProps> = ({
               >
                 Para a estante
               </button>
-            </Dialog.Close>
+            </Close>
           </div>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
+        </Content>
+      </Portal>
+    </Root>
   )
 }

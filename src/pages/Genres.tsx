@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 
 // Components
 import { Header, MovieCard } from '../components'
-import { GenreSelect } from '../primitives/exports'
+import { GenreSelect } from '../primitives'
 
 // Layout
 import { PageLayout } from './PageLayout'

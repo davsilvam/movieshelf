@@ -24,11 +24,7 @@ import {
 import { PageLayout } from './PageLayout'
 
 // Primitives
-import {
-  RatingMovieDialog,
-  ToastMessage,
-  TooltipMessage
-} from '../primitives/exports'
+import { RatingMovieDialog, ToastMessage, TooltipMessage } from '../primitives'
 
 // Router
 import { useParams } from 'react-router-dom'
@@ -269,7 +265,7 @@ export const MovieDetails: FC = () => {
         {details?.id && (
           <div className="mb-8 lg:w-[75%]">
             <MovieSection
-              movieURL={`https://api.themoviedb.org/3/movie/${
+              url={`https://api.themoviedb.org/3/movie/${
                 details?.id
               }/recommendations?api_key=${
                 import.meta.env.VITE_API_KEY

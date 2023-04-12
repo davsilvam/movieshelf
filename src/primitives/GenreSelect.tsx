@@ -1,76 +1,81 @@
 import { FC } from 'react'
 
-// Icons
+// icons
 import {
   CheckIcon,
   ChevronDownIcon,
   ChevronUpIcon
 } from '@heroicons/react/20/solid'
 
-// Primitives
-import * as Select from '@radix-ui/react-select'
+// hooks
+import { useGenres } from '../hooks/useGenres'
 
-// Services
-import { api } from '../services/api'
-
-// Types
+// primitives
+import {
+  Content,
+  Icon,
+  Item,
+  ItemIndicator,
+  ItemText,
+  Portal,
+  Root,
+  ScrollDownButton,
+  ScrollUpButton,
+  Trigger,
+  Value,
+  Viewport
+} from '@radix-ui/react-select'
 import { GenreType } from '../@types/tmdb'
-
-// Query
-import { useQuery } from '@tanstack/react-query'
 
 interface SelectPrimitiveProps {
   getGenreMovies: (value: string) => void
 }
 
 export const GenreSelect: FC<SelectPrimitiveProps> = ({ getGenreMovies }) => {
-  const { data: genres } = useQuery<GenreType[]>(['genres'], async () => {
-    const GENRES_URL = `/genre/movie/list?api_key=${
-      import.meta.env.VITE_API_KEY
-    }&language=pt-BR`
-
-    const { data } = await api.get(GENRES_URL)
-
-    return data.genres
-  })
+  const { genres } = useGenres()
 
   return (
-    <Select.Root onValueChange={value => getGenreMovies(value)}>
-      <Select.Trigger
+    <Root onValueChange={value => getGenreMovies(value)}>
+      <Trigger
         aria-label="genres"
         className="flex w-40 items-center justify-between gap-2 rounded bg-secondary-700 px-3 py-2 text-sm text-secondary-50 shadow-lg outline-none"
       >
-        <Select.Value placeholder="Gêneros" />
-        <Select.Icon>
+        <Value placeholder="Gêneros" />
+        <Icon>
           <ChevronDownIcon className="w-5" />
-        </Select.Icon>
-      </Select.Trigger>
+        </Icon>
+      </Trigger>
 
-      <Select.Portal>
-        <Select.Content className="mt-2 h-48" position="popper">
-          <Select.ScrollUpButton className="flex w-full items-center justify-center">
+      <Portal>
+        <Content className="mt-2 h-48" position="popper">
+          <ScrollUpButton className="flex w-full items-center justify-center">
             <ChevronUpIcon className="w-5 text-secondary-50" />
-          </Select.ScrollUpButton>
-          <Select.Viewport className="flex  w-40 flex-col overflow-hidden rounded-lg bg-secondary-700 py-2 text-sm text-secondary-50 shadow-lg outline-none">
-            {genres?.map(genre => (
-              <Select.Item
-                key={genre.id}
-                value={String(genre.id)}
-                className="flex w-full cursor-pointer items-center justify-between gap-2 px-3 py-2 outline-none transition-colors hover:bg-slate-700"
-              >
-                <Select.ItemText>{genre.name}</Select.ItemText>
-                <Select.ItemIndicator>
-                  <CheckIcon className="w-4" />
-                </Select.ItemIndicator>
-              </Select.Item>
-            ))}
-          </Select.Viewport>
+          </ScrollUpButton>
 
-          <Select.ScrollDownButton className="flex w-full items-center justify-center">
+          <Viewport className="flex  w-40 flex-col overflow-hidden rounded-lg bg-secondary-700 py-2 text-sm text-secondary-50 shadow-lg outline-none">
+            {genres?.map(genre => (
+              <SelectItem genre={genre} />
+            ))}
+          </Viewport>
+
+          <ScrollDownButton className="flex w-full items-center justify-center">
             <ChevronDownIcon className="w-5 text-secondary-50" />
-          </Select.ScrollDownButton>
-        </Select.Content>
-      </Select.Portal>
-    </Select.Root>
+          </ScrollDownButton>
+        </Content>
+      </Portal>
+    </Root>
   )
 }
+
+const SelectItem: FC<{ genre: GenreType }> = ({ genre }) => (
+  <Item
+    key={genre.id}
+    value={String(genre.id)}
+    className="flex w-full cursor-pointer items-center justify-between gap-2 px-3 py-2 outline-none transition-colors hover:bg-slate-700"
+  >
+    <ItemText>{genre.name}</ItemText>
+    <ItemIndicator>
+      <CheckIcon className="w-4" />
+    </ItemIndicator>
+  </Item>
+)

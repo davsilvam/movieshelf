@@ -10,7 +10,7 @@ import {
 } from '@heroicons/react/24/outline'
 
 // primitives
-import { ReviewPopover, TooltipMessage } from '../primitives/exports'
+import { ReviewPopover, TooltipMessage } from '../primitives'
 
 interface ReviewInfoProps {
   id: number
