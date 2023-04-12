@@ -11,7 +11,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Movie } from '../@types/tmdb'
 
 // utils
-import { MOVIE_DETAILS_URL } from '../utils/apiEndpoints'
+import { MOVIE_DETAILS_URL } from '../utils'
 
 export function useFavoriteMovies() {
   const { favorites } = useShelf()

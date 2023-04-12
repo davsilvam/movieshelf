@@ -28,5 +28,7 @@ export function useMovies(url: string, amount?: number) {
     queryFn: getMoviesFromUrl
   })
 
-  return query
+  return {
+    ...query
+  }
 }

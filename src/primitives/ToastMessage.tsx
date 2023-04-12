@@ -36,37 +36,40 @@ const messages: ToastMessageDisplay = {
 }
 
 interface ToastMessageProps {
+  action: string
   children: React.ReactNode
-  toastConfig: { isOpen: boolean; action: string }
+  isToastVisible: boolean
+  setToastVisible: () => void
 }
 
 export const ToastMessage: FC<ToastMessageProps> = ({
+  action = '',
   children,
-  toastConfig
+  isToastVisible = false,
+  setToastVisible
 }) => (
-  <Provider swipeDirection="right">
+  <Provider swipeDirection="right" duration={5000}>
     {children}
-    {toastConfig.isOpen && (
+
+    {isToastVisible && (
       <Root
         className="fixed right-3 z-20 flex items-center gap-5 rounded-md bg-secondary-700 py-3 px-5 shadow-lg max-md:top-12 md:bottom-8 md:right-10"
-        duration={5000}
-        open={toastConfig.isOpen}
+        open={isToastVisible}
+        onOpenChange={setToastVisible}
       >
         <div className="flex flex-col items-start justify-center gap-1">
-          <Title className="font-semibold">
-            {messages[toastConfig.action].title}
-          </Title>
+          <Title className="font-semibold">{messages[action].title}</Title>
 
           <Description className="text-sm font-light">
-            {messages[toastConfig.action].description}
+            {messages[action].description}
           </Description>
         </div>
 
-        {toastConfig.action.startsWith('remove') && (
+        {action.startsWith('remove') && (
           <BarsArrowDownIcon className="w-8 text-carnation" />
         )}
 
-        {toastConfig.action.startsWith('add') && (
+        {action.startsWith('add') && (
           <BarsArrowUpIcon className="w-8 text-pizazz" />
         )}
       </Root>

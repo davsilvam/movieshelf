@@ -7,12 +7,13 @@ import { useQuery } from '@tanstack/react-query'
 import { MovieResponse } from '../@types/tmdb'
 
 // utils
-import { SEARCH_MOVIES_URL } from '../utils/apiEndpoints'
+import { SEARCH_MOVIES_URL } from '../utils'
 
 export function useSearchMovies(id: string | undefined) {
   async function getMoviesFromSearch() {
     try {
       const { data } = await api.get<MovieResponse>(SEARCH_MOVIES_URL(id))
+
       return data.results
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -26,5 +27,7 @@ export function useSearchMovies(id: string | undefined) {
     queryFn: getMoviesFromSearch
   })
 
-  return query
+  return {
+    ...query
+  }
 }

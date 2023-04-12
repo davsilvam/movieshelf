@@ -4,7 +4,7 @@ import { FC, ReactNode } from 'react'
 import { MobileNavbar, Sidebar } from '../components'
 
 // utils
-import { GoToTop } from '../utils/GoToTop'
+import { GoToTop } from '../utils'
 
 interface PageLayoutProps {
   children: ReactNode

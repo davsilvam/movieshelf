@@ -4,7 +4,7 @@ import { FC } from 'react'
 import { Comment } from '../@types/tmdb'
 
 // utils
-import { transformCommentDate } from '../utils/transformCommentDate'
+import { transformCommentDate } from '../utils'
 
 interface CommentProps {
   comment: Comment

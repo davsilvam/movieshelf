@@ -20,7 +20,7 @@ import 'swiper/css'
 import 'swiper/css/free-mode'
 
 // utils
-import { skeletonBreakpoints } from '../utils/movieSkeletonsBreakpoints'
+import { skeletonBreakpoints } from '../utils'
 
 interface MovieSectionProps {
   url: string

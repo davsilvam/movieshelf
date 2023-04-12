@@ -7,12 +7,13 @@ import { useQuery } from '@tanstack/react-query'
 import { GenreResponse } from '../@types/tmdb'
 
 // utils
-import { GENRES_URL } from '../utils/apiEndpoints'
+import { GENRES_URL } from '../utils'
 
 export function useGenres() {
   async function getMovieGenres() {
     try {
       const { data } = await api.get<GenreResponse>(GENRES_URL)
+      
       return data.genres
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -26,5 +27,7 @@ export function useGenres() {
     queryFn: getMovieGenres
   })
 
-  return query
+  return {
+    ...query
+  }
 }

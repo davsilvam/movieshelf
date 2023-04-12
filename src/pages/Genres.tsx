@@ -13,7 +13,7 @@ import { PageLayout } from './'
 import { GenreSelect } from '../primitives'
 
 // utils
-import { GENRE_MOVIES_URL } from '../utils/apiEndpoints'
+import { GENRE_MOVIES_URL } from '../utils'
 
 export const Genres: FC = () => {
   const [genreId, setGenreId] = useState<string>('')

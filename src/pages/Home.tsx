@@ -7,7 +7,7 @@ import { Header, HottestMovieBanner, MovieSection } from '../components'
 import { PageLayout } from './'
 
 // utils
-import { POPULAR_MOVIES_URL, TOP_RATED_MOVIES } from '../utils/apiEndpoints'
+import { POPULAR_MOVIES_URL, TOP_RATED_MOVIES } from '../utils'
 
 export const Home: FC = () => (
   <PageLayout>

@@ -7,7 +7,7 @@ export const GENRE_MOVIES_URL = (id: string) =>
     import.meta.env.VITE_API_KEY
   }&with_genres=${id}&language=pt-BR`
 
-export const MOVIE_DETAILS_URL = (id: number) =>
+export const MOVIE_DETAILS_URL = (id: number | string | undefined) =>
   `/movie/${id}?api_key=${import.meta.env.VITE_API_KEY}&language=pt-BR`
 
 export const MOVIE_REVIEWS_URL = (id: number) =>

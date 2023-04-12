@@ -29,44 +29,24 @@ import { RatingMovieDialog, ToastMessage, TooltipMessage } from '../primitives'
 // router
 import { useParams } from 'react-router-dom'
 
-// services
-import { api } from '../services/api'
+// hooks
+import { useMovieDetails } from '../hooks'
 
 // skeleton
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
-// types
-import * as Types from '../@types/tmdb'
-
-// query
-import { useQuery } from '@tanstack/react-query'
-
-type ToastConfig = {
-  isOpen: boolean
-  action: string
-}
-
 export const MovieDetails: FC = () => {
   const { id } = useParams()
+  const { data: details, isFetching } = useMovieDetails(id)
   const { toogleSaved, favorites, saved, shelf, toogleFavorite } = useShelf()
-  const [toastConfig, setToastConfig] = useState<ToastConfig>({
-    isOpen: false,
-    action: ''
-  })
 
-  const { data: details, isFetching } = useQuery<Types.MovieDetails>(
-    ['details', id],
-    async () => {
-      const MOVIE_DETAILS_URL = `/movie/${id}?api_key=${
-        import.meta.env.VITE_API_KEY
-      }&language=pt-BR`
+  const [isToastVisible, setToastVisible] = useState<boolean>(false)
+  const [toastAction, setToastAction] = useState<string>('')
 
-      const { data } = await api.get(MOVIE_DETAILS_URL)
-
-      return data
-    }
-  )
+  function toogleToastVisible() {
+    setToastVisible(state => !state)
+  }
 
   function movieIsOnTheShelf() {
     return shelf.some(movie => movie.id === details?.id)
@@ -83,20 +63,20 @@ export const MovieDetails: FC = () => {
   useEffect(() => {
     if (!isFetching) {
       saved.some(movie => details?.id === movie.id)
-        ? setToastConfig({ isOpen: true, action: 'addToSaved' })
-        : setToastConfig({ isOpen: true, action: 'removeFromSaved' })
+        ? setToastAction('addToSaved')
+        : setToastAction('removeFromSaved')
 
-      setTimeout(() => setToastConfig({ isOpen: false, action: '' }), 5000)
+      toogleToastVisible()
     }
   }, [saved.length])
 
   useEffect(() => {
     if (!isFetching) {
       favorites.some(movie => details?.id === movie.id)
-        ? setToastConfig({ isOpen: true, action: 'addToFavorites' })
-        : setToastConfig({ isOpen: true, action: 'removeFromFavorites' })
+        ? setToastAction('addToFavorites')
+        : setToastAction('removeFromFavorites')
 
-      setTimeout(() => setToastConfig({ isOpen: false, action: '' }), 5000)
+      toogleToastVisible()
     }
   }, [favorites.length])
 
@@ -201,7 +181,11 @@ export const MovieDetails: FC = () => {
               highlightColor="#303030"
             />
           ) : movieIsOnTheShelf() ? (
-            <ToastMessage toastConfig={toastConfig}>
+            <ToastMessage
+              action={toastAction}
+              isToastVisible={isToastVisible}
+              setToastVisible={toogleToastVisible}
+            >
               <TooltipMessage
                 message={
                   favorites.some(movie => details?.id === movie.id)
@@ -231,7 +215,11 @@ export const MovieDetails: FC = () => {
               </TooltipMessage>
             </ToastMessage>
           ) : (
-            <ToastMessage toastConfig={toastConfig}>
+            <ToastMessage
+              action={toastAction}
+              isToastVisible={isToastVisible}
+              setToastVisible={toogleToastVisible}
+            >
               <TooltipMessage
                 message={
                   saved.some(movie => details?.id === movie.id)
