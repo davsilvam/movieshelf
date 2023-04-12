@@ -3,6 +3,7 @@ import { api } from '../services/api'
 import { AxiosError } from 'axios'
 import { useQuery } from '@tanstack/react-query'
 
+// types
 import { MovieType } from '../@types/tmdb'
 
 export function useMovies(url: string, amount?: number) {
@@ -22,13 +23,10 @@ export function useMovies(url: string, amount?: number) {
     }
   }
 
-  const { data: movies, isFetching } = useQuery({
+  const query = useQuery({
     queryKey: ['movies', url],
     queryFn: getMoviesFromUrl
   })
 
-  return {
-    movies,
-    isFetching
-  }
+  return query
 }

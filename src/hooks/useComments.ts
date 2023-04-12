@@ -25,12 +25,10 @@ export function useComments(id: number) {
     }
   }
 
-  const { data: comments } = useQuery({
+  const query = useQuery({
     queryKey: ['comments', id],
     queryFn: getMovieComments
   })
 
-  return {
-    comments
-  }
+  return query
 }

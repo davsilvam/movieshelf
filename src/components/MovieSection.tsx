@@ -29,13 +29,13 @@ interface MovieSectionProps {
 }
 
 export const MovieSection: FC<MovieSectionProps> = ({ url, title, amount }) => {
-  const { movies, isFetching } = useMovies(url, amount)
+  const { data: movies, isLoading } = useMovies(url, amount)
 
   return (
     <section className="flex w-full flex-col gap-6">
       <h2>{title}</h2>
       <div className="flex w-full">
-        {isFetching ? (
+        {isLoading ? (
           <Skeleton
             baseColor="#1b1a27"
             className="h-[148px] w-[96px] rounded-md md:h-[196px] md:w-[142px] xl:h-[240px] xl:w-[160px]"

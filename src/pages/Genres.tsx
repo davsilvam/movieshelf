@@ -64,7 +64,7 @@ export const Genres: FC = () => {
             <h1>{genreTitle}</h1>
             <section className="grid w-full grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {genreMovies?.map(movie => (
-                <div key={movie.id} className="cursor-pointer">
+                <div className="cursor-pointer" key={movie.id}>
                   <MovieCard key={movie.id} movie={movie} />
                 </div>
               ))}

@@ -11,7 +11,7 @@ interface CommentsProps {
 }
 
 export const CommentsContainer: FC<CommentsProps> = ({ id }) => {
-  const { comments } = useComments(id)
+  const { data: comments } = useComments(id)
 
   return (
     <section className="mb-6 flex w-full flex-col gap-3">

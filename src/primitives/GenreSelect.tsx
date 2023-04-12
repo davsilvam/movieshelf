@@ -32,7 +32,7 @@ interface SelectPrimitiveProps {
 }
 
 export const GenreSelect: FC<SelectPrimitiveProps> = ({ getGenreMovies }) => {
-  const { genres } = useGenres()
+  const { data: genres } = useGenres()
 
   return (
     <Root onValueChange={value => getGenreMovies(value)}>
@@ -54,7 +54,7 @@ export const GenreSelect: FC<SelectPrimitiveProps> = ({ getGenreMovies }) => {
 
           <Viewport className="flex  w-40 flex-col overflow-hidden rounded-lg bg-secondary-700 py-2 text-sm text-secondary-50 shadow-lg outline-none">
             {genres?.map(genre => (
-              <SelectItem genre={genre} />
+              <SelectItem genre={genre} key={genre.id} />
             ))}
           </Viewport>
 
@@ -69,7 +69,6 @@ export const GenreSelect: FC<SelectPrimitiveProps> = ({ getGenreMovies }) => {
 
 const SelectItem: FC<{ genre: GenreType }> = ({ genre }) => (
   <Item
-    key={genre.id}
     value={String(genre.id)}
     className="flex w-full cursor-pointer items-center justify-between gap-2 px-3 py-2 outline-none transition-colors hover:bg-slate-700"
   >

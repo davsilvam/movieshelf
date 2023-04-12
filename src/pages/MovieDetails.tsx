@@ -157,8 +157,8 @@ export const MovieDetails: FC = () => {
           ) : (
             details?.genres.map(genre => (
               <span
-                key={genre.id}
                 className="rounded-lg bg-carnation py-1 px-2 text-xs font-medium"
+                key={genre.id}
               >
                 {genre.name}
               </span>

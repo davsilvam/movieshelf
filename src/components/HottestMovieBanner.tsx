@@ -38,7 +38,7 @@ export const HottestMovieBanner: FC = () => {
     import.meta.env.VITE_API_KEY
   }&language=pt-BR`
 
-  const { movies, isFetching } = useMovies(popularMoviesURL)
+  const { data: movies, isLoading } = useMovies(popularMoviesURL)
 
   function goToTheMoviePage(id: number) {
     navigate(`/movie/${id}`)
@@ -56,7 +56,7 @@ export const HottestMovieBanner: FC = () => {
 
   return (
     <div className="shadow-xl">
-      {isFetching ? (
+      {isLoading ? (
         <Skeleton
           baseColor="#1b1a27"
           className="h-[70vh] w-full"
@@ -73,7 +73,7 @@ export const HottestMovieBanner: FC = () => {
           }}
         >
           {movies?.slice(0, 5)?.map(movie => (
-            <SwiperSlide key={movie.id} className="h-[70vh] shadow-lg">
+            <SwiperSlide className="h-[70vh] shadow-lg" key={movie.id}>
               <div
                 className="relative mb-6 h-full w-full bg-cover max-lg:bg-center"
                 style={{

@@ -23,12 +23,10 @@ export function useGenres() {
     }
   }
 
-  const { data: genres } = useQuery({
+  const query = useQuery({
     queryKey: ['genres'],
     queryFn: getMovieGenres
   })
 
-  return {
-    genres
-  }
+  return query
 }
