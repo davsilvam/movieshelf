@@ -11,7 +11,7 @@ import { PageLayout } from './PageLayout'
 import { api } from '../services/api'
 
 // Types
-import { GenreType, MovieType } from '../@types/tmdb'
+import { Genre, Movie } from '../@types/tmdb'
 
 // Query
 import { useQuery } from '@tanstack/react-query'
@@ -19,7 +19,7 @@ import { useQuery } from '@tanstack/react-query'
 export const Genres: FC = () => {
   const [genreId, setGenreId] = useState<string>()
 
-  const { data: genreMovies } = useQuery<MovieType[]>(
+  const { data: genreMovies } = useQuery<Movie[]>(
     ['genreMovies', genreId],
     async () => {
       if (!genreId) return
@@ -34,7 +34,7 @@ export const Genres: FC = () => {
     }
   )
 
-  const { data: genres } = useQuery<GenreType[]>(['genres'], async () => {
+  const { data: genres } = useQuery<Genre[]>(['genres'], async () => {
     const GENRES_URL = `/genre/movie/list?api_key=${
       import.meta.env.VITE_API_KEY
     }&language=pt-BR`

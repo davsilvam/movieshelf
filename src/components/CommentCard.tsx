@@ -1,16 +1,16 @@
 import { FC } from 'react'
 
 // types
-import { CommentType } from '../@types/tmdb'
+import { Comment } from '../@types/tmdb'
 
 // utils
 import { transformCommentDate } from '../utils/transformCommentDate'
 
 interface CommentProps {
-  comment: CommentType
+  comment: Comment
 }
 
-export const Comment: FC<CommentProps> = ({ comment }) => (
+export const CommentCard: FC<CommentProps> = ({ comment }) => (
   <article
     className="flex flex-col items-start gap-3 rounded-md bg-secondary-700 py-3 px-5 shadow-lg"
     key={comment.id}

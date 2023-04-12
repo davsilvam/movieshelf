@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 // components
-import { Comment } from './'
+import { CommentCard } from './'
 
 // hooks
 import { useComments } from '../hooks/useComments'
@@ -17,7 +17,9 @@ export const CommentsContainer: FC<CommentsProps> = ({ id }) => {
     <section className="mb-6 flex w-full flex-col gap-3">
       <h3>Comentários</h3>
       {comments && comments.length > 0 ? (
-        comments?.map(comment => <Comment comment={comment} key={comment.id} />)
+        comments?.map(comment => (
+          <CommentCard comment={comment} key={comment.id} />
+        ))
       ) : (
         <p className="font-semibold text-cadet">Sem comentários.</p>
       )}

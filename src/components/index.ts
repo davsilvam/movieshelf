@@ -1,4 +1,4 @@
-export * from './Comment'
+export * from './CommentCard'
 export * from './CommentsContainer'
 export * from './GoBackButton'
 export * from './Header'

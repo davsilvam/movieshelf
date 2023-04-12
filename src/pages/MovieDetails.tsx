@@ -37,7 +37,7 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
 // Types
-import { MovieDetailsType } from '../@types/tmdb'
+import * as Types from '../@types/tmdb'
 
 // Query
 import { useQuery } from '@tanstack/react-query'
@@ -55,7 +55,7 @@ export const MovieDetails: FC = () => {
     action: ''
   })
 
-  const { data: details, isFetching } = useQuery<MovieDetailsType>(
+  const { data: details, isFetching } = useQuery<Types.MovieDetails>(
     ['details', id],
     async () => {
       const MOVIE_DETAILS_URL = `/movie/${id}?api_key=${

@@ -4,12 +4,12 @@ import { AxiosError } from 'axios'
 import { useQuery } from '@tanstack/react-query'
 
 // types
-import { MovieType } from '../@types/tmdb'
+import { MovieResponse } from '../@types/tmdb'
 
 export function useMovies(url: string, amount?: number) {
   async function getMoviesFromUrl() {
     try {
-      const { data } = await api.get<{ results: MovieType[] }>(url)
+      const { data } = await api.get<MovieResponse>(url)
 
       if (amount) {
         return data.results.slice(0, amount)

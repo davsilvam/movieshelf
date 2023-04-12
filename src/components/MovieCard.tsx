@@ -4,11 +4,11 @@ import { FC, Fragment } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 // types
-import { MovieType } from '../@types/tmdb'
+import { Movie } from '../@types/tmdb'
 
 interface MovieCardProps {
   children?: React.ReactNode
-  movie: MovieType
+  movie: Movie
 }
 
 export const MovieCard: FC<MovieCardProps> = ({ children, movie }) => {

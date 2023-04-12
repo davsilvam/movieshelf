@@ -1,4 +1,4 @@
-export type CommentType = {
+export type Comment = {
   author: string
   author_details: {
     name: string
@@ -13,12 +13,20 @@ export type CommentType = {
   url: string
 }
 
-export type GenreType = {
+export interface CommentResponse {
+  results: Comment[]
+}
+
+export type Genre = {
   id: number
   name: string
 }
 
-export type MovieType = {
+export interface GenreResponse {
+  genres: Genre[]
+}
+
+export type Movie = {
   adult: boolean
   backdrop_path: string
   genre_ids: number[]
@@ -36,7 +44,11 @@ export type MovieType = {
   vote_count: number
 }
 
-export type MovieDetailsType = MovieType & {
+export interface MovieResponse {
+  results: Movie[]
+}
+
+export type MovieDetails = Movie & {
   budget: number
   genres: GenreType[]
   homepage: string

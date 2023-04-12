@@ -16,14 +16,14 @@ import { PageLayout } from './PageLayout'
 import { api } from '../services/api'
 
 // Types
-import { MovieType } from '../@types/tmdb'
+import { Movie } from '../@types/tmdb'
 
 // Query
 import { useQuery } from '@tanstack/react-query'
 
 export const Favorites: FC = () => {
   const { favorites } = useShelf()
-  const [favoritesList, setFavoritesList] = useState<MovieType[]>([])
+  const [favoritesList, setFavoritesList] = useState<Movie[]>([])
 
   useQuery(['favorites', favorites], () => {
     const MOVIE_DETAILS_URL = (id: number) =>
@@ -32,7 +32,7 @@ export const Favorites: FC = () => {
     favorites.map(async favorite => {
       if (!favorite) return
 
-      const { data }: { data: MovieType } = await api.get(
+      const { data }: { data: Movie } = await api.get(
         MOVIE_DETAILS_URL(favorite.id)
       )
 

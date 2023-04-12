@@ -13,7 +13,7 @@ import { useParams } from 'react-router-dom'
 import { api } from '../services/api'
 
 // Types
-import { MovieType } from '../@types/tmdb'
+import { Movie } from '../@types/tmdb'
 
 // Query
 import { useQuery } from '@tanstack/react-query'
@@ -21,7 +21,7 @@ import { useQuery } from '@tanstack/react-query'
 export const Search: FC = () => {
   const { id } = useParams()
 
-  const { data: movies } = useQuery<MovieType[]>(['details', id], async () => {
+  const { data: movies } = useQuery<Movie[]>(['details', id], async () => {
     const SEARCH_MOVIES_URL = `/search/movie?api_key=${
       import.meta.env.VITE_API_KEY
     }&language=pt-BR&query=${id}&page=1&include_adult=false`

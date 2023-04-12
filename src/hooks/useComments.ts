@@ -4,7 +4,7 @@ import { AxiosError } from 'axios'
 import { useQuery } from '@tanstack/react-query'
 
 // types
-import { CommentType } from '../@types/tmdb'
+import { CommentResponse } from '../@types/tmdb'
 
 export function useComments(id: number) {
   const MOVIE_REVIEWS_URL = `/movie/${id}/reviews?api_key=${
@@ -13,10 +13,7 @@ export function useComments(id: number) {
 
   async function getMovieComments() {
     try {
-      const { data } = await api.get<{ results: CommentType[] }>(
-        MOVIE_REVIEWS_URL
-      )
-
+      const { data } = await api.get<CommentResponse>(MOVIE_REVIEWS_URL)
       return data.results
     } catch (error) {
       if (error instanceof AxiosError) {

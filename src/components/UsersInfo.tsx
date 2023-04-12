@@ -4,10 +4,10 @@ import { FC } from 'react'
 import { StarIcon, UsersIcon } from '@heroicons/react/24/outline'
 
 // types
-import { MovieDetailsType } from '../@types/tmdb'
+import { MovieDetails } from '../@types/tmdb'
 
 interface UsersInfoProps {
-  details: MovieDetailsType | undefined
+  details: MovieDetails | undefined
 }
 
 export const UsersInfo: FC<UsersInfoProps> = ({ details }) => (

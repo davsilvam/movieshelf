@@ -25,7 +25,7 @@ import {
   Value,
   Viewport
 } from '@radix-ui/react-select'
-import { GenreType } from '../@types/tmdb'
+import { Genre } from '../@types/tmdb'
 
 interface SelectPrimitiveProps {
   getGenreMovies: (value: string) => void
@@ -67,7 +67,7 @@ export const GenreSelect: FC<SelectPrimitiveProps> = ({ getGenreMovies }) => {
   )
 }
 
-const SelectItem: FC<{ genre: GenreType }> = ({ genre }) => (
+const SelectItem: FC<{ genre: Genre }> = ({ genre }) => (
   <Item
     value={String(genre.id)}
     className="flex w-full cursor-pointer items-center justify-between gap-2 px-3 py-2 outline-none transition-colors hover:bg-slate-700"
