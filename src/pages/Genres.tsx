@@ -37,13 +37,11 @@ export const Genres: FC = () => {
         </section>
 
         <section className="flex flex-col gap-8">
-          <article className="flex w-full flex-col gap-8">
-            <h1>{genreTitle}</h1>
-            <section className="grid w-full grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <article className="flex w-full flex-col gap-6">
+            <h1 className="text-2xl">{genreTitle}</h1>
+            <section className="grid grid-cols-1 gap-x-6 gap-y-8 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
               {genreMovies?.map(movie => (
-                <div className="cursor-pointer" key={movie.id}>
-                  <MovieCard key={movie.id} movie={movie} />
-                </div>
+                <MovieCard movie={movie} key={movie.id} />
               ))}
             </section>
           </article>

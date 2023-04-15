@@ -10,8 +10,8 @@
     "find-deadcode": "ts-prune"
   },
   "dependencies": {
-    "@heroicons/react": "^2.0.13",
     "@hookform/resolvers": "^2.9.10",
+    "@phosphor-icons/react": "^2.0.8",
     "@radix-ui/react-dialog": "^1.0.2",
     "@radix-ui/react-popover": "^1.0.3",
     "@radix-ui/react-select": "^1.2.0",

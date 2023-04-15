@@ -1,15 +1,20 @@
-import { FC } from 'react'
+import { FC, Fragment } from 'react'
+
+// components
+import { ActionButton, BaseButton } from './'
 
 // contexts
 import { useShelf } from '../contexts/ShelfContext'
 
 // icons
 import {
-  ArrowUpRightIcon,
-  BookmarkIcon,
-  HeartIcon,
-  StarIcon
-} from '@heroicons/react/24/outline'
+  ArrowUpRight,
+  Bookmark,
+  BookmarkSimple,
+  Heart,
+  HeartHalf,
+  Star
+} from '@phosphor-icons/react'
 
 // hooks
 import { useMovies } from '../hooks'
@@ -29,33 +34,29 @@ import 'swiper/css/autoplay'
 import 'swiper/css/effect-fade'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import { BaseButton } from './BaseButton'
-import { ActionButton } from './ActionButton'
+
+// utils
+import { POPULAR_MOVIES_URL } from '../utils'
 
 export const HottestMovieBanner: FC = () => {
-  const { favorites, toogleFavorite, toogleSaved, saved, shelf } = useShelf()
+  const {
+    isMovieFavorite,
+    isMovieOnTheShelf,
+    isMovieSaved,
+    toogleFavorite,
+    toogleSaved
+  } = useShelf()
   const navigate = useNavigate()
 
-  const popularMoviesURL = `/movie/popular?api_key=${
-    import.meta.env.VITE_API_KEY
-  }&language=pt-BR`
-
-  const { data: movies, isLoading } = useMovies(popularMoviesURL)
+  const { data: movies, isLoading } = useMovies(POPULAR_MOVIES_URL)
+  const hottestMovies = movies?.slice(0, 5)
 
   function goToTheMoviePage(id: number) {
     navigate(`/movie/${id}`)
   }
 
-  function handleToogleFavorite(id: number) {
-    toogleSaved(id)
-  }
-
-  function handleToogleMovie(id: number) {
-    toogleFavorite(id)
-  }
-
   return (
-    <div className="shadow-xl">
+    <div className="w-full">
       {isLoading ? (
         <Skeleton
           baseColor="#1b1a27"
@@ -72,7 +73,7 @@ export const HottestMovieBanner: FC = () => {
             dynamicBullets: true
           }}
         >
-          {movies?.slice(0, 5)?.map(movie => (
+          {hottestMovies?.map(movie => (
             <SwiperSlide className="h-[70vh] shadow-lg" key={movie.id}>
               <div
                 className="relative mb-6 h-full w-full bg-cover max-lg:bg-center"
@@ -85,10 +86,12 @@ export const HottestMovieBanner: FC = () => {
                 <div className="banner-gradient absolute left-0 bottom-0 flex h-full w-full flex-col items-start justify-end py-8 px-6 pt-24 max-lg:gap-7 lg:w-[70%] lg:justify-between">
                   <div className="flex w-full flex-col gap-2 lg:w-96">
                     <h1 className="text-4xl">{movie.title}</h1>
-                    <h3 className="flex items-center gap-2 font-semibold">
-                      <StarIcon className="w-5 text-pizazz" />{' '}
-                      {(movie.vote_average / 2).toFixed(1)}
-                    </h3>
+
+                    <span className="flex items-center gap-2 font-semibold">
+                      <Star size={20} className="text-pizazz" />
+                      <p>{(movie.vote_average / 2).toFixed(1)}</p>
+                    </span>
+
                     <p className="mt-1 text-xs max-lg:hidden">
                       {movie.overview}
                     </p>
@@ -97,47 +100,53 @@ export const HottestMovieBanner: FC = () => {
                   <div className="flex gap-3">
                     <BaseButton
                       onClick={() => goToTheMoviePage(movie.id)}
-                      className="bg-pizazz"
+                      aria-labelledby="visitar página do filme"
+                      className="bg-pizazz text-sm font-semibold"
                     >
-                      Visitar <ArrowUpRightIcon className="w-4" />
+                      <span>Visitar</span>
+                      <ArrowUpRight size={16} />
                     </BaseButton>
 
-                    {shelf.some(shelfMovie => shelfMovie.id === movie.id) ? (
-                      <ActionButton
-                        onClick={() => handleToogleMovie(movie.id)}
-                        className={
-                          favorites.some(
-                            favoriteMovie => favoriteMovie.id === movie.id
-                          )
-                            ? 'bg-carnation hover:saturate-150'
-                            : 'bg-secondary-900 hover:bg-secondary-700'
-                        }
-                      >
-                        <HeartIcon
-                          className={`w-6 transition-all duration-300 group-hover:fill-secondary-50 ${
-                            favorites.some(
-                              favoriteMovie => favoriteMovie.id === movie.id
-                            ) && 'fill-secondary-50'
-                          }`}
-                        />
-                      </ActionButton>
+                    {isMovieOnTheShelf(movie.id) ? (
+                      <Fragment>
+                        {isMovieFavorite(movie.id) && (
+                          <ActionButton
+                            onClick={() => toogleFavorite(movie.id)}
+                            className="bg-carnation hover:saturate-150"
+                          >
+                            <Heart size={24} weight="fill" />
+                          </ActionButton>
+                        )}
+
+                        {!isMovieFavorite(movie.id) && (
+                          <ActionButton
+                            onClick={() => toogleFavorite(movie.id)}
+                            className="bg-secondary-900 hover:bg-secondary-700"
+                          >
+                            <HeartHalf size={24} />
+                          </ActionButton>
+                        )}
+                      </Fragment>
                     ) : (
-                      <ActionButton
-                        onClick={() => handleToogleFavorite(movie.id)}
-                        className={
-                          saved.some(savedMovie => savedMovie.id === movie.id)
-                            ? 'bg-tertiary hover:saturate-150'
-                            : 'bg-secondary-900 hover:bg-secondary-700'
-                        }
-                      >
-                        <BookmarkIcon
-                          className={`w-5 transition-all duration-300 group-hover:fill-secondary-50 ${
-                            saved.some(
-                              savedMovie => savedMovie.id === movie.id
-                            ) && 'fill-secondary-50'
-                          }`}
-                        />
-                      </ActionButton>
+                      <Fragment>
+                        {isMovieSaved(movie.id) && (
+                          <ActionButton
+                            onClick={() => toogleSaved(movie.id)}
+                            className="bg-tertiary hover:saturate-150"
+                          >
+                            <Bookmark size={24} weight="fill" />
+                          </ActionButton>
+                        )}
+
+                        {!isMovieSaved(movie.id) && (
+                          <ActionButton
+                            onClick={() => toogleSaved(movie.id)}
+                            className="bg-secondary-900 hover:bg-secondary-700"
+                          >
+                            <BookmarkSimple size={24} />
+                          </ActionButton>
+                        )}
+                      </Fragment>
                     )}
                   </div>
                 </div>

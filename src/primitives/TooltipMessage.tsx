@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
 // primitives
 import {
@@ -11,7 +11,7 @@ import {
 } from '@radix-ui/react-tooltip'
 
 interface TooltipMessageProps {
-  children: React.ReactNode
+  children: ReactNode
   message: string
 }
 
@@ -24,7 +24,7 @@ export const TooltipMessage: FC<TooltipMessageProps> = ({
       <Trigger asChild>{children}</Trigger>
       <Portal>
         <Content
-          className="z-20 rounded-md bg-secondary-700 py-2 px-3 text-sm text-secondary-50"
+          className="z-30 rounded-md bg-secondary-700 py-2 px-3 text-sm text-secondary-50"
           sideOffset={5}
         >
           {message}

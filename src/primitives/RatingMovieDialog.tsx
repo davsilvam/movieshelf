@@ -1,14 +1,13 @@
 import { FC, Fragment, ReactNode, useRef, useState } from 'react'
 
+// components
+import { BaseButton } from '../components'
+
 // contexts
 import { useShelf } from '../contexts/ShelfContext'
 
 // icons
-import {
-  ChatBubbleOvalLeftEllipsisIcon,
-  StarIcon,
-  XMarkIcon
-} from '@heroicons/react/24/outline'
+import { ChatCircleDots, Star, X } from '@phosphor-icons/react'
 
 // primitives
 import {
@@ -84,7 +83,7 @@ export const RatingMovieDialog: FC<RatingMovieDialogProps> = ({
           <section>
             <header className="flex w-full items-start justify-between">
               <div className="flex items-start gap-2">
-                <ChatBubbleOvalLeftEllipsisIcon className="w-6 text-secondary-100" />
+                <ChatCircleDots size={24} className="text-secondary-100" />
                 <div className="flex flex-col">
                   <Title className="text-lg text-secondary-100">
                     Avaliação do Filme
@@ -98,25 +97,29 @@ export const RatingMovieDialog: FC<RatingMovieDialogProps> = ({
               </div>
 
               <Close className="p-2">
-                <XMarkIcon className="w-5 text-secondary-100" />
+                <X size={20} className="text-secondary-100" />
               </Close>
             </header>
 
             {formStep === 0 ? (
               <Fragment>
-                <div className="mt-5 flex w-full flex-row-reverse items-center justify-center">
-                  {[4, 3, 2, 1, 0].map(id => (
-                    <StarIcon
-                      key={id}
-                      className={`rate-star ${
-                        currentRate === id && 'rated-star'
-                      }`}
-                      onMouseEnter={() => handleRateMessage(id)}
+                <div className="mt-5 flex w-full items-center justify-center gap-3 text-pizazz">
+                  {rateMessages.map((item, index) => (
+                    <Star
+                      onClick={() => handleCurrentRate(index)}
+                      onMouseEnter={() => handleRateMessage(index)}
                       onMouseLeave={() => handleRateMessage(currentRate)}
-                      onClick={() => handleCurrentRate(id)}
+                      size={48}
+                      weight={
+                        currentRate !== null && index <= currentRate
+                          ? 'fill'
+                          : 'regular'
+                      }
+                      key={item}
                     />
                   ))}
                 </div>
+
                 <p className="mt-4 text-center text-secondary-100">
                   {rateMessage}
                 </p>
@@ -130,21 +133,16 @@ export const RatingMovieDialog: FC<RatingMovieDialogProps> = ({
             )}
           </section>
           <div className="flex items-center gap-4">
-            <button
-              className="flex h-10 w-full items-center justify-center gap-1 rounded-md border-secondary-50 bg-transparent py-1 px-2 text-sm font-semibold text-secondary-50 hover:opacity-80 disabled:cursor-not-allowed disabled:bg-secondary-900 disabled:opacity-50 [&:not(:disabled)]:border"
-              disabled={!currentRate}
+            <BaseButton
               onClick={toogleFormStep}
+              className="w-full border-secondary-50 bg-transparent text-sm font-semibold text-secondary-50 hover:opacity-80 disabled:cursor-not-allowed disabled:bg-secondary-900 disabled:opacity-50 [&:not(:disabled)]:border"
+              disabled={!currentRate}
             >
               {formStep === 0 ? 'Adicionar Resenha' : 'Voltar'}
-            </button>
+            </BaseButton>
 
             <Close asChild disabled={currentRate === null}>
-              <button
-                className={`flex h-10 w-full items-center justify-center gap-1 rounded-md py-1 px-2 text-sm font-semibold text-secondary-50 ${
-                  currentRate !== null
-                    ? 'bg-pizazz hover:saturate-200'
-                    : 'cursor-not-allowed bg-secondary-900 opacity-50'
-                }`}
+              <BaseButton
                 onClick={() => {
                   if (currentRate === null) return
                   handleAddToShelf(
@@ -153,9 +151,14 @@ export const RatingMovieDialog: FC<RatingMovieDialogProps> = ({
                     reviewText.current?.value
                   )
                 }}
+                className={`w-full text-sm font-semibold text-secondary-50 ${
+                  currentRate !== null
+                    ? 'bg-pizazz hover:saturate-200'
+                    : 'cursor-not-allowed bg-secondary-900 opacity-50'
+                }`}
               >
                 Para a estante
-              </button>
+              </BaseButton>
             </Close>
           </div>
         </Content>

@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react'
 
 // icons
-import { XMarkIcon } from '@heroicons/react/24/outline'
+import { X } from '@phosphor-icons/react'
 
 // primitives
 import {
@@ -31,8 +31,9 @@ export const ReviewPopover: FC<ReviewPopoverProps> = ({ children, review }) => (
         <div className="flex flex-col gap-2">
           <header className="flex items-center justify-between">
             <h3 className="text-secondary-50">Sua resenha</h3>
+
             <Close className="p-2" aria-label="Close">
-              <XMarkIcon className="w-5 text-secondary-100" />
+              <X size={20} className="text-secondary-100" />
             </Close>
           </header>
           <div className="w-full rounded-sm bg-secondary-800 p-2 text-sm text-secondary-50 shadow-md">

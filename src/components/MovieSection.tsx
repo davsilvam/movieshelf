@@ -1,10 +1,7 @@
-import { FC } from 'react'
+import { FC, Fragment } from 'react'
 
 // components
 import { MovieCard, MovieSkeleton } from './'
-
-// icons
-import { StarIcon } from '@heroicons/react/20/solid'
 
 // hooks
 import { useMovies } from '../hooks'
@@ -44,51 +41,36 @@ export const MovieSection: FC<MovieSectionProps> = ({ url, title, amount }) => {
   }
 
   return (
-    <section className="flex w-full flex-col gap-6">
-      <h2>{title}</h2>
-      <div className="flex w-full">
-        {isLoading ? (
-          <MovieSkeleton />
-        ) : (
-          <Swiper
-            freeMode={true}
-            grabCursor={true}
-            modules={[FreeMode]}
-            touchEventsTarget={'container'}
-            breakpoints={swiperBreakpoints}
-          >
-            {movies?.map(movie => (
-              <SwiperSlide
-                className="relative flex cursor-pointer flex-col gap-3"
-                key={movie.id}
+    <section className="flex w-full flex-col gap-4">
+      {movies && movies?.length > 0 ? (
+        <Fragment>
+          <h2 className="text-xl">{title}</h2>
+          <div className="flex w-full">
+            {isLoading ? (
+              <MovieSkeleton />
+            ) : (
+              <Swiper
+                freeMode={true}
+                grabCursor={true}
+                modules={[FreeMode]}
+                touchEventsTarget={'container'}
+                breakpoints={swiperBreakpoints}
               >
-                <MovieCard movie={movie}>
-                  <div className="mt-1 flex w-full flex-col items-start justify-start gap-[2px]">
-                    <h3 className="w-full overflow-hidden overflow-ellipsis whitespace-nowrap text-start text-sm">
-                      {movie.title}
-                    </h3>
-
-                    <div className="flex w-full items-center justify-between">
-                      <span className="flex items-center gap-1 text-pizazz">
-                        <StarIcon className="w-3" />
-                        <h4 className="pt-[1.75px] text-xs">
-                          {(movie.vote_average / 2).toFixed(1)}
-                        </h4>
-                      </span>
-
-                      <span className="flex items-center gap-1 text-cadet">
-                        <h4 className="text-xs">
-                          {movie.release_date.slice(0, 4)}
-                        </h4>
-                      </span>
-                    </div>
-                  </div>
-                </MovieCard>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        )}
-      </div>
+                {movies?.map(movie => (
+                  <SwiperSlide
+                    className="relative flex cursor-pointer flex-col gap-3"
+                    key={movie.id}
+                  >
+                    <MovieCard movie={movie} />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            )}
+          </div>
+        </Fragment>
+      ) : (
+        <Fragment />
+      )}
     </section>
   )
 }

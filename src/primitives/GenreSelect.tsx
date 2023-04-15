@@ -1,11 +1,7 @@
 import { FC } from 'react'
 
 // icons
-import {
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronUpIcon
-} from '@heroicons/react/20/solid'
+import { Check, CaretDown, CaretUp } from '@phosphor-icons/react'
 
 // hooks
 import { useGenres } from '../hooks/useGenres'
@@ -25,6 +21,8 @@ import {
   Value,
   Viewport
 } from '@radix-ui/react-select'
+
+// types
 import { Genre } from '../@types/tmdb'
 
 interface SelectPrimitiveProps {
@@ -42,14 +40,14 @@ export const GenreSelect: FC<SelectPrimitiveProps> = ({ getGenreMovies }) => {
       >
         <Value placeholder="Gêneros" />
         <Icon>
-          <ChevronDownIcon className="w-5" />
+          <CaretDown size={16} />
         </Icon>
       </Trigger>
 
       <Portal>
         <Content className="mt-2 h-48" position="popper">
           <ScrollUpButton className="flex w-full items-center justify-center">
-            <ChevronUpIcon className="w-5 text-secondary-50" />
+            <CaretUp size={16} className="text-secondary-50" />
           </ScrollUpButton>
 
           <Viewport className="flex  w-40 flex-col overflow-hidden rounded-lg bg-secondary-700 py-2 text-sm text-secondary-50 shadow-lg outline-none">
@@ -59,7 +57,7 @@ export const GenreSelect: FC<SelectPrimitiveProps> = ({ getGenreMovies }) => {
           </Viewport>
 
           <ScrollDownButton className="flex w-full items-center justify-center">
-            <ChevronDownIcon className="w-5 text-secondary-50" />
+            <CaretDown size={16} className="text-secondary-50" />
           </ScrollDownButton>
         </Content>
       </Portal>
@@ -74,7 +72,7 @@ const SelectItem: FC<{ genre: Genre }> = ({ genre }) => (
   >
     <ItemText>{genre.name}</ItemText>
     <ItemIndicator>
-      <CheckIcon className="w-4" />
+      <Check size={16} />
     </ItemIndicator>
   </Item>
 )

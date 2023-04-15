@@ -19,8 +19,12 @@ export const Search: FC = () => {
   return (
     <PageLayout>
       <Header />
-      <main className="flex w-full flex-col px-8 py-4 pt-20">
-        <section className="grid gap-6 max-lg:gap-y-4 md:grid-cols-3 lg:grid-cols-4">
+      <main className="mt-4 flex w-full flex-col px-8 py-4 pt-20">
+        <h1 className="mb-5 text-lg font-medium text-secondary-200">
+          Resultados para{' '}
+          <em className="font-semibold text-secondary-50">{id}</em>
+        </h1>
+        <section className="grid grid-cols-1 gap-x-6 gap-y-8 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
           {movies?.map(movie => (
             <div
               className="group flex cursor-pointer flex-col gap-3"

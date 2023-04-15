@@ -4,10 +4,7 @@ import { FC } from 'react'
 import { useShelf } from '../contexts/ShelfContext'
 
 // icons
-import {
-  ChatBubbleOvalLeftEllipsisIcon,
-  StarIcon
-} from '@heroicons/react/24/outline'
+import { ChatCircleDots, Star } from '@phosphor-icons/react'
 
 // primitives
 import { ReviewPopover, TooltipMessage } from '../primitives'
@@ -18,24 +15,25 @@ interface ReviewInfoProps {
 
 export const ReviewInfo: FC<ReviewInfoProps> = ({ id }) => {
   const { shelf } = useShelf()
-  const reviewRate = shelf.find(movie => movie.id === Number(id))?.rate
+  const movieReview = shelf.find(movie => movie.id === Number(id))?.review
+  const movieRate = shelf.find(movie => movie.id === Number(id))?.rate
 
   return (
-    <div className="flex items-center gap-2">
-      <TooltipMessage message={`${reviewRate} Estrelas`}>
-        <h3 className="flex items-center gap-2 font-semibold">
-          <StarIcon className="w-5 fill-pizazz text-pizazz" />{' '}
-          {id && reviewRate}
-        </h3>
+    <div className="flex items-center gap-4">
+      <TooltipMessage message={`${movieRate} Estrelas`}>
+        <strong className="flex items-center gap-2 font-semibold">
+          <Star size={20} weight="fill" className="text-pizazz" />
+          <span>{id && movieRate}</span>
+        </strong>
       </TooltipMessage>
 
-      {shelf.find(movie => movie.id === Number(id))?.review && (
+      {movieReview && (
         <ReviewPopover
-          review={shelf.find(movie => movie.id === Number(id))?.review}
+          review={movieReview}
         >
           <div className="flex h-8 w-8 cursor-pointer items-center justify-center">
             <TooltipMessage message="Ver resenha">
-              <ChatBubbleOvalLeftEllipsisIcon className="w-6" />
+              <ChatCircleDots size={24} />
             </TooltipMessage>
           </div>
         </ReviewPopover>

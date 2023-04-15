@@ -1,7 +1,7 @@
 import { FC, useCallback, useState } from 'react'
 
 // icons
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import { MagnifyingGlass } from '@phosphor-icons/react'
 
 // router
 import { useNavigate } from 'react-router-dom'
@@ -22,16 +22,17 @@ export const SearchInput: FC = () => {
 
   return (
     <div className="flex h-10 items-center gap-3 rounded-lg bg-secondary-700 py-2 px-4 text-sm text-secondary-50">
-      <MagnifyingGlassIcon
-        className={`w-4 ${search.length === 0 && 'text-cadet'}`}
+      <MagnifyingGlass
+        size={16}
+        className={search.length === 0 ? 'text-cadet' : ''}
       />
       <input
-        value={search}
         onChange={e => setSearch(e.target.value)}
         onKeyDown={searchMovies}
-        type="text"
         className="cursor-text bg-transparent placeholder:text-cadet"
         placeholder="Pesquise aqui"
+        type="text"
+        value={search}
       />
     </div>
   )

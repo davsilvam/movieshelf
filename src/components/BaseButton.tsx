@@ -11,7 +11,7 @@ export const BaseButton: FC<BaseButtonProps> = ({
 }) => (
   <button
     children={children}
-    className={`flex w-fit items-center gap-2 rounded-md py-3 px-6 font-semibold shadow-md hover:saturate-200 ${className}`}
+    className={`flex h-12 w-fit items-center justify-center gap-1 rounded-md py-3 px-6 shadow-md hover:saturate-200 ${className}`}
     {...rest}
   />
 )

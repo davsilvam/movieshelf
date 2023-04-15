@@ -1,7 +1,7 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
 // icons
-import { BarsArrowUpIcon, BarsArrowDownIcon } from '@heroicons/react/20/solid'
+import { CheckCircle, XCircle } from '@phosphor-icons/react'
 
 // primitives
 import {
@@ -37,7 +37,7 @@ const messages: ToastMessageDisplay = {
 
 interface ToastMessageProps {
   action: string
-  children: React.ReactNode
+  children: ReactNode
   isToastVisible: boolean
   setToastVisible: () => void
 }
@@ -53,25 +53,24 @@ export const ToastMessage: FC<ToastMessageProps> = ({
 
     {isToastVisible && (
       <Root
-        className="fixed right-3 z-20 flex items-center gap-5 rounded-md bg-secondary-700 py-3 px-5 shadow-lg max-md:top-12 md:bottom-8 md:right-10"
+        className="fixed right-3 z-20 flex items-center gap-3 rounded-md bg-secondary-700 py-3 px-5 shadow-lg max-md:top-12 md:bottom-8 md:right-10"
         open={isToastVisible}
         onOpenChange={setToastVisible}
       >
-        <div className="flex flex-col items-start justify-center gap-1">
-          <Title className="font-semibold">{messages[action].title}</Title>
+        {action.startsWith('remove') && (
+          <XCircle size={28} className="text-carnation" />
+        )}
 
+        {action.startsWith('add') && (
+          <CheckCircle size={28} className="text-green-500" />
+        )}
+
+        <div className="flex flex-col items-start justify-center">
+          <Title className="font-semibold">{messages[action].title}</Title>
           <Description className="text-sm font-light">
             {messages[action].description}
           </Description>
         </div>
-
-        {action.startsWith('remove') && (
-          <BarsArrowDownIcon className="w-8 text-carnation" />
-        )}
-
-        {action.startsWith('add') && (
-          <BarsArrowUpIcon className="w-8 text-pizazz" />
-        )}
       </Root>
     )}
 

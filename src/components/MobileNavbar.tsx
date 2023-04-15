@@ -2,13 +2,13 @@ import { FC, useState } from 'react'
 
 // icons
 import {
-  BookmarkIcon,
-  Bars3Icon,
-  HeartIcon,
-  HomeIcon,
-  Square3Stack3DIcon,
-  Squares2X2Icon
-} from '@heroicons/react/24/outline'
+  Bookmarks,
+  Heart,
+  House,
+  List,
+  SquaresFour,
+  Stack
+} from '@phosphor-icons/react'
 
 // router
 import { Link } from 'react-router-dom'
@@ -31,52 +31,47 @@ export const MobileNavbar: FC = () => {
     >
       <div className="flex w-full flex-col items-center justify-center">
         <button
-          className="flex h-20 w-full items-center justify-center gap-2"
           onClick={toogleMobileNavbar}
+          className="flex h-20 w-full items-center justify-center gap-2"
+          aria-labelledby="abrir menu / fechar menu"
         >
-          <Bars3Icon className="w-8" />
-          <h3>Menu</h3>
+          <List size={28} />
+          <strong>Menu</strong>
         </button>
-        <nav className="flex w-full flex-col items-start gap-4 px-4 pb-4 md:flex-row">
-          <div className="flex w-full flex-col md:items-center">
-            <h3 className="mb-4 text-sm uppercase text-cadet">Navegue</h3>
-            <ul className="flex w-full flex-col gap-2">
-              <li>
-                <Link to="/" className="navbar-link">
-                  <HomeIcon className="w-5" /> Início
-                </Link>
-              </li>
-              <li>
-                <Link to="/genres" className="navbar-link">
-                  <Square3Stack3DIcon className="w-5" /> Gêneros
-                </Link>
-              </li>
-            </ul>
+
+        <div className="flex w-full flex-col items-start gap-4 px-4 pb-4 md:flex-row">
+          <div className="flex w-full flex-col gap-4 md:items-center">
+            <strong className="text-sm uppercase text-cadet">Navegue</strong>
+            <nav className="w-full space-y-2">
+              <Link to="/" className="navbar-link">
+                <House size={24} /> <span>Início</span>
+              </Link>
+
+              <Link to="/genres" className="navbar-link">
+                <Stack size={24} /> <span>Gêneros</span>
+              </Link>
+            </nav>
           </div>
 
           <hr className="border-secondary-500" />
 
-          <div className="flex w-full flex-col md:items-center">
-            <h3 className="mb-4 text-sm uppercase text-cadet">Biblioteca</h3>
-            <ul className="flex w-full flex-col gap-2">
-              <li>
-                <Link to="/shelf" className="navbar-link group">
-                  <Squares2X2Icon className="w-5" /> Estante
-                </Link>
-              </li>
-              <li>
-                <Link to="/favorites" className="navbar-link group">
-                  <HeartIcon className="w-5" /> Favoritos
-                </Link>
-              </li>
-              <li>
-                <Link to="/saved" className="navbar-link">
-                  <BookmarkIcon className="w-5" /> Salvos
-                </Link>
-              </li>
-            </ul>
+          <div className="flex w-full flex-col gap-4 md:items-center">
+            <strong className="text-sm uppercase text-cadet">Biblioteca</strong>
+            <nav className="w-full space-y-2">
+              <Link to="/shelf" className="navbar-link">
+                <SquaresFour size={24} /> <span>Estante</span>
+              </Link>
+
+              <Link to="/favorites" className="navbar-link">
+                <Heart size={24} /> <span>Favoritos</span>
+              </Link>
+
+              <Link to="/saved" className="navbar-link">
+                <Bookmarks size={24} /> <span>Salvos</span>
+              </Link>
+            </nav>
           </div>
-        </nav>
+        </div>
       </div>
     </div>
   )

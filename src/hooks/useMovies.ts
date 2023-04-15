@@ -25,7 +25,7 @@ export function useMovies(url: string, amount?: number) {
 
   const query = useQuery({
     queryKey: ['movies', url],
-    queryFn: getMoviesFromUrl
+    queryFn: getMoviesFromUrl,
   })
 
   return {

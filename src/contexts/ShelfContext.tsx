@@ -24,6 +24,9 @@ interface ShelfContext {
   toogleFavorite: (id: number) => void
   saved: Movie[]
   toogleSaved: (id: number) => void
+  isMovieOnTheShelf: (id: number | undefined) => boolean
+  isMovieFavorite: (id: number | undefined) => boolean
+  isMovieSaved: (id: number | undefined) => boolean
 }
 
 interface ShelfProviderProps {
@@ -94,6 +97,18 @@ export const ShelfProvider: FC<ShelfProviderProps> = ({ children }) => {
     setSaved(state => [...state, newMovie])
   }
 
+  const isMovieOnTheShelf = (id: number | undefined) => {
+    return shelf.some(movie => movie.id === id)
+  }
+
+  const isMovieFavorite = (id: number | undefined) => {
+    return favorites.some(favorite => favorite.id === id)
+  }
+
+  const isMovieSaved = (id: number | undefined) => {
+    return saved.some(movie => movie.id === id)
+  }
+
   return (
     <ShelfContext.Provider
       value={{
@@ -102,7 +117,10 @@ export const ShelfProvider: FC<ShelfProviderProps> = ({ children }) => {
         favorites,
         toogleFavorite,
         saved,
-        toogleSaved
+        toogleSaved,
+        isMovieOnTheShelf,
+        isMovieFavorite,
+        isMovieSaved
       }}
     >
       {children}

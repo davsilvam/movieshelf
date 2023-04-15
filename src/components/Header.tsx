@@ -4,7 +4,7 @@ import { FC } from 'react'
 import { SearchInput } from './'
 
 export const Header: FC = () => (
-  <header className="absolute left-0 top-0 z-10 flex w-full items-center justify-between px-8 py-6">
+  <header className="absolute left-4 top-6 z-10 md:left-8 md:top-6">
     <SearchInput />
   </header>
 )

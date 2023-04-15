@@ -14,53 +14,54 @@ import {
 // contexts
 import { useShelf } from '../contexts/ShelfContext'
 
+// hooks
+import { useMovieDetails } from '../hooks'
+
 // icons
 import {
-  BookmarkIcon,
-  HeartIcon,
-  Squares2X2Icon,
-  SquaresPlusIcon
-} from '@heroicons/react/24/outline'
+  Bookmark,
+  BookmarkSimple,
+  Heart,
+  HeartHalf,
+  Plus,
+  SquaresFour
+} from '@phosphor-icons/react'
 
 // layout
 import { PageLayout } from './'
 
 // primitives
-import { RatingMovieDialog, ToastMessage, TooltipMessage } from '../primitives'
+import { RatingMovieDialog, ToastMessage } from '../primitives'
 
 // router
 import { useParams } from 'react-router-dom'
 
-// hooks
-import { useMovieDetails } from '../hooks'
-
 // skeleton
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+
+// utils
 import { MOVIE_RECOMMENDATIONS_URL } from '../utils'
 
 export const MovieDetails: FC = () => {
   const { id } = useParams()
   const { data: details, isFetching } = useMovieDetails(id)
-  const { toogleSaved, favorites, saved, shelf, toogleFavorite } = useShelf()
+  const {
+    favorites,
+    isMovieFavorite,
+    isMovieOnTheShelf,
+    isMovieSaved,
+    saved,
+    shelf,
+    toogleFavorite,
+    toogleSaved
+  } = useShelf()
 
   const [isToastVisible, setToastVisible] = useState<boolean>(false)
   const [toastAction, setToastAction] = useState<string>('')
 
   function toogleToastVisible() {
     setToastVisible(state => !state)
-  }
-
-  function movieIsOnTheShelf() {
-    return shelf.some(movie => movie.id === details?.id)
-  }
-
-  function handleMovieFavorite(id: number) {
-    toogleFavorite(id)
-  }
-
-  function handleMovieSave(id: number) {
-    toogleSaved(id)
   }
 
   useEffect(() => {
@@ -126,7 +127,7 @@ export const MovieDetails: FC = () => {
             highlightColor="#303030"
           />
         ) : (
-          <h1>{details?.title}</h1>
+          <h1 className="text-3xl">{details?.title}</h1>
         )}
         <div className="mb-1 flex flex-wrap items-center gap-2">
           {isFetching ? (
@@ -149,37 +150,37 @@ export const MovieDetails: FC = () => {
           )}
         </div>
 
-        <p className="mb-2 text-cadet">{details?.overview}</p>
+        <p className="mb-2 text-sm text-cadet">{details?.overview}</p>
 
         <div className="mb-8 flex items-center gap-5">
-          <RatingMovieDialog movieId={id}>
-            {isFetching ? (
-              <Skeleton
-                baseColor="#1b1a27"
-                className="h-12 w-60"
-                highlightColor="#303030"
-              />
-            ) : (
-              <BaseButton
-                className={
-                  movieIsOnTheShelf()
-                    ? 'cursor-not-allowed bg-secondary-400'
-                    : 'cursor-pointer bg-pizazz'
-                }
-                disabled={movieIsOnTheShelf()}
-              >
-                {movieIsOnTheShelf() ? (
-                  <Fragment>
-                    <Squares2X2Icon className="w-5" /> Adicionado à estante
-                  </Fragment>
-                ) : (
-                  <Fragment>
-                    <SquaresPlusIcon className="w-5" /> Adicionar à estante
-                  </Fragment>
-                )}
-              </BaseButton>
-            )}
-          </RatingMovieDialog>
+          {isFetching ? (
+            <Skeleton
+              baseColor="#1b1a27"
+              className="h-12 w-60"
+              highlightColor="#303030"
+            />
+          ) : (
+            <Fragment>
+              {isMovieOnTheShelf(details?.id) && (
+                <BaseButton
+                  className="cursor-not-allowed bg-secondary-400 text-sm font-semibold"
+                  disabled
+                >
+                  <SquaresFour size={20} />
+                  <span>Adicionado à estante</span>
+                </BaseButton>
+              )}
+
+              {!isMovieOnTheShelf(details?.id) && (
+                <RatingMovieDialog movieId={id}>
+                  <BaseButton className="cursor-pointer bg-pizazz text-sm font-semibold">
+                    <Plus size={20} weight="bold" />
+                    <span>Adicionar à estante</span>
+                  </BaseButton>
+                </RatingMovieDialog>
+              )}
+            </Fragment>
+          )}
 
           {isFetching ? (
             <Skeleton
@@ -187,39 +188,37 @@ export const MovieDetails: FC = () => {
               className="h-12 w-12"
               highlightColor="#303030"
             />
-          ) : movieIsOnTheShelf() ? (
+          ) : isMovieOnTheShelf(details?.id) ? (
             <ToastMessage
               action={toastAction}
               isToastVisible={isToastVisible}
               setToastVisible={toogleToastVisible}
             >
-              <TooltipMessage
-                message={
-                  favorites.some(movie => details?.id === movie.id)
-                    ? 'Remover dos Favoritos'
-                    : 'Adicionar aos Favoritos'
-                }
-              >
-                <ActionButton
-                  className={
-                    favorites.some(movie => details?.id === movie.id)
-                      ? 'bg-carnation hover:saturate-150'
-                      : 'bg-secondary-700 hover:bg-secondary-800'
-                  }
-                  onClick={() => {
-                    if (!details?.id) return
-                    handleMovieFavorite(details?.id)
-                  }}
-                >
-                  <HeartIcon
-                    className={`w-7 cursor-pointer text-secondary-50 transition-colors group-hover:fill-secondary-50 ${
-                      favorites.some(movie => details?.id === movie.id)
-                        ? 'fill-secondary-50'
-                        : 'fill-transparent'
-                    }`}
-                  />
-                </ActionButton>
-              </TooltipMessage>
+              <Fragment>
+                {isMovieFavorite(details?.id) && (
+                  <ActionButton
+                    onClick={() => {
+                      if (!details) return
+                      toogleFavorite(details?.id)
+                    }}
+                    className="bg-carnation hover:saturate-150"
+                  >
+                    <Heart size={24} weight="fill" />
+                  </ActionButton>
+                )}
+
+                {!isMovieFavorite(details?.id) && (
+                  <ActionButton
+                    onClick={() => {
+                      if (!details) return
+                      toogleFavorite(details?.id)
+                    }}
+                    className="bg-secondary-700 hover:bg-secondary-800"
+                  >
+                    <HeartHalf size={24} />
+                  </ActionButton>
+                )}
+              </Fragment>
             </ToastMessage>
           ) : (
             <ToastMessage
@@ -227,47 +226,45 @@ export const MovieDetails: FC = () => {
               isToastVisible={isToastVisible}
               setToastVisible={toogleToastVisible}
             >
-              <TooltipMessage
-                message={
-                  saved.some(movie => details?.id === movie.id)
-                    ? 'Remover dos Salvos'
-                    : 'Adicionar aos Salvos'
-                }
-              >
-                <ActionButton
-                  className={
-                    saved.some(movie => details?.id === movie.id)
-                      ? 'bg-tertiary hover:saturate-150'
-                      : 'bg-secondary-700 hover:bg-secondary-800'
-                  }
-                  onClick={() => {
-                    if (!details?.id) return
-                    handleMovieSave(details?.id)
-                  }}
-                >
-                  <BookmarkIcon
-                    className={`w-6 cursor-pointer text-secondary-50 transition-colors group-hover:fill-secondary-50 ${
-                      saved.some(movie => details?.id === movie.id)
-                        ? 'fill-secondary-50'
-                        : 'fill-transparent'
-                    }`}
-                  />
-                </ActionButton>
-              </TooltipMessage>
+              <Fragment>
+                {isMovieSaved(details?.id) && (
+                  <ActionButton
+                    onClick={() => {
+                      if (!details) return
+                      toogleSaved(details?.id)
+                    }}
+                    className="bg-tertiary hover:saturate-150"
+                  >
+                    <Bookmark size={24} weight="fill" />
+                  </ActionButton>
+                )}
+
+                {!isMovieSaved(details?.id) && (
+                  <ActionButton
+                    onClick={() => {
+                      if (!details) return
+                      toogleSaved(details.id)
+                    }}
+                    className="bg-secondary-700 hover:bg-secondary-800"
+                  >
+                    <BookmarkSimple size={24} />
+                  </ActionButton>
+                )}
+              </Fragment>
             </ToastMessage>
           )}
         </div>
 
         {details?.id && (
           <Fragment>
-            <div className="mb-8 lg:w-[75%]">
+            <div className="space-y-6">
               <MovieSection
                 url={MOVIE_RECOMMENDATIONS_URL(details?.id)}
                 title="Recomendações"
               />
-            </div>
 
-            <CommentsContainer id={details?.id} />
+              <CommentsContainer id={details?.id} />
+            </div>
           </Fragment>
         )}
       </div>
