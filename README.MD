@@ -35,14 +35,14 @@ A Movieshelf é uma estante virtual de filmes, na qual você pode adicionar os f
 - [TypeScript](https://www.typescriptlang.org)
 - [React](https://pt-br.reactjs.org)
 - [The Movie Database API](https://developers.themoviedb.org/3)
-- [React Query](https://react-query-v3.tanstack.com)
+- [Tanstack Query](https://tanstack.com/query/latest)
 - [Node e NPM](https://nodejs.org/)
 - [Vite](https://vitejs.dev/)
 
 ### :art: **Estilização**
 
 - [Tailwind CSS](https://tailwindcss.com)
-- [Heroicons](https://heroicons.com)
+- [Phosphor Icons](https://phosphoricons.com)
 - [Radix UI](https://www.radix-ui.com)
 - [React Loading Skeleton](https://www.npmjs.com/package/react-loading-skeleton)
 - [Swiper](https://swiperjs.com)
