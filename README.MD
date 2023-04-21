@@ -1,10 +1,8 @@
 # Movieshelf
 
-## :movie_camera: **Projeto**
+<img src="./.github/banner.png" style="width: 100%">
 
-<h1 align="center">
-    <img src="./.github/banner.png" style="width: 100%">
-</h1>
+## :movie_camera: **Projeto**
 
 > Uma estante de filmes, para o seu "eu cinéfilo".
 
@@ -36,7 +34,6 @@ A Movieshelf é uma estante virtual de filmes, na qual você pode adicionar os f
 - [React](https://pt-br.reactjs.org)
 - [The Movie Database API](https://developers.themoviedb.org/3)
 - [Tanstack Query](https://tanstack.com/query/latest)
-- [Node e NPM](https://nodejs.org/)
 - [Vite](https://vitejs.dev/)
 
 ### :art: **Estilização**
@@ -57,29 +54,25 @@ A Movieshelf é uma estante virtual de filmes, na qual você pode adicionar os f
 
 ## :rocket: **Configurações e Instalação**
 
-Veja [documentação de configuração do Vite](https://vitejs.dev/config/).
+### Requisitos
+- [Node e NPM](https://nodejs.org/)
 
-### **Clonando o Projeto**
+Recomendo que veja a [documentação de configuração do Vite](https://vitejs.dev/config/). 
 
 ```sh
+# Clonando o projeto
 git clone https://github.com/davsilvam/movieshelf.git
-```
 
-### **Executando o Projeto**
-
-```sh
+# Instalando as dependências
 npm install
-```
 
-### **Compilar e abrir o programa para desenvolvimento**
+# Criar arquivo .env com base no .env.example e preencher o campo com sua chave da API
+VITE_API_KEY="<sua_chave>"
 
-```sh
+# Compilar e abrir o programa para desenvolvimento
 npm run dev
-```
 
-### **Compilar e reduzir para produção**
-
-```sh
+# Compilar e minificar para produção
 npm run build
 ```
 
