@@ -1,8 +1,16 @@
-import { Inter } from 'next/font/google'
+import {
+  Fjalla_One as fjallaOne,
+  Roboto_Flex as robotoFlex,
+} from 'next/font/google'
 import { ReactNode } from 'react'
 import 'styles/globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const fjalla = fjallaOne({
+  weight: ['400'],
+  subsets: ['latin'],
+  variable: '--font-fjalla-one',
+})
+const roboto = robotoFlex({ subsets: ['latin'], variable: '--font-roboto' })
 
 export const metadata = {
   title: 'Movieshelf',
@@ -13,7 +21,9 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR">
-      <body className={inter.className}>{children}</body>
+      <body className={`${fjalla.variable} ${roboto.variable} font-sans`}>
+        {children}
+      </body>
     </html>
   )
 }
