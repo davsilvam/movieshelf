@@ -1,16 +1,14 @@
-import {
-  Fjalla_One as fjallaOne,
-  Roboto_Flex as robotoFlex,
-} from 'next/font/google'
+import { Header } from 'components'
+import { Roboto_Flex as RobotoFlex, Teko } from 'next/font/google'
 import { ReactNode } from 'react'
 import 'styles/globals.css'
 
-const fjalla = fjallaOne({
-  weight: ['400'],
+const teko = Teko({
+  weight: ['500', '600', '700'],
   subsets: ['latin'],
-  variable: '--font-fjalla-one',
+  variable: '--font-teko',
 })
-const roboto = robotoFlex({ subsets: ['latin'], variable: '--font-roboto' })
+const roboto = RobotoFlex({ subsets: ['latin'], variable: '--font-roboto' })
 
 export const metadata = {
   title: 'Movieshelf',
@@ -21,7 +19,8 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR">
-      <body className={`${fjalla.variable} ${roboto.variable} font-sans`}>
+      <body className={`${teko.variable} ${roboto.variable} font-sans`}>
+        <Header />
         {children}
       </body>
     </html>

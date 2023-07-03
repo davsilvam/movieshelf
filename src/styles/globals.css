@@ -2,7 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --swiper-theme-color: #f5f6f8 !important;
+    --swiper-pagination-bullet-inactive-color: #8fa0b9 !important;
+    --swiper-pagination-bullet-opacity: 100% !important;
+    --swiper-pagination-bullet-inactive-opacity: 60% !important;
+}
+
 body {
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+}
+
+.swiper-horizontal > .swiper-pagination-bullets.swiper-pagination-bullets-dynamic, .swiper-pagination-horizontal.swiper-pagination-bullets.swiper-pagination-bullets-dynamic {
+    left: initial !important;
+    right: 40px !important;
+    transform: initial !important;
+    text-align: right !important;
+    width: 100% !important;
+}
+
+.swiper-pagination-bullet {
+    border-radius: 8px !important;
+    height: 3px !important;
+    left: initial !important;
+    transform: initial !important;
+    width: 84px !important;
 }
