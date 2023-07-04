@@ -1,3 +1,6 @@
+export * from './Banner'
+export * from './BannerCard'
 export * from './Header'
 export * from './Navigation'
 export * from './SearchBar'
+export * from './Tag'

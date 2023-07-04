@@ -1,6 +1,6 @@
+import { Tag } from 'components'
 import { Star } from 'lucide-react'
 import { Movie } from 'types/api'
-import { Tag } from './Tag'
 
 interface BannerCardProps {
   movie: Movie

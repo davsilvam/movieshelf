@@ -1,4 +1,4 @@
-import { Navigation, SearchBar } from './'
+import { Navigation, SearchBar } from 'components'
 
 export function Header() {
   return (
