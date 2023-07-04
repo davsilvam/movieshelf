@@ -1,6 +1,7 @@
 import { Header } from 'components'
 import { Roboto_Flex as RobotoFlex, Teko } from 'next/font/google'
 import { ReactNode } from 'react'
+import { QueryProvider } from 'services/QueryProvider'
 import 'styles/globals.css'
 
 const teko = Teko({
@@ -20,8 +21,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR">
       <body className={`${teko.variable} ${roboto.variable} font-sans`}>
-        <Header />
-        {children}
+        <QueryProvider>
+          <Header />
+          {children}
+        </QueryProvider>
       </body>
     </html>
   )
