@@ -13,6 +13,7 @@ module.exports = {
     extend: {
       boxShadow: {
         banner: '0px -180px 100px 0px rgba(12, 14, 20, 0.75) inset',
+        genreBanner: '-540px 0px 100px 0px rgba(12, 14, 20, 0.75) inset',
       },
       colors: {
         bunker: {
@@ -28,6 +29,7 @@ module.exports = {
           900: '#282d39',
           950: '#0c0e14',
         },
+        carnation: '#F25F4C',
         pizazz: '#ff8906',
       },
     },

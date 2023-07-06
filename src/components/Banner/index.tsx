@@ -1,6 +1,5 @@
 'use client'
 
-import { BannerCard } from 'components'
 import { useMovies } from 'hooks/useMovies'
 import 'swiper/css'
 import 'swiper/css/autoplay'
@@ -9,6 +8,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { BannerCard } from './BannerCard'
 
 export function Banner() {
   const { popularMovies } = useMovies()
@@ -19,7 +19,7 @@ export function Banner() {
   return (
     <Swiper
       autoplay={{ delay: 8000 }}
-      className="h-4/6 w-full"
+      className="h-[70vh] w-full"
       direction="horizontal"
       effect={'fade'}
       modules={[Autoplay, EffectFade, Pagination]}

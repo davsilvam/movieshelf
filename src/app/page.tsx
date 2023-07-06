@@ -1,9 +1,11 @@
-import { Banner } from 'components/Banner'
+import { Banner, CategoryCards, MovieCatalog } from 'components'
 
 export default function Home() {
   return (
-    <main className="h-screen bg-bunker-950">
+    <main className="bg-bunker-950">
       <Banner />
+      <CategoryCards />
+      <MovieCatalog />
     </main>
   )
 }
