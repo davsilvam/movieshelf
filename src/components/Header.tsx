@@ -1,4 +1,5 @@
 import { Navigation, SearchBar } from 'components'
+import { Clapperboard } from 'lucide-react'
 
 export function Header() {
   return (
@@ -8,7 +9,8 @@ export function Header() {
         width: 'calc(100% - 80px)',
       }}
     >
-      <strong className="w-60 font-alt text-3xl font-semibold text-bunker-50">
+      <strong className="flex w-60 items-center gap-2 font-alt text-3xl font-semibold text-bunker-50">
+        <Clapperboard className="mb-1 h-6 w-6" />
         Movieshelf
       </strong>
 
