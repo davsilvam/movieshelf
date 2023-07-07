@@ -8,7 +8,7 @@ interface MovieBannerProps {
 export function MovieBanner({ movie }: MovieBannerProps) {
   return (
     <div
-      className="flex h-[400px] w-full flex-col items-end justify-between bg-cover bg-top p-10 shadow-genreBanner"
+      className="flex h-[400px] w-full flex-col items-end justify-between rounded-xl bg-cover bg-top p-10 shadow-genreBanner"
       style={{
         backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
       }}

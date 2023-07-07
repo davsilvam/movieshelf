@@ -19,7 +19,7 @@ export function Banner() {
   return (
     <Swiper
       autoplay={{ delay: 8000 }}
-      className="h-[70vh] w-full"
+      className="h-[80vh] w-full"
       direction="horizontal"
       effect={'fade'}
       modules={[Autoplay, EffectFade, Pagination]}
