@@ -1,4 +1,7 @@
 export * from './Banner'
+export * from './Button'
 export * from './CategoryCards'
+export * from './DetailsBanner'
 export * from './Header'
 export * from './Movie/MovieCatalog'
+export * from './ReviewCard'

@@ -1,13 +1,16 @@
 import { Header } from 'components'
-import { Roboto_Flex as RobotoFlex, Teko } from 'next/font/google'
+import {
+  Fjalla_One as FjallaOne,
+  Roboto_Flex as RobotoFlex,
+} from 'next/font/google'
 import { ReactNode } from 'react'
 import { QueryProvider } from 'services/QueryProvider'
 import 'styles/globals.css'
 
-const teko = Teko({
-  weight: ['500', '600', '700'],
+const fjallaOne = FjallaOne({
+  weight: ['400'],
   subsets: ['latin'],
-  variable: '--font-teko',
+  variable: '--font-fjalla',
 })
 const roboto = RobotoFlex({ subsets: ['latin'], variable: '--font-roboto' })
 
@@ -20,9 +23,9 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR">
-      <body className={`${teko.variable} ${roboto.variable} font-sans`}>
+      <body className={`${fjallaOne.variable} ${roboto.variable} font-sans`}>
         <QueryProvider>
-          <Header />
+          {/* <Header /> */}
           {children}
         </QueryProvider>
       </body>

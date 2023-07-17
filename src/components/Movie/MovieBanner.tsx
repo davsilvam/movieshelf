@@ -1,30 +1,54 @@
-import { ChevronRight, Star } from 'lucide-react'
+import { LinkButton } from 'components'
+import { ChevronRight } from 'lucide-react'
+import { Fragment } from 'react'
 import { Movie } from 'types/api'
+import { cn } from 'utils/cn'
+import { movieGenres } from 'utils/movie-genres'
 
 interface MovieBannerProps {
   movie: Movie
 }
 
 export function MovieBanner({ movie }: MovieBannerProps) {
+  const movieBackdrop = `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`
+
   return (
     <div
-      className="flex h-[400px] w-full flex-col items-end justify-between rounded-xl bg-cover bg-top p-10 shadow-genreBanner"
+      className={cn(
+        'flex flex-col items-end justify-between',
+        'h-[400px] w-full rounded-xl p-10',
+        'bg-cover bg-top shadow-genreBanner',
+      )}
       style={{
-        backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
+        backgroundImage: movieBackdrop,
       }}
     >
-      <strong className="w-2/5 text-right font-alt text-6xl uppercase text-bunker-50">
-        {movie.title}
-      </strong>
+      <div className="flex flex-col items-end gap-2">
+        <div className="flex items-center gap-2">
+          {movie.genre_ids.map((genreId) => (
+            <Fragment key={genreId}>
+              {movie.genre_ids.indexOf(genreId) > 0 && (
+                <div className="h-4 w-[1px] bg-oslo" />
+              )}
 
-      <div className="mt-2 flex items-center gap-5 font-alt text-4xl font-medium text-bunker-50">
-        <Star className="mb-1.5 h-8 w-8 fill-pizazz text-pizazz" />
-        {movie.vote_average}
+              <p className="font-alt uppercase text-white">
+                {movieGenres[genreId]}
+              </p>
+            </Fragment>
+          ))}
+        </div>
+
+        <p
+          className="max-w-lg text-right font-alt text-5xl uppercase text-white"
+          style={{ lineHeight: '64px' }}
+        >
+          {movie.title}
+        </p>
       </div>
 
-      <button className="flex items-center gap-1 rounded-lg bg-bunker-50 px-8 py-3 font-semibold text-bunker-950">
-        Sobre o filme <ChevronRight className="h-4 w-4" />
-      </button>
+      <LinkButton href={`/movie/${movie.id}`} icon={ChevronRight}>
+        Detalhes
+      </LinkButton>
     </div>
   )
 }

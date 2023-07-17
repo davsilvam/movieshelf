@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-    --swiper-theme-color: #f5f6f8 !important;
-    --swiper-pagination-bullet-inactive-color: #8fa0b9 !important;
+    --swiper-theme-color: #ffffff !important;
+    --swiper-pagination-bullet-inactive-color: #8C8D8F !important;
     --swiper-pagination-bullet-opacity: 100% !important;
     --swiper-pagination-bullet-inactive-opacity: 60% !important;
 }
@@ -15,11 +15,10 @@ body {
 }
 
 .swiper-horizontal > .swiper-pagination-bullets.swiper-pagination-bullets-dynamic, .swiper-pagination-horizontal.swiper-pagination-bullets.swiper-pagination-bullets-dynamic {
-    left: initial !important;
-    right: 40px !important;
-    transform: initial !important;
-    text-align: right !important;
-    width: 100% !important;
+    left: 50% !important;
+    right: 50% !important;
+    text-align: center !important;
+    transform: translateX(-50%) !important;
 }
 
 .swiper-pagination-bullet {

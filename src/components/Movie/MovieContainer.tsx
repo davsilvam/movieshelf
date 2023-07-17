@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { ElementType } from 'react'
 import { Movie } from 'types/api'
 import { MovieBanner } from './MovieBanner'
@@ -18,7 +19,7 @@ export function MovieContainer({
 }: MovieContainerProps) {
   return (
     <section className="flex w-full flex-col gap-6">
-      <header className="text-bunker-50">
+      <header className="text-white">
         <div className="flex items-center gap-2">
           <Icon className="h-6 w-6" />
           <p className="text-2xl font-semibold">{title}</p>
@@ -37,7 +38,9 @@ export function MovieContainer({
             return movies.indexOf(movie) < 10
           })
           .map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
+            <Link href={`movie/${movie.id}`} key={movie.id}>
+              <MovieCard movie={movie} />
+            </Link>
           ))}
       </div>
     </section>

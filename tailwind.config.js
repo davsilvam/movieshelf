@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     fontFamily: {
       sans: ['var(--font-roboto), sans-serif'],
-      alt: ['var(--font-teko), sans-serif'],
+      alt: ['var(--font-fjalla), sans-serif'],
     },
     extend: {
       boxShadow: {
@@ -29,8 +29,11 @@ module.exports = {
           900: '#282d39',
           950: '#0c0e14',
         },
-        carnation: '#F25F4C',
-        pizazz: '#ff8906',
+        carnation: '#D84339',
+        pizazz: '#FCA311',
+        woodsmoke: '#111214',
+        shark: '#1A1B1F',
+        oslo: '#8C8D8F',
       },
     },
   },
