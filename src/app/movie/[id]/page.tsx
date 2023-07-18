@@ -84,7 +84,9 @@ export default function Movie() {
 
         <div className="grid w-full grid-cols-5 gap-12">
           {mainSimilar?.map((movie) => (
-            <MovieCard movie={movie} key={movie.id} />
+            <Link href={`movie/${movie.id}`} key={movie.id}>
+              <MovieCard movie={movie} key={movie.id} />
+            </Link>
           ))}
         </div>
       </section>

@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { Fragment } from 'react'
 import { Movie } from 'types/api'
 import { movieGenres } from 'utils/movie-genres'
 
@@ -17,26 +18,25 @@ export function MovieCard({ movie }: MovieCardProps) {
         width={220}
       />
 
-      <header className="mb-2 mt-3 flex items-center justify-between gap-2">
-        <div className="flex items-center gap-1">
-          {movie.genre_ids
-            .filter((genre) => movie.genre_ids.indexOf(genre) < 3)
-            .map((genreId) => (
-              <p
-                className="rounded bg-carnation px-1 py-0.5 text-[10px] font-semibold text-woodsmoke"
-                key={genreId}
-              >
-                {movieGenres[genreId]}
-              </p>
+      <header className="mb-1 mt-3 flex items-center justify-between gap-2 text-oslo">
+        <div className="flex items-center">
+          <div className="flex items-center gap-2">
+            {movie.genre_ids.slice(0, 3).map((genreId) => (
+              <Fragment key={genreId}>
+                {movie.genre_ids.indexOf(genreId) > 0 && (
+                  <div className="h-2 w-[1px] bg-oslo" />
+                )}
+
+                <p className="text-xs text-white/70">{movieGenres[genreId]}</p>
+              </Fragment>
             ))}
+          </div>
         </div>
 
-        <p className="text-xs font-medium text-carnation">
-          {movie.release_date.slice(0, -6)}
-        </p>
+        <p className="text-xs font-medium">{movie.release_date.slice(0, -6)}</p>
       </header>
 
-      <p className="overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold text-white">
+      <p className="overflow-hidden text-ellipsis whitespace-nowrap font-semibold text-white">
         {movie.title}
       </p>
     </div>
