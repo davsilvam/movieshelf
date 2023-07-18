@@ -17,12 +17,12 @@ export default function Movie() {
       <section className="flex w-full flex-col gap-5">
         <h2 className="pt-4 font-alt text-xl text-white">Elenco</h2>
 
-        <div className="flex w-full items-center justify-between">
+        <div className="grid grid-cols-5 gap-5">
           {mainCast?.map((actor) => (
             <div className="flex items-center gap-4" key={actor.id}>
               <Image
                 alt={`${actor.name} profile picture.`}
-                src={`https://image.tmdb.org/t/p/w185${actor.profile_path}`}
+                src={`https://image.tmdb.org/t/p/w92${actor.profile_path}`}
                 className="rounded-lg"
                 height={96}
                 width={64}
@@ -52,7 +52,7 @@ export default function Movie() {
             <div className="flex items-center gap-4" key={backdrop + 'w'}>
               <Image
                 alt={`${movie?.title} backdrop.`}
-                src={`https://image.tmdb.org/t/p/original${backdrop.file_path}`}
+                src={`https://image.tmdb.org/t/p/w780${backdrop.file_path}`}
                 className="rounded-lg"
                 height={225}
                 width={400}
@@ -63,7 +63,7 @@ export default function Movie() {
 
         <Link
           className="flex items-center gap-3 self-end p-2 font-medium text-white"
-          href={`/movie/${id}/galery`}
+          href={`/movie/${id}/gallery`}
         >
           Ver galeria completo <ArrowRight className="h-4 w-4" />
         </Link>
