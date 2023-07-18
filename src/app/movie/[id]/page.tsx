@@ -63,7 +63,7 @@ export default function Movie() {
 
         <Link
           className="flex items-center gap-3 self-end p-2 font-medium text-white"
-          href={`/movie/${id}/credits`}
+          href={`/movie/${id}/galery`}
         >
           Ver galeria completo <ArrowRight className="h-4 w-4" />
         </Link>

@@ -5,11 +5,8 @@ import { fetchWrapper } from 'functions/fetch'
 import { Movie } from 'types/api'
 
 export function useMovies() {
-  const { data: nowPlayingMovies } = useQuery(
-    ['nowPlayingMovies'],
-    getNowPlayingMovies,
-  )
-  const { data: popularMovies } = useQuery(['popularMovies'], getPopularMovies)
+  const nowPlayingMovies = useQuery(['nowPlayingMovies'], getNowPlayingMovies)
+  const popularMovies = useQuery(['popularMovies'], getPopularMovies)
 
   async function getNowPlayingMovies() {
     const data = await fetchWrapper<{ results: Movie[] }>(

@@ -1,4 +1,3 @@
-import { Header } from 'components'
 import {
   Fjalla_One as FjallaOne,
   Roboto_Flex as RobotoFlex,
@@ -24,10 +23,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR">
       <body className={`${fjallaOne.variable} ${roboto.variable} font-sans`}>
-        <QueryProvider>
-          {/* <Header /> */}
-          {children}
-        </QueryProvider>
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   )

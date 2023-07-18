@@ -1,11 +1,10 @@
-import { Banner, CategoryCards, LinkButton, MovieCatalog } from 'components'
+import { Banner, LinkButton, MovieCatalog } from 'components'
 import { ArrowUpRight } from 'lucide-react'
 
 export default function Home() {
   return (
     <main className="bg-woodsmoke">
       <Banner />
-      <CategoryCards />
       <MovieCatalog />
 
       <div className="flex h-screen w-full flex-col items-center justify-center gap-10">

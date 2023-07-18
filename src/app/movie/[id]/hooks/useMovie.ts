@@ -1,13 +1,36 @@
 import { useQuery } from '@tanstack/react-query'
 import { fetchWrapper } from 'functions/fetch'
+import { queryClient } from 'services/QueryProvider'
 import { Credits, Images, Movie, QueryMovie, Review } from 'types/api'
 
 export function useMovie(movieId: string) {
-  const { data: movie } = useQuery(['queryMovie'], getMovie)
-  const { data: credits } = useQuery(['queryMovieCredit'], getMovieCredits)
-  const { data: images } = useQuery(['queryMovieImages'], getMovieImages)
-  const { data: reviews } = useQuery(['queryMovieReviews'], getMovieReviews)
-  const { data: similar } = useQuery(['queryMovieSimilar'], getMovieSimilar)
+  queryClient.invalidateQueries({
+    queryKey: [
+      'queryMovie',
+      'queryMovieCredit',
+      'queryMovieImages',
+      'queryMovieReviews',
+      'queryMovieSimilar',
+    ],
+  })
+
+  const { data: movie } = useQuery(['queryMovie', movieId], getMovie)
+  const { data: credits } = useQuery(
+    ['queryMovieCredit', movieId],
+    getMovieCredits,
+  )
+  const { data: images } = useQuery(
+    ['queryMovieImages', movieId],
+    getMovieImages,
+  )
+  const { data: reviews } = useQuery(
+    ['queryMovieReviews', movieId],
+    getMovieReviews,
+  )
+  const { data: similar } = useQuery(
+    ['queryMovieSimilar', movieId],
+    getMovieSimilar,
+  )
 
   const mainCast = credits?.cast.filter(
     (actor) => credits.cast.indexOf(actor) < 5,
