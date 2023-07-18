@@ -1,33 +1,37 @@
-import { Film } from 'lucide-react'
+import { ChevronDown, Film, Search } from 'lucide-react'
 import Link from 'next/link'
 import { cn } from 'utils/cn'
 import { Navigation } from './Navigation'
 import { Profile } from './Profile'
-import { Search } from './Search'
 
 export function Header() {
   return (
     <header
       className={cn(
         'fixed top-0 z-10',
-        'flex items-center justify-between',
-        'w-full border border-woodsmoke/20 px-10 py-6',
-        'bg-woodsmoke/50 backdrop-blur-[3px]',
-        'transition-colors duration-300 hover:bg-woodsmoke',
+        'flex flex-col items-center gap-5',
+        'w-full -translate-y-16 px-10 py-6',
+        'group transition-all duration-300 hover:translate-y-0 hover:bg-woodsmoke',
       )}
     >
-      <div className="flex items-center gap-10">
-        <Link href="/">
-          <Film className="h-6 w-6 text-white" />
-        </Link>
+      <div className="flex w-full items-center justify-between">
+        <div className="flex items-center gap-10">
+          <Link href="/">
+            <Film className="h-6 w-6 text-white" />
+          </Link>
 
-        <Navigation />
+          <Navigation />
+        </div>
+
+        <div className="flex items-center gap-6 text-white">
+          <Search />
+
+          <Profile />
+        </div>
       </div>
 
-      <div className="flex items-center gap-6">
-        <Search />
-
-        <Profile />
+      <div className="flex items-center justify-center text-white">
+        <ChevronDown className="h-7 w-7 transition-all duration-300 group-hover:rotate-180" />
       </div>
     </header>
   )

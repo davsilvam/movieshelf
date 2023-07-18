@@ -1,9 +1,10 @@
-import { Banner, LinkButton, MovieCatalog } from 'components'
+import { Banner, Header, LinkButton, MovieCatalog } from 'components'
 import { ArrowUpRight } from 'lucide-react'
 
 export default function Home() {
   return (
     <main className="bg-woodsmoke">
+      <Header />
       <Banner />
       <MovieCatalog />
 
