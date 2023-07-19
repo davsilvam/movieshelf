@@ -11,14 +11,14 @@ interface BannerCardProps {
 export function BannerCard({ movie }: BannerCardProps) {
   return (
     <div
-      className={`relative -z-10 flex h-full flex-col justify-between bg-opacity-75 bg-cover bg-top px-10 py-8 pt-32`}
+      className={`relative flex h-full flex-col justify-between bg-opacity-75 bg-cover bg-top px-10 py-8 pt-32`}
       style={{
         backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
         boxShadow:
           '0px -80px 100px 0px #111214 inset, 260px -80px 100px 0px rgba(17, 18, 20, 0.75) inset',
       }}
     >
-      <div className="absolute top-0 z-0 h-full w-full bg-woodsmoke/20" />
+      <div className="absolute left-0 top-0 h-full w-full bg-woodsmoke/20" />
 
       <div className="z-10 flex flex-col gap-5">
         <div className="flex items-center gap-2">

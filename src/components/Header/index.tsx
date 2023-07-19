@@ -1,16 +1,17 @@
-import { ChevronDown, Film, Search } from 'lucide-react'
+import { ChevronDown, Film } from 'lucide-react'
 import Link from 'next/link'
 import { cn } from 'utils/cn'
 import { Navigation } from './Navigation'
 import { Profile } from './Profile'
+import { Search } from './Search'
 
 export function Header() {
   return (
     <header
       className={cn(
-        'fixed top-0 z-10',
+        'fixed top-0 z-20',
         'flex flex-col items-center gap-5',
-        'w-full -translate-y-16 px-10 py-6',
+        'w-full -translate-y-20 px-10 py-6',
         'group transition-all duration-300 hover:translate-y-0 hover:bg-woodsmoke',
       )}
     >

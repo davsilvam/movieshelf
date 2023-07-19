@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
-import { useMovie } from './hooks/useMovie'
+import { useMovie } from 'hooks/useMovie'
 
 export default function Movie() {
   const { id } = useParams()
@@ -84,7 +84,7 @@ export default function Movie() {
 
         <div className="grid w-full grid-cols-5 gap-12">
           {mainSimilar?.map((movie) => (
-            <Link href={`movie/${movie.id}`} key={movie.id}>
+            <Link href={`/movie/${movie.id}`} key={movie.id}>
               <MovieCard movie={movie} key={movie.id} />
             </Link>
           ))}

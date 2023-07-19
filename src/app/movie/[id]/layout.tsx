@@ -5,7 +5,7 @@ import { ArrowLeft } from 'lucide-react'
 import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
 import { Fragment, ReactNode } from 'react'
-import { useMovie } from './hooks/useMovie'
+import { useMovie } from 'hooks/useMovie'
 
 export default function MovieLayout({ children }: { children: ReactNode }) {
   const { id } = useParams()
