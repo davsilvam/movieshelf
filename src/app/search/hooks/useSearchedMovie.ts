@@ -3,7 +3,7 @@ import { fetchWrapper } from 'functions/fetch'
 import { Movie } from 'types/api'
 
 export function useSearchedMovie(movieTitle: string) {
-  const { data: searchedMovies } = useQuery(
+  const searchedMovies = useQuery(
     ['searchedMovie', movieTitle],
     getMoviesByTitle,
   )

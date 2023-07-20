@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { cn } from 'utils/cn'
 import { Navigation } from './Navigation'
 import { Profile } from './Profile'
-import { Search } from './Search'
+import { SearchBar } from './SearchBar'
 
 export function Header() {
   return (
@@ -25,7 +25,7 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-6 text-white">
-          <Search />
+          <SearchBar />
 
           <Profile />
         </div>

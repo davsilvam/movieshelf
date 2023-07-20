@@ -30,7 +30,7 @@ export function CategoryCards() {
         <Link
           className="flex h-52 w-full items-center justify-center rounded-md bg-cover bg-center"
           style={{
-            backgroundImage: `url(https://image.tmdb.org/t/p/original${nowPlayingMovies[0].backdrop_path})`,
+            backgroundImage: `url(https://image.tmdb.org/t/p/w342${nowPlayingMovies[0].backdrop_path})`,
           }}
           href="/movies/hottest"
         >

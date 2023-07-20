@@ -37,7 +37,7 @@ export default function Popular() {
               Populares
             </h1>
 
-            <div className="grid grid-cols-5 gap-10">
+            <div className="grid grid-cols-5 gap-12">
               {popularMovies?.map((movie) => (
                 <Link href={`/movie/${movie.id}`} key={movie.id}>
                   <MovieCard movie={movie} />

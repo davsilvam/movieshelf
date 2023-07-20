@@ -36,7 +36,7 @@ export default function Hottest() {
             <h1 className="font-alt text-3xl uppercase text-white">
               Novidades
             </h1>
-            <div className="grid grid-cols-5 gap-10">
+            <div className="grid grid-cols-5 gap-12">
               {nowPlayingMovies?.map((movie) => (
                 <Link href={`/movie/${movie.id}`} key={movie.id}>
                   <MovieCard movie={movie} />

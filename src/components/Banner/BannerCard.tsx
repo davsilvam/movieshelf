@@ -9,11 +9,13 @@ interface BannerCardProps {
 }
 
 export function BannerCard({ movie }: BannerCardProps) {
+  const movieBackdrop = `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`
+
   return (
     <div
       className={`relative flex h-full flex-col justify-between bg-opacity-75 bg-cover bg-top px-10 py-8 pt-32`}
       style={{
-        backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
+        backgroundImage: movieBackdrop,
         boxShadow:
           '0px -80px 100px 0px #111214 inset, 260px -80px 100px 0px rgba(17, 18, 20, 0.75) inset',
       }}
@@ -44,8 +46,10 @@ export function BannerCard({ movie }: BannerCardProps) {
 
         <div className="font-alt text-white">
           <p className="text-lg">
-            <span className="text-4xl text-pizazz">{movie.vote_average} </span>/
-            10
+            <span className="text-4xl text-pizazz">
+              {movie.vote_average.toFixed(1)}{' '}
+            </span>
+            / 10
           </p>
           <p className="text-sm">Avaliação</p>
         </div>

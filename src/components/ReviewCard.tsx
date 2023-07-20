@@ -1,4 +1,4 @@
-import { Calendar } from 'lucide-react'
+import { Calendar, User } from 'lucide-react'
 import Image from 'next/image'
 import { Review } from 'types/api'
 
@@ -25,7 +25,7 @@ export function ReviewCard({ review }: ReviewCardProps) {
     <div className="flex w-full flex-col gap-4 bg-shark p-6 text-white">
       <header className="flex items-center justify-between">
         <div className="flex items-center gap-5">
-          {review.author_details.avatar_path && (
+          {review.author_details.avatar_path ? (
             <Image
               alt={`${review.author} profile pic.`}
               src={avatarPath}
@@ -33,6 +33,10 @@ export function ReviewCard({ review }: ReviewCardProps) {
               height={56}
               width={56}
             />
+          ) : (
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-oslo">
+              <User className="h-6 w-6 text-woodsmoke" />
+            </div>
           )}
 
           <div className="flex flex-col gap-1">

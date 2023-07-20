@@ -3,6 +3,7 @@
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { ChevronDown } from 'lucide-react'
 import Link from 'next/link'
+import { cn } from 'utils/cn'
 import { movieGenres, movieGenresIds } from 'utils/movie-genres'
 
 export function Navigation() {
@@ -17,10 +18,14 @@ export function Navigation() {
         </NavigationMenu.Item>
 
         <NavigationMenu.Item>
-          <NavigationMenu.Trigger className="flex items-center gap-3 rounded-md px-3 py-2 hover:bg-shark">
+          <NavigationMenu.Trigger className="group flex items-center gap-3 rounded-md px-3 py-2 hover:bg-shark">
             Categorias
             <ChevronDown
-              className="relative top-[1px] h-4 w-4 transition-transform duration-[250] ease-in group-data-[state=open]:-rotate-180"
+              className={cn(
+                'relative top-[1px]',
+                'h-4 w-4',
+                'transition-transform duration-[250] ease-in group-data-[state=open]:-rotate-180',
+              )}
               aria-hidden
               strokeWidth={3}
             />
@@ -59,10 +64,14 @@ export function Navigation() {
         </NavigationMenu.Item>
 
         <NavigationMenu.Item>
-          <NavigationMenu.Trigger className="flex items-center gap-3 rounded-md px-3 py-2 hover:bg-shark">
+          <NavigationMenu.Trigger className="group flex items-center gap-3 rounded-md px-3 py-2 hover:bg-shark">
             Gêneros
             <ChevronDown
-              className="relative top-[1px] h-4 w-4 transition-transform duration-[250] ease-in group-data-[state=open]:-rotate-180"
+              className={cn(
+                'relative top-[1px]',
+                'h-4 w-4',
+                'transition-transform duration-[250] ease-in group-data-[state=open]:-rotate-180',
+              )}
               aria-hidden
               strokeWidth={3}
             />
