@@ -2,7 +2,8 @@
 
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
-import { useMovie } from 'hooks/useMovie'
+
+import { useMovie } from 'hooks'
 
 export default function MovieGallery() {
   const { id } = useParams()

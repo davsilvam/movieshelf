@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchWrapper } from 'functions/fetch'
-import { Movie } from 'types/api'
+
+import { fetchWrapper } from 'functions'
+
+import { Movie } from 'types'
 
 export function useSearchedMovie(movieTitle: string) {
   const searchedMovies = useQuery(
@@ -11,12 +13,6 @@ export function useSearchedMovie(movieTitle: string) {
   async function getMoviesByTitle() {
     const data = await fetchWrapper<{ results: Movie[] }>(
       `search/movie?query=${movieTitle}&language=pt-BR`,
-      {
-        headers: {
-          accept: 'application/json',
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`,
-        },
-      },
     )
 
     return data

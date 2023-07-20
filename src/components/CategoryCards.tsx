@@ -1,7 +1,8 @@
 'use client'
 
-import { useMovies } from 'hooks/useMovies'
 import Link from 'next/link'
+
+import { useMovies } from 'hooks'
 
 export function CategoryCards() {
   const {

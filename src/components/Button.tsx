@@ -5,7 +5,8 @@ import {
   ElementType,
   ReactNode,
 } from 'react'
-import { cn } from 'utils/cn'
+
+import { cn } from 'utils'
 
 const defaultStyles = 'transition rounded'
 

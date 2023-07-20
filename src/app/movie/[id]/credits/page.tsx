@@ -1,9 +1,11 @@
 'use client'
 
-import { ImageOff } from 'lucide-react'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
-import { useMovie } from 'hooks/useMovie'
+
+import { ImageOff } from 'lucide-react'
+
+import { useMovie } from 'hooks'
 
 export default function MovieCredits() {
   const { id } = useParams()

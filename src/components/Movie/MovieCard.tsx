@@ -1,8 +1,11 @@
-import { ImageOff } from 'lucide-react'
 import Image from 'next/image'
 import { Fragment } from 'react'
-import { Movie } from 'types/api'
-import { movieGenres } from 'utils/movie-genres'
+
+import { ImageOff } from 'lucide-react'
+
+import { movieGenres } from 'utils'
+
+import { Movie } from 'types'
 
 interface MovieCardProps {
   movie: Movie

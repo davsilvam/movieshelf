@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import { ElementType } from 'react'
-import { Movie } from 'types/api'
-import { MovieBanner } from './MovieBanner'
-import { MovieCard } from './MovieCard'
+
+import { Movie } from 'types'
+
+import { MovieBanner, MovieCard } from './'
 
 interface MovieContainerProps {
   icon: ElementType

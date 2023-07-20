@@ -1,11 +1,14 @@
 'use client'
 
-import { Button, DetailsBanner } from 'components'
-import { ArrowLeft } from 'lucide-react'
 import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
 import { Fragment, ReactNode } from 'react'
-import { useMovie } from 'hooks/useMovie'
+
+import { ArrowLeft } from 'lucide-react'
+
+import { Button, DetailsBanner } from 'components'
+
+import { useMovie } from 'hooks'
 
 export default function Layout({ children }: { children: ReactNode }) {
   const { id } = useParams()

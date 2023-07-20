@@ -1,5 +1,6 @@
-import { QueryMovie } from 'types/api'
-import { cn } from 'utils/cn'
+import { cn } from 'utils'
+
+import { QueryMovie } from 'types'
 
 interface DetailsBannerProps {
   movie: QueryMovie

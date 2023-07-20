@@ -1,6 +1,8 @@
-import { Calendar, User } from 'lucide-react'
 import Image from 'next/image'
-import { Review } from 'types/api'
+
+import { Calendar, User } from 'lucide-react'
+
+import { Review } from 'types'
 
 interface ReviewCardProps {
   review: Review

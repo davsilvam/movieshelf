@@ -1,8 +1,12 @@
-import { LinkButton } from 'components/Button'
-import { ChevronRight } from 'lucide-react'
 import { Fragment } from 'react'
-import { Movie } from 'types/api'
-import { movieGenres } from 'utils/movie-genres'
+
+import { ChevronRight } from 'lucide-react'
+
+import { LinkButton } from 'components'
+
+import { movieGenres } from 'utils'
+
+import { Movie } from 'types'
 
 interface BannerCardProps {
   movie: Movie

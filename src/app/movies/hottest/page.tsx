@@ -1,13 +1,16 @@
 'use client'
 
-import { Header } from 'components'
-import { BannerCard } from 'components/Banner/BannerCard'
-import { BannerSkeleton } from 'components/Banner/BannerSkeleton'
-import { MovieCard } from 'components/Movie/MovieCard'
-import { MovieContainerSkeleton } from 'components/Movie/MovieContainerSkeleton'
-import { useMovies } from 'hooks/useMovies'
 import Link from 'next/link'
 import { Fragment } from 'react'
+
+import {
+  BannerCard,
+  BannerSkeleton,
+  MovieCard,
+  MovieContainerSkeleton,
+} from 'components'
+
+import { useMovies } from 'hooks'
 
 export default function Hottest() {
   const {
@@ -16,8 +19,6 @@ export default function Hottest() {
 
   return (
     <main>
-      <Header />
-
       {isLoading ? (
         <BannerSkeleton />
       ) : (

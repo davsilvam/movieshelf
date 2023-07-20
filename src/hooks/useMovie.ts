@@ -1,7 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchWrapper } from 'functions/fetch'
-import { queryClient } from 'services/QueryProvider'
-import { Credits, Images, Movie, QueryMovie, Review } from 'types/api'
+import { queryClient } from 'services'
+
+import { fetchWrapper } from 'functions'
+
+import { Credits, Images, Movie, QueryMovie, Review } from 'types'
 
 export function useMovie(movieId: string) {
   queryClient.invalidateQueries({
@@ -45,12 +47,6 @@ export function useMovie(movieId: string) {
   async function getMovie() {
     const data = await fetchWrapper<QueryMovie>(
       `movie/${movieId}?language=pt-BR`,
-      {
-        headers: {
-          accept: 'application/json',
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`,
-        },
-      },
     )
 
     return data
@@ -59,37 +55,20 @@ export function useMovie(movieId: string) {
   async function getMovieCredits() {
     const data = await fetchWrapper<Credits>(
       `movie/${movieId}/credits?language=pt-BR`,
-      {
-        headers: {
-          accept: 'application/json',
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`,
-        },
-      },
     )
 
     return data
   }
 
   async function getMovieImages() {
-    const data = await fetchWrapper<Images>(`movie/${movieId}/images`, {
-      headers: {
-        accept: 'application/json',
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`,
-      },
-    })
+    const data = await fetchWrapper<Images>(`movie/${movieId}/images`)
 
     return data
   }
 
   async function getMovieReviews() {
     const data = await fetchWrapper<{ results: Review[] }>(
-      `movie/${movieId}/reviews`,
-      {
-        headers: {
-          accept: 'application/json',
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`,
-        },
-      },
+      `movie/${movieId}/reviews?language=pt-BR`,
     )
 
     return data.results
@@ -98,12 +77,6 @@ export function useMovie(movieId: string) {
   async function getMovieSimilar() {
     const data = await fetchWrapper<{ results: Movie[] }>(
       `movie/${movieId}/similar`,
-      {
-        headers: {
-          accept: 'application/json',
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`,
-        },
-      },
     )
 
     return data.results

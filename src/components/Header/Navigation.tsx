@@ -1,10 +1,11 @@
 'use client'
 
+import Link from 'next/link'
+
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { ChevronDown } from 'lucide-react'
-import Link from 'next/link'
-import { cn } from 'utils/cn'
-import { movieGenres, movieGenresIds } from 'utils/movie-genres'
+
+import { cn, movieGenres, movieGenresIds } from 'utils'
 
 export function Navigation() {
   return (

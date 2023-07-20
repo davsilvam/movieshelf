@@ -1,5 +1,6 @@
 import { useQueries } from '@tanstack/react-query'
-import { useMovies } from 'hooks/useMovies'
+
+import { useMovies } from 'hooks'
 
 export function useMovieCatalog(genreIds: number[]) {
   const { getMoviesWithGenre } = useMovies()

@@ -1,13 +1,17 @@
 'use client'
 
-import { Header } from 'components'
-import { BannerCard } from 'components/Banner/BannerCard'
-import { BannerSkeleton } from 'components/Banner/BannerSkeleton'
-import { MovieCard } from 'components/Movie/MovieCard'
-import { MovieContainerSkeleton } from 'components/Movie/MovieContainerSkeleton'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { Fragment } from 'react'
+
+import {
+  BannerCard,
+  BannerSkeleton,
+  Header,
+  MovieCard,
+  MovieContainerSkeleton,
+} from 'components'
+
 import { useSearchedMovie } from './hooks/useSearchedMovie'
 
 export default function Search() {

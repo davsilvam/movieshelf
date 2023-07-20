@@ -1,12 +1,15 @@
 'use client'
 
-import { CategoryCards } from 'components/CategoryCards'
-import { useMovies } from 'hooks/useMovies'
-import { Flame, Heart, HeartCrack, Orbit, Sparkle } from 'lucide-react'
 import { Fragment } from 'react'
-import { MovieContainer } from './MovieContainer'
-import { MovieContainerSkeleton } from './MovieContainerSkeleton'
-import { useMovieCatalog } from './hooks/useMovieCatalog'
+
+import { Flame, Heart, HeartCrack, Orbit, Sparkle } from 'lucide-react'
+
+import { CategoryCards } from 'components'
+
+import { useMovieCatalog } from './hooks'
+import { useMovies } from 'hooks'
+
+import { MovieContainer, MovieContainerSkeleton } from './'
 
 export function MovieCatalog() {
   const {

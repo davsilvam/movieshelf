@@ -1,6 +1,9 @@
-import { ChevronDown, Film } from 'lucide-react'
 import Link from 'next/link'
-import { cn } from 'utils/cn'
+
+import { ChevronDown, Film } from 'lucide-react'
+
+import { cn } from 'utils'
+
 import { Navigation } from './Navigation'
 import { Profile } from './Profile'
 import { SearchBar } from './SearchBar'

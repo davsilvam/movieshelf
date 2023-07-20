@@ -1,12 +1,14 @@
 'use client'
 
-import { ReviewCard } from 'components'
-import { MovieCard } from 'components/Movie/MovieCard'
-import { useMovie } from 'hooks/useMovie'
-import { ArrowRight, ImageOff } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
+
+import { ArrowRight, ImageOff } from 'lucide-react'
+
+import { MovieCard, ReviewCard } from 'components'
+
+import { useMovie } from 'hooks'
 
 export default function MovieDetails() {
   const { id } = useParams()
