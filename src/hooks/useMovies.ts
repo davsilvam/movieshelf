@@ -7,6 +7,7 @@ import { Movie } from 'types/api'
 export function useMovies() {
   const nowPlayingMovies = useQuery(['nowPlayingMovies'], getNowPlayingMovies)
   const popularMovies = useQuery(['popularMovies'], getPopularMovies)
+  const topRatedMovies = useQuery(['topRatedMovies'], getTopRatedMovies)
 
   async function getNowPlayingMovies() {
     const data = await fetchWrapper<{ results: Movie[] }>(
@@ -36,6 +37,20 @@ export function useMovies() {
     return data.results
   }
 
+  async function getTopRatedMovies() {
+    const data = await fetchWrapper<{ results: Movie[] }>(
+      'movie/top_rated?language=pt-BR',
+      {
+        headers: {
+          accept: 'application/json',
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`,
+        },
+      },
+    )
+
+    return data.results
+  }
+
   async function getMoviesWithGenre(genreId: number) {
     const data = await fetchWrapper<{ results: Movie[] }>(
       `discover/movie?with_genres=${genreId}&language=pt-BR`,
@@ -53,6 +68,7 @@ export function useMovies() {
   return {
     nowPlayingMovies,
     popularMovies,
+    topRatedMovies,
     getMoviesWithGenre,
   }
 }

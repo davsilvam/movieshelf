@@ -46,7 +46,7 @@ export function Navigation() {
                 </li>
               </Link>
 
-              <Link href="/movies/loved">
+              <Link href="/movies/top_rated">
                 <li className="w-full rounded px-4 py-2 transition-colors hover:bg-oslo/20">
                   <strong>Melhor Avaliados</strong>
                   <p className="text-sm text-white/60">

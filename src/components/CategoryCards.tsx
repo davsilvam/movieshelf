@@ -1,27 +1,58 @@
+'use client'
+
+import { useMovies } from 'hooks/useMovies'
 import Link from 'next/link'
 
 export function CategoryCards() {
+  const {
+    nowPlayingMovies: { data: nowPlayingMovies },
+    popularMovies: { data: popularMovies },
+    topRatedMovies: { data: topRatedMovies },
+  } = useMovies()
+
   return (
     <section className="flex w-full items-center justify-between gap-20 font-alt text-4xl text-white">
-      <Link
-        className="flex h-52 w-full items-center justify-center rounded-md bg-[url(/popular_backdrop.png)] bg-cover bg-center"
-        href="/movies/popular"
-      >
-        Popular
-      </Link>
+      {popularMovies && (
+        <Link
+          className="flex h-52 w-full items-center justify-center rounded-md bg-cover bg-center"
+          style={{
+            backgroundImage: `url(https://image.tmdb.org/t/p/original${popularMovies[0].backdrop_path})`,
+          }}
+          href="/movies/popular"
+        >
+          <div className="flex h-full w-full items-center justify-center bg-woodsmoke/70 transition-colors hover:bg-woodsmoke/50">
+            Popular
+          </div>
+        </Link>
+      )}
 
-      <Link
-        className="flex h-52 w-full items-center justify-center rounded-md bg-[url(/hottest_backdrop.png)] bg-cover bg-center"
-        href="/movies/hottest"
-      >
-        Novidades
-      </Link>
-      <Link
-        className="flex h-52 w-full items-center justify-center rounded-md bg-[url(/loved_backdrop.png)] bg-cover bg-center"
-        href="/movies/loved"
-      >
-        Melhor Avaliados
-      </Link>
+      {nowPlayingMovies && (
+        <Link
+          className="flex h-52 w-full items-center justify-center rounded-md bg-cover bg-center"
+          style={{
+            backgroundImage: `url(https://image.tmdb.org/t/p/original${nowPlayingMovies[0].backdrop_path})`,
+          }}
+          href="/movies/hottest"
+        >
+          <div className="flex h-full w-full items-center justify-center bg-woodsmoke/70 transition-colors hover:bg-woodsmoke/50">
+            Novidades
+          </div>
+        </Link>
+      )}
+
+      {topRatedMovies && (
+        <Link
+          className="flex h-52 w-full items-center justify-center rounded-md bg-opacity-20 bg-cover bg-center"
+          style={{
+            backgroundImage: `url(https://image.tmdb.org/t/p/original${topRatedMovies[0].backdrop_path})`,
+          }}
+          href="/movies/top_rated"
+        >
+          <div className="flex h-full w-full items-center justify-center bg-woodsmoke/70 transition-colors hover:bg-woodsmoke/50">
+            Melhor Avaliados
+          </div>
+        </Link>
+      )}
     </section>
   )
 }

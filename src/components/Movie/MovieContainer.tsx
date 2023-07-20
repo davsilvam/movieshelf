@@ -28,7 +28,7 @@ export function MovieContainer({
 
       {hasBanner && <MovieBanner movie={movies[0]} />}
 
-      <div className="grid grid-cols-5 gap-12">
+      <div className="grid grid-cols-5 gap-10">
         {movies
           .filter((movie) => {
             if (hasBanner) {
