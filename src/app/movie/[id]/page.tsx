@@ -2,11 +2,11 @@
 
 import { ReviewCard } from 'components'
 import { MovieCard } from 'components/Movie/MovieCard'
-import { ArrowRight } from 'lucide-react'
+import { useMovie } from 'hooks/useMovie'
+import { ArrowRight, ImageOff } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
-import { useMovie } from 'hooks/useMovie'
 
 export default function Movie() {
   const { id } = useParams()
@@ -20,13 +20,19 @@ export default function Movie() {
         <div className="grid grid-cols-5 gap-5">
           {mainCast?.map((actor) => (
             <div className="flex items-center gap-4" key={actor.id}>
-              <Image
-                alt={`${actor.name} profile picture.`}
-                src={`https://image.tmdb.org/t/p/w92${actor.profile_path}`}
-                className="rounded-lg"
-                height={96}
-                width={64}
-              />
+              {actor.profile_path ? (
+                <Image
+                  alt={`${actor.name} profile picture.`}
+                  src={`https://image.tmdb.org/t/p/w92${actor.profile_path}`}
+                  className="rounded-lg"
+                  height={96}
+                  width={64}
+                />
+              ) : (
+                <div className="flex h-24 w-16 items-center justify-center rounded-lg bg-oslo">
+                  <ImageOff className="h-5 w-5 text-woodsmoke" />
+                </div>
+              )}
 
               <div className="flex flex-col items-start gap-0.5">
                 <p className="font-medium text-white">{actor.name}</p>
@@ -69,15 +75,17 @@ export default function Movie() {
         </Link>
       </section>
 
-      <section className="flex w-full flex-col gap-5">
-        <h2 className="pt-4 font-alt text-xl text-white">Resenhas</h2>
+      {reviews && reviews?.length > 0 && (
+        <section className="flex w-full flex-col gap-5">
+          <h2 className="pt-4 font-alt text-xl text-white">Resenhas</h2>
 
-        <div className="flex w-full flex-col items-center gap-5">
-          {reviews?.map((review) => (
-            <ReviewCard review={review} key={review.id} />
-          ))}
-        </div>
-      </section>
+          <div className="flex w-full flex-col items-center gap-5">
+            {reviews?.map((review) => (
+              <ReviewCard review={review} key={review.id} />
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="flex w-full flex-col gap-5">
         <h2 className="pt-4 font-alt text-xl text-white">Similar</h2>
