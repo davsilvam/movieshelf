@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useSearchedMovie } from './hooks/useSearchedMovie'
 
-export default function SearchedMovie() {
+export default function Search() {
   const title = useSearchParams().get('query')
   const { searchedMovies } = useSearchedMovie(title ?? '')
 

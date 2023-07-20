@@ -7,7 +7,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { Fragment, ReactNode } from 'react'
 import { useMovie } from 'hooks/useMovie'
 
-export default function MovieLayout({ children }: { children: ReactNode }) {
+export default function Layout({ children }: { children: ReactNode }) {
   const { id } = useParams()
   const { movie } = useMovie(id)
   const { back } = useRouter()

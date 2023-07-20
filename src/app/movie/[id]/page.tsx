@@ -8,7 +8,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 
-export default function Movie() {
+export default function MovieDetails() {
   const { id } = useParams()
   const { movie, mainCast, mainBackdrops, reviews, mainSimilar } = useMovie(id)
 

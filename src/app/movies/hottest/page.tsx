@@ -9,7 +9,7 @@ import { useMovies } from 'hooks/useMovies'
 import Link from 'next/link'
 import { Fragment } from 'react'
 
-export default function HottestMovies() {
+export default function Hottest() {
   const {
     nowPlayingMovies: { data: nowPlayingMovies, isLoading },
   } = useMovies()
