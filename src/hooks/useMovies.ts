@@ -46,7 +46,7 @@ export function useMovies() {
 
   async function getMoviesByGenre(genreId: number) {
     const { results } = await fetchWrapper<{ results: Movie[] }>(
-      `discover/movie?with_genres=${genreId}?language=pt-BR`,
+      `discover/movie?language=pt-BR&sort_by=popularity.desc&with_genres=${genreId}`,
     )
 
     return results
