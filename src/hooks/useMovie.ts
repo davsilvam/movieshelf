@@ -7,30 +7,24 @@ import { Credits, Images, Movie, QueryMovie, Review } from 'types'
 
 export function useMovie(movieId: string) {
   queryClient.invalidateQueries({
-    queryKey: [
-      'queryMovie',
-      'queryMovieCredit',
-      'queryMovieImages',
-      'queryMovieReviews',
-      'queryMovieSimilar',
-    ],
+    queryKey: ['details'],
   })
 
-  const { data: movie } = useQuery(['queryMovie', movieId], getMovie)
+  const { data: movie } = useQuery(['movie', 'details', movieId], getMovie)
   const { data: credits } = useQuery(
-    ['queryMovieCredit', movieId],
+    ['movie', 'details', 'credits', 'list', movieId],
     getMovieCredits,
   )
   const { data: images } = useQuery(
-    ['queryMovieImages', movieId],
+    ['movie', 'details', 'images', 'list', movieId],
     getMovieImages,
   )
   const { data: reviews } = useQuery(
-    ['queryMovieReviews', movieId],
+    ['movie', 'details', 'reviews', 'list', movieId],
     getMovieReviews,
   )
   const { data: similar } = useQuery(
-    ['queryMovieSimilar', movieId],
+    ['movie', 'details', 'similar', 'list', movieId],
     getMovieSimilar,
   )
 
@@ -67,19 +61,19 @@ export function useMovie(movieId: string) {
   }
 
   async function getMovieReviews() {
-    const data = await fetchWrapper<{ results: Review[] }>(
+    const { results } = await fetchWrapper<{ results: Review[] }>(
       `movie/${movieId}/reviews?language=pt-BR`,
     )
 
-    return data.results
+    return results
   }
 
   async function getMovieSimilar() {
-    const data = await fetchWrapper<{ results: Movie[] }>(
+    const { results } = await fetchWrapper<{ results: Movie[] }>(
       `movie/${movieId}/similar`,
     )
 
-    return data.results
+    return results
   }
 
   return {

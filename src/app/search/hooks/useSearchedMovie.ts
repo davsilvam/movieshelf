@@ -6,7 +6,7 @@ import { Movie } from 'types'
 
 export function useSearchedMovie(movieTitle: string) {
   const searchedMovies = useQuery(
-    ['searchedMovie', movieTitle],
+    ['movies', 'search', 'list', movieTitle],
     getMoviesByTitle,
   )
 

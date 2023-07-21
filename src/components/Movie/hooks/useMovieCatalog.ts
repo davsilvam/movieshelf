@@ -3,13 +3,13 @@ import { useQueries } from '@tanstack/react-query'
 import { useMovies } from 'hooks'
 
 export function useMovieCatalog(genreIds: number[]) {
-  const { getMoviesWithGenre } = useMovies()
+  const { getMoviesByGenre } = useMovies()
 
   const movieQueries = useQueries({
     queries: genreIds.map((genreId) => {
       return {
-        queryKey: ['genreMovies', genreId],
-        queryFn: () => getMoviesWithGenre(genreId),
+        queryKey: ['movies', 'genre', 'list', genreId],
+        queryFn: () => getMoviesByGenre(genreId),
       }
     }),
   }).map((query) => query.data)

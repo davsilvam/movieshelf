@@ -7,46 +7,55 @@ import { fetchWrapper } from 'functions'
 import { Movie } from 'types'
 
 export function useMovies() {
-  const nowPlayingMovies = useQuery(['nowPlayingMovies'], getNowPlayingMovies)
-  const popularMovies = useQuery(['popularMovies'], getPopularMovies)
-  const topRatedMovies = useQuery(['topRatedMovies'], getTopRatedMovies)
+  const nowPlayingMovies = useQuery(
+    ['movies', 'now-playing', 'list'],
+    getNowPlayingMovies,
+  )
+  const popularMovies = useQuery(
+    ['movies', 'popular', 'list'],
+    getPopularMovies,
+  )
+  const topRatedMovies = useQuery(
+    ['movies', 'top-rated', 'list'],
+    getTopRatedMovies,
+  )
 
   async function getNowPlayingMovies() {
-    const data = await fetchWrapper<{ results: Movie[] }>(
+    const { results } = await fetchWrapper<{ results: Movie[] }>(
       'movie/now_playing?language=pt-BR',
     )
 
-    return data.results
+    return results
   }
 
   async function getPopularMovies() {
-    const data = await fetchWrapper<{ results: Movie[] }>(
+    const { results } = await fetchWrapper<{ results: Movie[] }>(
       'movie/popular?language=pt-BR',
     )
 
-    return data.results
+    return results
   }
 
   async function getTopRatedMovies() {
-    const data = await fetchWrapper<{ results: Movie[] }>(
+    const { results } = await fetchWrapper<{ results: Movie[] }>(
       'movie/top_rated?language=pt-BR',
     )
 
-    return data.results
+    return results
   }
 
-  async function getMoviesWithGenre(genreId: number) {
-    const data = await fetchWrapper<{ results: Movie[] }>(
+  async function getMoviesByGenre(genreId: number) {
+    const { results } = await fetchWrapper<{ results: Movie[] }>(
       `discover/movie?with_genres=${genreId}?language=pt-BR`,
     )
 
-    return data.results
+    return results
   }
 
   return {
     nowPlayingMovies,
     popularMovies,
     topRatedMovies,
-    getMoviesWithGenre,
+    getMoviesByGenre,
   }
 }
