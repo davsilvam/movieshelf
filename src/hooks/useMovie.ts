@@ -3,7 +3,7 @@ import { queryClient } from 'services'
 
 import { fetchWrapper } from 'functions'
 
-import { Credits, Images, Movie, QueryMovie, Review } from 'types'
+import { Credits, Images, Movie, MovieDetails, Review } from 'types'
 
 export function useMovie(movieId: string) {
   queryClient.invalidateQueries({
@@ -39,7 +39,7 @@ export function useMovie(movieId: string) {
   const mainSimilar = similar?.filter((movie) => similar.indexOf(movie) < 5)
 
   async function getMovie() {
-    const data = await fetchWrapper<QueryMovie>(
+    const data = await fetchWrapper<MovieDetails>(
       `movie/${movieId}?language=pt-BR`,
     )
 

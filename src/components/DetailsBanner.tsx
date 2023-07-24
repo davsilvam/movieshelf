@@ -1,9 +1,9 @@
 import { cn } from 'utils'
 
-import { QueryMovie } from 'types'
+import { MovieDetails } from 'types'
 
 interface DetailsBannerProps {
-  movie: QueryMovie
+  movie: MovieDetails
 }
 
 export function DetailsBanner({ movie }: DetailsBannerProps) {

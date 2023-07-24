@@ -1,39 +1,12 @@
-export type Genre =
-  | 28
-  | 12
-  | 16
-  | 35
-  | 80
-  | 99
-  | 18
-  | 10751
-  | 14
-  | 36
-  | 27
-  | 10402
-  | 9648
-  | 10749
-  | 878
-  | 10770
-  | 53
-  | 10752
-  | 37
+import { Movie } from './movies'
 
-export interface Movie {
-  backdrop_path: string
-  genre_ids: Genre[]
+type Genre = {
   id: number
-  poster_path: string
-  release_date: string
-  title: string
-  vote_average: number
-  vote_count: number
+  name: string
 }
 
-export type QueryGenre = Array<{ id: number; name: string }>
-
-export interface QueryMovie extends Omit<Movie, 'genre_ids'> {
-  genres: QueryGenre
+export interface MovieDetails extends Omit<Movie, 'genre_ids'> {
+  genres: Genre[]
   overview: string
   runtime: number
   tagline: string
