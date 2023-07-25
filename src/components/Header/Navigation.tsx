@@ -81,7 +81,7 @@ export function Navigation() {
           <NavigationMenu.Content className="absolute left-0 top-14 w-full rounded bg-shark">
             <ul className="grid grid-cols-2 gap-1 p-2 text-white">
               {movieGenresIds.map((genreId) => (
-                <Link href={`/genres/${genreId}`} key={genreId}>
+                <Link href={`/discover?with_genres=${genreId}`} key={genreId}>
                   <li className="w-full rounded px-4 py-2 text-sm font-semibold transition-colors hover:bg-oslo/20">
                     <p>{movieGenres[genreId]}</p>
                   </li>

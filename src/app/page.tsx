@@ -14,8 +14,8 @@ export default function Home() {
           Não achou o que queria?
         </p>
 
-        <LinkButton href="/genres" icon={ArrowUpRight}>
-          Confira outros gêneros
+        <LinkButton href="/discover" icon={ArrowUpRight}>
+          Descubra outros títulos
         </LinkButton>
       </div>
     </main>

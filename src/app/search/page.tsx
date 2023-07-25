@@ -16,6 +16,7 @@ import { useSearchedMovie } from './hooks/useSearchedMovie'
 
 export default function Search() {
   const title = useSearchParams().get('query')
+
   const {
     searchedMovies: { data: searchedMovies, isLoading },
   } = useSearchedMovie(title ?? '')

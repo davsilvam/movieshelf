@@ -34,7 +34,7 @@ export default function Popular() {
           <MovieContainerSkeleton />
         ) : (
           <Fragment>
-            <h1 className="font-alt text-3xl uppercase text-white">
+            <h1 className="font-alt text-5xl uppercase text-white">
               Populares
             </h1>
 

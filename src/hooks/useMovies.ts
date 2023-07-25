@@ -1,5 +1,3 @@
-'use client'
-
 import { useQuery } from '@tanstack/react-query'
 
 import { fetchWrapper } from 'functions'
@@ -8,15 +6,15 @@ import { Movie } from 'types'
 
 export function useMovies() {
   const nowPlayingMovies = useQuery(
-    ['movies', 'now-playing', 'list'],
+    ['movies', 'now-playing', 'category', 'list'],
     getNowPlayingMovies,
   )
   const popularMovies = useQuery(
-    ['movies', 'popular', 'list'],
+    ['movies', 'popular', 'category', 'list'],
     getPopularMovies,
   )
   const topRatedMovies = useQuery(
-    ['movies', 'top-rated', 'list'],
+    ['movies', 'top-rated', 'category', 'list'],
     getTopRatedMovies,
   )
 

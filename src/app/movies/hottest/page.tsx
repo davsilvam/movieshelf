@@ -34,9 +34,10 @@ export default function Hottest() {
           <MovieContainerSkeleton />
         ) : (
           <Fragment>
-            <h1 className="font-alt text-3xl uppercase text-white">
+            <h1 className="font-alt text-5xl uppercase text-white">
               Novidades
             </h1>
+
             <div className="grid grid-cols-5 gap-12">
               {nowPlayingMovies?.map((movie) => (
                 <Link href={`/movie/${movie.id}`} key={movie.id}>
