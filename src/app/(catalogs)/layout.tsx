@@ -4,9 +4,8 @@ import { Header } from 'components'
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <div className="relative z-0 min-h-screen bg-woodsmoke pb-10">
+    <div className="min-h-screen bg-woodsmoke">
       <Header />
-
       {children}
     </div>
   )

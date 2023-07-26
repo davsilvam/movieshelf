@@ -12,7 +12,7 @@ export function BannerSkeleton() {
         <div className="h-12 w-16 rounded bg-white/20" />
       </div>
 
-      <div className="h-12 w-36 rounded-2xl bg-white/20" />
+      <div className="h-12 w-36 rounded-lg bg-white/20" />
     </div>
   )
 }

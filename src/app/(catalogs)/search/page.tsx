@@ -7,9 +7,10 @@ import { Fragment } from 'react'
 import {
   BannerCard,
   BannerSkeleton,
-  Header,
   MovieCard,
   MovieContainerSkeleton,
+  PageTitle,
+  SearchBar,
 } from 'components'
 
 import { useSearchedMovie } from './hooks/useSearchedMovie'
@@ -22,14 +23,12 @@ export default function Search() {
   } = useSearchedMovie(title ?? '')
 
   return (
-    <main className="relative min-h-screen bg-woodsmoke pb-10">
-      <Header />
-
+    <main className="relative pb-10">
       {isLoading ? (
         <BannerSkeleton />
       ) : (
         searchedMovies && (
-          <div className="h-[80vh] max-w-full">
+          <div className="h-[90vh] max-w-full">
             <BannerCard movie={searchedMovies?.results[0]} />
           </div>
         )
@@ -40,13 +39,21 @@ export default function Search() {
           <MovieContainerSkeleton />
         ) : (
           <Fragment>
-            <h1 className="text-xl text-white">
-              Com base na sua pesquisa para:{' '}
-              <span className="font-semibold">{title}</span>
-            </h1>
+            <div className="flex flex-col gap-10">
+              <PageTitle>Pesquisa</PageTitle>
+
+              <div className="flex flex-col gap-3">
+                <SearchBar size="full" />
+                <h2 className="text-oslo">
+                  Com base na sua pesquisa para:{' '}
+                  <span className="font-semibold text-white">{title}</span>
+                </h2>{' '}
+              </div>
+            </div>
+
             <div className="grid grid-cols-5 gap-12">
               {searchedMovies?.results.map((movie) => (
-                <Link href={`/movie/${movie.id}`} key={movie.id}>
+                <Link href={`/details/${movie.id}`} key={movie.id}>
                   <MovieCard movie={movie} />
                 </Link>
               ))}

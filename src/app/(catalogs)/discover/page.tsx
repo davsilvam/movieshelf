@@ -8,9 +8,9 @@ import { queryClient } from 'services'
 
 import {
   FiltersBar,
-  Header,
   MovieCard,
   MovieContainerSkeleton,
+  PageTitle,
 } from 'components'
 
 import { useDiscoverMovies } from './hooks/useDiscoverMovies'
@@ -30,11 +30,9 @@ export default function Discover() {
 
   return (
     <div className="flex items-center">
-      <Header />
-
-      <section className="relative flex w-full flex-col gap-8 px-10 py-20">
+      <section className="relative flex w-full flex-col gap-8 px-10">
         <header className="flex flex-col gap-5">
-          <h1 className="font-alt text-5xl uppercase text-white">Descubra</h1>
+          <PageTitle>Descubra</PageTitle>
 
           <FiltersBar />
         </header>
@@ -44,7 +42,7 @@ export default function Discover() {
         ) : (
           <div className="grid grid-cols-5 gap-12">
             {discoverMovies?.map((movie) => (
-              <Link href={`/movie/${movie.id}`} key={movie.id}>
+              <Link href={`/details/${movie.id}`} key={movie.id}>
                 <MovieCard movie={movie} />
               </Link>
             ))}

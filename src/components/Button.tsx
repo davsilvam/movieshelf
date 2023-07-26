@@ -8,19 +8,20 @@ import {
 
 import { cn } from 'utils'
 
-const defaultStyles = 'transition rounded'
+const defaultStyles = 'transition rounded-lg'
 
 const sizes = {
-  base: 'px-8 py-3 w-fit',
-  full: 'px-8 py-3 w-full',
+  base: 'px-6 py-3 w-fit',
+  full: 'px-6 py-3 w-full',
 }
 
 const variants = {
-  primary:
-    'flex items-center gap-1 ' +
-    'text-woodsmoke font-semibold duration-150 ' +
-    'bg-white rounded-2xl ring ring-transparent ' +
-    'hover:bg-transparent hover:ring-white hover:text-white',
+  primary: cn(
+    'flex items-center gap-3',
+    'text-woodsmoke font-semibold duration-150',
+    'bg-white',
+    'hover:bg-white/70 transition',
+  ),
 }
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

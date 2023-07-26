@@ -8,13 +8,14 @@ import {
   BannerSkeleton,
   MovieCard,
   MovieContainerSkeleton,
+  PageTitle,
 } from 'components'
 
 import { useMovies } from 'hooks'
 
-export default function TopRated() {
+export default function Hottest() {
   const {
-    topRatedMovies: { data: topRatedMovies, isLoading },
+    nowPlayingMovies: { data: nowPlayingMovies, isLoading },
   } = useMovies()
 
   return (
@@ -22,9 +23,9 @@ export default function TopRated() {
       {isLoading ? (
         <BannerSkeleton />
       ) : (
-        topRatedMovies && (
-          <div className="h-[80vh] max-w-full">
-            <BannerCard movie={topRatedMovies[0]} />
+        nowPlayingMovies && (
+          <div className="h-[90vh] max-w-full">
+            <BannerCard movie={nowPlayingMovies[0]} />
           </div>
         )
       )}
@@ -34,13 +35,11 @@ export default function TopRated() {
           <MovieContainerSkeleton />
         ) : (
           <Fragment>
-            <h1 className="font-alt text-5xl uppercase text-white">
-              Melhor Avaliados
-            </h1>
+            <PageTitle>Novidades</PageTitle>
 
             <div className="grid grid-cols-5 gap-12">
-              {topRatedMovies?.map((movie) => (
-                <Link href={`/movie/${movie.id}`} key={movie.id}>
+              {nowPlayingMovies?.map((movie) => (
+                <Link href={`/details/${movie.id}`} key={movie.id}>
                   <MovieCard movie={movie} />
                 </Link>
               ))}

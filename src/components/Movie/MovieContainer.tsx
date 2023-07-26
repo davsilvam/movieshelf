@@ -39,7 +39,7 @@ export function MovieContainer({
             return movies.indexOf(movie) < 10
           })
           .map((movie) => (
-            <Link href={`/movie/${movie.id}`} key={movie.id}>
+            <Link href={`/details/${movie.id}`} key={movie.id}>
               <MovieCard movie={movie} />
             </Link>
           ))}

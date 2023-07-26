@@ -46,7 +46,7 @@ export default function MovieDetails() {
 
         <Link
           className="flex items-center gap-3 self-end p-2 font-medium text-white"
-          href={`/movie/${id}/credits`}
+          href={`/details/${id}/credits`}
         >
           Ver elenco completo <ArrowRight className="h-4 w-4" />
         </Link>
@@ -71,7 +71,7 @@ export default function MovieDetails() {
 
         <Link
           className="flex items-center gap-3 self-end p-2 font-medium text-white"
-          href={`/movie/${id}/gallery`}
+          href={`/details/${id}/gallery`}
         >
           Ver galeria completo <ArrowRight className="h-4 w-4" />
         </Link>
@@ -94,7 +94,7 @@ export default function MovieDetails() {
 
         <div className="grid w-full grid-cols-5 gap-12">
           {mainSimilar?.map((movie) => (
-            <Link href={`/movie/${movie.id}`} key={movie.id}>
+            <Link href={`/details/${movie.id}`} key={movie.id}>
               <MovieCard movie={movie} key={movie.id} />
             </Link>
           ))}

@@ -18,7 +18,7 @@ export function MovieCard({ movie }: MovieCardProps) {
         <Image
           alt={`${movie.title} poster.`}
           src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
-          className="aspect-[2/3] w-full rounded-xl"
+          className="aspect-[2/3] w-full rounded-lg opacity-80 transition-opacity hover:opacity-100"
           height={330}
           width={220}
         />
@@ -28,7 +28,11 @@ export function MovieCard({ movie }: MovieCardProps) {
         </div>
       )}
 
-      <header className="mb-1 mt-3 flex items-center justify-between gap-2 text-oslo">
+      <p className="mb-1 mt-3 overflow-hidden text-ellipsis whitespace-nowrap font-semibold text-white">
+        {movie.title}
+      </p>
+
+      <div className="flex items-center justify-between gap-2 text-oslo">
         <div className="flex items-center">
           <div className="flex items-center gap-2">
             {movie.genre_ids.slice(0, 3).map((genreId) => (
@@ -44,11 +48,7 @@ export function MovieCard({ movie }: MovieCardProps) {
         </div>
 
         <p className="text-xs font-medium">{movie.release_date.slice(0, -6)}</p>
-      </header>
-
-      <p className="overflow-hidden text-ellipsis whitespace-nowrap font-semibold text-white">
-        {movie.title}
-      </p>
+      </div>
     </div>
   )
 }

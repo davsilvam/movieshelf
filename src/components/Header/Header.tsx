@@ -19,7 +19,7 @@ export function Header() {
       )}
     >
       <div className="flex w-full items-center justify-between">
-        <div className="flex items-center gap-10">
+        <div className="flex w-full items-center gap-10">
           <Link href="/">
             <Film className="h-6 w-6 text-white" />
           </Link>
@@ -27,7 +27,7 @@ export function Header() {
           <Navigation />
         </div>
 
-        <div className="flex items-center gap-6 text-white">
+        <div className="flex w-full items-center justify-end gap-6 text-white">
           <SearchBar />
 
           <Profile />

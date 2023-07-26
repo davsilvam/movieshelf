@@ -18,6 +18,13 @@ export function Navigation() {
           <Link href="/">Página Inicial</Link>
         </NavigationMenu.Item>
 
+        <NavigationMenu.Item
+          className="rounded-md px-4 py-3 hover:bg-shark"
+          asChild
+        >
+          <Link href="/discover">Descubra</Link>
+        </NavigationMenu.Item>
+
         <NavigationMenu.Item>
           <NavigationMenu.Trigger className="group flex items-center gap-3 rounded-md px-3 py-2 hover:bg-shark">
             Categorias

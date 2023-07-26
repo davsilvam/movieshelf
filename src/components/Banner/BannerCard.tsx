@@ -60,7 +60,7 @@ export function BannerCard({ movie }: BannerCardProps) {
       </div>
 
       <LinkButton
-        href={`/movie/${movie.id}`}
+        href={`/details/${movie.id}`}
         className="z-10"
         icon={ChevronRight}
       >

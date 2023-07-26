@@ -63,8 +63,8 @@ export function FiltersBar() {
   const filterStyle = cn(
     'flex items-center gap-2',
     'rounded px-2 py-1',
-    'bg-shark',
     'text-xs font-medium',
+    'bg-shark',
   )
 
   return (

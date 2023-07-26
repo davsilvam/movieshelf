@@ -19,7 +19,7 @@ export function MovieBanner({ movie }: MovieBannerProps) {
     <div
       className={cn(
         'flex flex-col items-end justify-between',
-        'h-[400px] w-full rounded-xl p-10',
+        'h-[400px] w-full rounded-lg p-10',
         'bg-cover bg-top shadow-genreBanner',
       )}
       style={{
@@ -49,7 +49,7 @@ export function MovieBanner({ movie }: MovieBannerProps) {
         </p>
       </div>
 
-      <LinkButton href={`/movie/${movie.id}`} icon={ChevronRight}>
+      <LinkButton href={`/details/${movie.id}`} icon={ChevronRight}>
         Detalhes
       </LinkButton>
     </div>

@@ -8,6 +8,7 @@ import {
   BannerSkeleton,
   MovieCard,
   MovieContainerSkeleton,
+  PageTitle,
 } from 'components'
 
 import { useMovies } from 'hooks'
@@ -23,7 +24,7 @@ export default function Popular() {
         <BannerSkeleton />
       ) : (
         popularMovies && (
-          <div className="h-[80vh] max-w-full">
+          <div className="h-[90vh] max-w-full">
             <BannerCard movie={popularMovies[0]} />
           </div>
         )
@@ -34,13 +35,11 @@ export default function Popular() {
           <MovieContainerSkeleton />
         ) : (
           <Fragment>
-            <h1 className="font-alt text-5xl uppercase text-white">
-              Populares
-            </h1>
+            <PageTitle>Popular</PageTitle>
 
             <div className="grid grid-cols-5 gap-12">
               {popularMovies?.map((movie) => (
-                <Link href={`/movie/${movie.id}`} key={movie.id}>
+                <Link href={`/details/${movie.id}`} key={movie.id}>
                   <MovieCard movie={movie} />
                 </Link>
               ))}

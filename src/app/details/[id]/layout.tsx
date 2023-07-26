@@ -88,9 +88,13 @@ export default function Layout({ children }: { children: ReactNode }) {
               <div className="text-right font-alt text-white">
                 <p className="text-lg">
                   <span className="text-4xl">
-                    {movie.vote_count.toString().slice(0, -3)}
+                    {String(movie.vote_count).length > 3
+                      ? movie.vote_count.toLocaleString().slice(0, -4)
+                      : movie.vote_count.toLocaleString()}
                   </span>
-                  .{movie.vote_count.toString().slice(-3)}
+                  {String(movie.vote_count).length > 3
+                    ? movie.vote_count.toLocaleString().slice(-4)
+                    : ''}
                 </p>
 
                 <p className="text-sm">Avaliações</p>
