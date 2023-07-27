@@ -2,31 +2,32 @@
 
 import Link from 'next/link'
 
-import * as NavigationMenu from '@radix-ui/react-navigation-menu'
+import {
+  Content,
+  Item,
+  List,
+  Root,
+  Trigger,
+  Viewport,
+} from '@radix-ui/react-navigation-menu'
 import { ChevronDown } from 'lucide-react'
 
 import { cn, movieGenres, movieGenresIds } from 'utils'
 
 export function Navigation() {
   return (
-    <NavigationMenu.Root className="relative flex">
-      <NavigationMenu.List className="flex items-center gap-6 font-semibold text-white">
-        <NavigationMenu.Item
-          className="rounded-md px-4 py-3 hover:bg-shark"
-          asChild
-        >
+    <Root className="relative flex">
+      <List className="flex items-center gap-6 font-semibold text-white">
+        <Item className="rounded-md px-4 py-3 hover:bg-shark" asChild>
           <Link href="/">Página Inicial</Link>
-        </NavigationMenu.Item>
+        </Item>
 
-        <NavigationMenu.Item
-          className="rounded-md px-4 py-3 hover:bg-shark"
-          asChild
-        >
+        <Item className="rounded-md px-4 py-3 hover:bg-shark" asChild>
           <Link href="/discover">Descubra</Link>
-        </NavigationMenu.Item>
+        </Item>
 
-        <NavigationMenu.Item>
-          <NavigationMenu.Trigger className="group flex items-center gap-3 rounded-md px-3 py-2 hover:bg-shark">
+        <Item>
+          <Trigger className="group flex items-center gap-3 rounded-md px-3 py-2 hover:bg-shark">
             Categorias
             <ChevronDown
               className={cn(
@@ -37,9 +38,9 @@ export function Navigation() {
               aria-hidden
               strokeWidth={3}
             />
-          </NavigationMenu.Trigger>
+          </Trigger>
 
-          <NavigationMenu.Content className="absolute left-0 top-14 w-full rounded bg-shark">
+          <Content className="absolute left-0 top-14 w-full rounded bg-shark">
             <ul className="flex flex-col gap-1 p-2 text-white">
               <Link href="/movies/popular">
                 <li className="w-full rounded px-4 py-2 transition-colors hover:bg-oslo/20">
@@ -68,11 +69,11 @@ export function Navigation() {
                 </li>
               </Link>
             </ul>
-          </NavigationMenu.Content>
-        </NavigationMenu.Item>
+          </Content>
+        </Item>
 
-        <NavigationMenu.Item>
-          <NavigationMenu.Trigger className="group flex items-center gap-3 rounded-md px-3 py-2 hover:bg-shark">
+        <Item>
+          <Trigger className="group flex items-center gap-3 rounded-md px-3 py-2 hover:bg-shark">
             Gêneros
             <ChevronDown
               className={cn(
@@ -83,9 +84,9 @@ export function Navigation() {
               aria-hidden
               strokeWidth={3}
             />
-          </NavigationMenu.Trigger>
+          </Trigger>
 
-          <NavigationMenu.Content className="absolute left-0 top-14 w-full rounded bg-shark">
+          <Content className="absolute left-0 top-14 w-full rounded bg-shark">
             <ul className="grid grid-cols-2 gap-1 p-2 text-white">
               {movieGenresIds.map((genreId) => (
                 <Link href={`/discover?with_genres=${genreId}`} key={genreId}>
@@ -95,11 +96,11 @@ export function Navigation() {
                 </Link>
               ))}
             </ul>
-          </NavigationMenu.Content>
-        </NavigationMenu.Item>
-      </NavigationMenu.List>
+          </Content>
+        </Item>
+      </List>
 
-      <NavigationMenu.Viewport />
-    </NavigationMenu.Root>
+      <Viewport />
+    </Root>
   )
 }

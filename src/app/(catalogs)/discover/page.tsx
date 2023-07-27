@@ -8,6 +8,7 @@ import { queryClient } from 'services'
 
 import {
   FiltersBar,
+  FiltersDropdown,
   MovieCard,
   MovieContainerSkeleton,
   PageTitle,
@@ -32,13 +33,17 @@ export default function Discover() {
     <div className="flex items-center">
       <section className="relative flex w-full flex-col gap-8 px-10">
         <header className="flex flex-col gap-5">
-          <PageTitle>Descubra</PageTitle>
+          <div className="flex items-end justify-between">
+            <PageTitle>Descubra</PageTitle>
+
+            <FiltersDropdown />
+          </div>
 
           <FiltersBar />
         </header>
 
         {isLoading ? (
-          <MovieContainerSkeleton />
+          <MovieContainerSkeleton hasTitle={false} />
         ) : (
           <div className="grid grid-cols-5 gap-12">
             {discoverMovies?.map((movie) => (

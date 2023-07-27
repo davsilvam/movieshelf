@@ -17,7 +17,7 @@ const sizes = {
 
 const variants = {
   primary: cn(
-    'flex items-center gap-3',
+    'flex items-center justify-center gap-3',
     'text-woodsmoke font-semibold duration-150',
     'bg-white',
     'hover:bg-white/70 transition',
