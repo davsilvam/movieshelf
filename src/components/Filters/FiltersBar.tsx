@@ -2,12 +2,14 @@
 
 import { Fragment } from 'react'
 
+import { useSorters } from '../SortBy/hooks'
 import { useFiltersBar } from './hooks'
 import { cn, movieGenres } from 'utils'
 
 import { FilterTag } from './FilterTag'
 
 export function FiltersBar() {
+  const { getSorterMessage } = useSorters()
   const { queries, removeFilter } = useFiltersBar()
 
   const filterStyle = cn(
@@ -20,6 +22,18 @@ export function FiltersBar() {
   return (
     <div className="flex flex-col gap-3">
       <ul className="flex flex-wrap items-center gap-3 text-white">
+        {queries.sortBy.has && (
+          <li className={filterStyle}>
+            <FilterTag
+              removeFilter={removeFilter}
+              searchParam={queries.sortBy.searchParam}
+            >
+              Ordenado <span className="font-normal text-oslo">por</span>{' '}
+              {queries.sortBy.value && getSorterMessage(queries.sortBy.value)}
+            </FilterTag>
+          </li>
+        )}
+
         {queries.releaseDateGTE.has && (
           <li className={filterStyle}>
             <FilterTag

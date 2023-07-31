@@ -13,6 +13,11 @@ export function useFiltersBar() {
   const searchParams = useSearchParams()
 
   const queries: Queries = {
+    sortBy: {
+      has: searchParams.has('sort_by'),
+      value: searchParams.get('sort_by'),
+      searchParam: 'sort_by',
+    },
     releaseDateGTE: {
       has: searchParams.has('release_date.gte'),
       value: searchParams.get('release_date.gte'),

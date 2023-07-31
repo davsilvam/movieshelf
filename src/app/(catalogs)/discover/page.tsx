@@ -12,6 +12,7 @@ import {
   MovieCard,
   MovieContainerSkeleton,
   PageTitle,
+  SortBySelect,
 } from 'components'
 
 import { useDiscoverMovies } from './hooks/useDiscoverMovies'
@@ -36,7 +37,10 @@ export default function Discover() {
           <div className="flex items-end justify-between">
             <PageTitle>Descubra</PageTitle>
 
-            <FiltersDropdown />
+            <div className="flex items-center gap-3">
+              <FiltersDropdown />
+              <SortBySelect />
+            </div>
           </div>
 
           <FiltersBar />

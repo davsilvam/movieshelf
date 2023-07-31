@@ -1,5 +1,15 @@
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useState, FormEvent } from 'react'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
+
+const formSchema = z.object({
+  param: z.string().min(1, 'O campo é obrigatório.'),
+})
+
+type FormSchema = z.infer<typeof formSchema>
 
 export function useFilters() {
   const searchParams = useSearchParams()
@@ -8,6 +18,18 @@ export function useFilters() {
   const [step, setStep] = useState<number>(0)
   const [filterCategory, setFilterCategory] = useState<number>(0)
   const [filter, setFilter] = useState<string>('')
+
+  const {
+    formState: { errors },
+    handleSubmit,
+    register,
+    resetField,
+  } = useForm<FormSchema>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      param: '',
+    },
+  })
 
   const filters = [
     {
@@ -94,9 +116,7 @@ export function useFilters() {
     setFilter(selectedFilter)
   }
 
-  function submitFilter(event: FormEvent<HTMLFormElement>) {
-    const formData = new FormData(event.currentTarget)
-
+  function submitFilter({ param }: FormSchema) {
     const current = new URLSearchParams(Array.from(searchParams.entries()))
 
     if (searchParams.has(filter)) {
@@ -104,8 +124,10 @@ export function useFilters() {
     }
 
     const search = current
-      ? `?${current}&${filter}=${formData.get('param')}`
-      : `?${filter}=${formData.get('param')}`
+      ? `?${current}&${filter}=${param}`
+      : `?${filter}=${param}`
+
+    resetField('param')
 
     push(`/discover${search}`)
   }
@@ -113,10 +135,12 @@ export function useFilters() {
   return {
     step,
     filterCategory,
+    errors,
+    handleSubmit,
+    register,
     filters,
     resetMenu,
     goToPreviousStep,
-    goToNextStep,
     selectFilterCategory,
     handleFilter,
     submitFilter,
