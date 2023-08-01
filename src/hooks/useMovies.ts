@@ -1,34 +1,59 @@
-// services
-import { api } from '../services/api'
-import { AxiosError } from 'axios'
 import { useQuery } from '@tanstack/react-query'
 
-// types
-import { MovieResponse } from '../@types/tmdb'
+import { fetchWrapper } from 'functions'
 
-export function useMovies(url: string, amount?: number) {
-  async function getMoviesFromUrl() {
-    try {
-      const { data } = await api.get<MovieResponse>(url)
+import { Movie } from 'types'
 
-      if (amount) {
-        return data.results.slice(0, amount)
-      }
+export function useMovies() {
+  const nowPlayingMovies = useQuery(
+    ['movies', 'now-playing', 'category', 'list'],
+    getNowPlayingMovies,
+  )
+  const popularMovies = useQuery(
+    ['movies', 'popular', 'category', 'list'],
+    getPopularMovies,
+  )
+  const topRatedMovies = useQuery(
+    ['movies', 'top-rated', 'category', 'list'],
+    getTopRatedMovies,
+  )
 
-      return data.results
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        throw new Error(error.message)
-      }
-    }
+  async function getNowPlayingMovies() {
+    const { results } = await fetchWrapper<{ results: Movie[] }>(
+      'movie/now_playing?language=pt-BR',
+    )
+
+    return results
   }
 
-  const query = useQuery({
-    queryKey: ['movies', url],
-    queryFn: getMoviesFromUrl,
-  })
+  async function getPopularMovies() {
+    const { results } = await fetchWrapper<{ results: Movie[] }>(
+      'movie/popular?language=pt-BR',
+    )
+
+    return results
+  }
+
+  async function getTopRatedMovies() {
+    const { results } = await fetchWrapper<{ results: Movie[] }>(
+      'movie/top_rated?language=pt-BR',
+    )
+
+    return results
+  }
+
+  async function getMoviesByGenre(genreId: number) {
+    const { results } = await fetchWrapper<{ results: Movie[] }>(
+      `discover/movie?language=pt-BR&sort_by=popularity.desc&with_genres=${genreId}`,
+    )
+
+    return results
+  }
 
   return {
-    ...query
+    nowPlayingMovies,
+    popularMovies,
+    topRatedMovies,
+    getMoviesByGenre,
   }
 }

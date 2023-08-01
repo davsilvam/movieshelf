@@ -1,87 +1,34 @@
-# Movieshelf
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-<img src="./.github/banner.png" style="width: 100%">
+## Getting Started
 
-## :movie_camera: **Projeto**
+First, run the development server:
 
-> Uma estante de filmes, para o seu "eu cinéfilo".
-
-A Movieshelf é uma estante virtual de filmes, na qual você pode adicionar os filmes à sua estante, favoritar os queridinhos e salvar filmes para sua próxima sessão de filme.
-
-<p align="center">
-   <a href="https://movieshelf-two.vercel.app">Veja o projeto completo aqui.</a>
-</p>
-
-## :art: **Visual do Projeto**
-
-### _Desktop e Telas Maiores_
-
-<h1 align="center">
-    <img src="./.github/desktop_screenshot.png" style="width: 80%">
-</h1>
-
-### _Mobile e Telas Menores_
-
-<h1 align="center">
-    <img src="./.github/mobile_screenshot.png" style="width: 40%">
-</h1>
-
-## :wrench: **Tecnologias**
-
-### :hammer: **Construção do site**
-
-- [TypeScript](https://www.typescriptlang.org)
-- [React](https://pt-br.reactjs.org)
-- [The Movie Database API](https://developers.themoviedb.org/3)
-- [Tanstack Query](https://tanstack.com/query/latest)
-- [Vite](https://vitejs.dev/)
-
-### :art: **Estilização**
-
-- [Tailwind CSS](https://tailwindcss.com)
-- [Phosphor Icons](https://phosphoricons.com)
-- [Radix UI](https://www.radix-ui.com)
-- [React Loading Skeleton](https://www.npmjs.com/package/react-loading-skeleton)
-- [Swiper](https://swiperjs.com)
-- [Google Fonts](https://fonts.google.com)
-
-### :open_file_folder: **IDE, Versionamento e Deploy**
-
-- [Visual Studio Code](https://code.visualstudio.com)
-- [Git](https://git-scm.com)
-- [GitHub](https://github.com)
-- [Vercel](https://vercel.com/)
-
-## :rocket: **Configurações e Instalação**
-
-### Requisitos
-- [Node e NPM](https://nodejs.org/)
-
-Recomendo que veja a [documentação de configuração do Vite](https://vitejs.dev/config/). 
-
-```sh
-# Clonando o projeto
-git clone https://github.com/davsilvam/movieshelf.git
-
-# Instalando as dependências
-npm install
-
-# Criar arquivo .env com base no .env.example e preencher o campo com sua chave da API
-VITE_API_KEY="<sua_chave>"
-
-# Compilar e abrir o programa para desenvolvimento
+```bash
 npm run dev
-
-# Compilar e minificar para produção
-npm run build
+# or
+yarn dev
+# or
+pnpm dev
 ```
 
-## :balance_scale: **Licença**
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Esse projeto está sob a [licença MIT](https://github.com/davsilvam/movieshelf/blob/main/LICENSE.md).
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-<p align="center">
-  Feito com :purple_heart: por <a href="https://www.linkedin.com/in/davsilvam/">David Silva</a>.
-</p>
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
----
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
