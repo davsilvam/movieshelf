@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
 import { Fragment, ReactNode } from 'react'
 
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, ImageOff } from 'lucide-react'
 
 import { Button, DetailsBanner } from 'components'
 
@@ -32,13 +32,19 @@ export default function Layout({ children }: { children: ReactNode }) {
 
           <div className="flex w-full justify-between pt-[450px]">
             <div className="flex items-start gap-10">
-              <Image
-                alt={`${movie.title} poster.`}
-                src={moviePoster}
-                className="rounded-2xl"
-                width={200}
-                height={300}
-              />
+              {movie?.poster_path ? (
+                <Image
+                  alt={`${movie.title} poster.`}
+                  src={moviePoster}
+                  className="rounded-2xl"
+                  width={200}
+                  height={300}
+                />
+              ) : (
+                <div className="flex h-[300px] w-[200px] items-center justify-center rounded-2xl bg-oslo text-woodsmoke">
+                  <ImageOff className="h-8 w-8" />
+                </div>
+              )}
 
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-4">
@@ -59,17 +65,23 @@ export default function Layout({ children }: { children: ReactNode }) {
                   {movie.title}
                 </h1>
 
-                <q className="font-medium italic text-oslo">{movie.tagline}</q>
+                <q className="font-medium italic text-oslo">
+                  {movie.tagline || 'Esse filme não possui slogan.'}
+                </q>
 
                 <div className="flex items-center gap-4 pt-2 font-alt text-white">
-                  <p>{movie.release_date.slice(0, -6)}</p>
-                  <div className="h-4 w-[1px] bg-oslo" />
+                  {movie.release_date && (
+                    <Fragment>
+                      <p>{movie.release_date.slice(0, -6)}</p>
+                      <div className="h-4 w-[1px] bg-oslo" />
+                    </Fragment>
+                  )}
                   <p>{`${runtimeHours}h ${runtimeMinutes}m`}</p>
                 </div>
 
                 <h2 className="pt-4 font-alt text-xl text-white">Sinopse</h2>
                 <p className="max-w-[900px] text-sm leading-relaxed text-oslo">
-                  {movie.overview}
+                  {movie.overview || 'Esse filme não possui sinopse.'}
                 </p>
               </div>
             </div>

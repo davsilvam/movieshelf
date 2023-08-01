@@ -47,7 +47,9 @@ export function MovieCard({ movie }: MovieCardProps) {
           </div>
         </div>
 
-        <p className="text-xs font-medium">{movie.release_date.slice(0, -6)}</p>
+        <p className="text-xs font-medium">
+          {movie.release_date && movie.release_date.slice(0, -6)}
+        </p>
       </div>
     </div>
   )

@@ -1,12 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
-
-import { queryClient } from 'services'
+import { Fragment } from 'react'
 
 import {
+  CatalogPagination,
   FiltersBar,
   FiltersDropdown,
   GenresDropdown,
@@ -19,17 +17,13 @@ import {
 import { useDiscoverMovies } from './hooks'
 
 export default function Discover() {
-  const searchParams = useSearchParams().toString()
-
   const {
     discoverMovies: { data: discoverMovies, isLoading },
-  } = useDiscoverMovies(searchParams)
-
-  useEffect(() => {
-    queryClient.invalidateQueries({
-      queryKey: ['discover'],
-    })
-  }, [searchParams])
+    currentPage,
+    goToNextPage,
+    goToPreviousPage,
+    goToPage,
+  } = useDiscoverMovies()
 
   return (
     <div className="flex items-center">
@@ -51,13 +45,25 @@ export default function Discover() {
         {isLoading ? (
           <MovieContainerSkeleton hasTitle={false} />
         ) : (
-          <div className="grid grid-cols-5 gap-12">
-            {discoverMovies?.map((movie) => (
-              <Link href={`/details/${movie.id}`} key={movie.id}>
-                <MovieCard movie={movie} />
-              </Link>
-            ))}
-          </div>
+          <Fragment>
+            <div className="grid grid-cols-5 gap-12">
+              {discoverMovies?.results?.map((movie) => (
+                <Link href={`/details/${movie.id}`} key={movie.id}>
+                  <MovieCard movie={movie} />
+                </Link>
+              ))}
+            </div>
+
+            {discoverMovies && (
+              <CatalogPagination
+                currentPage={currentPage}
+                totalPages={discoverMovies?.total_pages}
+                goToNextPage={goToNextPage}
+                goToPreviousPage={goToPreviousPage}
+                goToPage={goToPage}
+              />
+            )}
+          </Fragment>
         )}
       </section>
     </div>

@@ -1,5 +1,6 @@
 export * from './Banner'
 export * from './Button'
+export * from './CatalogPagination'
 export * from './CategoryCards'
 export * from './DetailsBanner'
 export * from './Filters'
