@@ -13,7 +13,7 @@ import {
   SearchBar,
 } from 'components'
 
-import { useSearchedMovie } from './hooks/useSearchedMovie'
+import { useSearchedMovie } from './hooks'
 
 export default function Search() {
   const title = useSearchParams().get('query')

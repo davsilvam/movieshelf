@@ -22,6 +22,36 @@ export function FiltersBar() {
   return (
     <div className="flex flex-col gap-3">
       <ul className="flex flex-wrap items-center gap-3 text-white">
+        {queries.withGenres.has && queries.withGenres.value && (
+          <li className={filterStyle}>
+            <FilterTag
+              hasDeleteAction={false}
+              removeFilter={removeFilter}
+              searchParam={queries.withGenres.searchParam}
+            >
+              Gêneros:{' '}
+              {queries.withGenres.value && (
+                <Fragment>
+                  {queries.withGenres.value.split(',').map((genreId) => {
+                    const genreIds = queries.withGenres.value
+                      ? queries.withGenres.value.split(',')
+                      : []
+
+                    return (
+                      <Fragment key={genreId}>
+                        {movieGenres[Number(genreId)] +
+                          (genreIds.indexOf(genreId) + 1 < genreIds.length
+                            ? ', '
+                            : '')}
+                      </Fragment>
+                    )
+                  })}
+                </Fragment>
+              )}
+            </FilterTag>
+          </li>
+        )}
+
         {queries.sortBy.has && (
           <li className={filterStyle}>
             <FilterTag
@@ -104,35 +134,6 @@ export function FiltersBar() {
               Nº de Avaliações{' '}
               <span className="font-normal text-oslo">menor que</span>{' '}
               {queries.voteCountLTE.value}
-            </FilterTag>
-          </li>
-        )}
-
-        {queries.withGenres.has && (
-          <li className={filterStyle}>
-            <FilterTag
-              removeFilter={removeFilter}
-              searchParam={queries.withGenres.searchParam}
-            >
-              Gêneros:{' '}
-              {queries.withGenres.value && (
-                <Fragment>
-                  {queries.withGenres.value.split(',').map((genreId) => {
-                    const genreIds = queries.withGenres.value
-                      ? queries.withGenres.value.split(',')
-                      : []
-
-                    return (
-                      <Fragment key={genreId}>
-                        {movieGenres[Number(genreId)] +
-                          (genreIds.indexOf(genreId) + 1 < genreIds.length
-                            ? ', '
-                            : '')}
-                      </Fragment>
-                    )
-                  })}
-                </Fragment>
-              )}
             </FilterTag>
           </li>
         )}

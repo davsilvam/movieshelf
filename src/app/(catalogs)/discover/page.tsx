@@ -9,13 +9,14 @@ import { queryClient } from 'services'
 import {
   FiltersBar,
   FiltersDropdown,
+  GenresDropdown,
   MovieCard,
   MovieContainerSkeleton,
   PageTitle,
   SortBySelect,
 } from 'components'
 
-import { useDiscoverMovies } from './hooks/useDiscoverMovies'
+import { useDiscoverMovies } from './hooks'
 
 export default function Discover() {
   const searchParams = useSearchParams().toString()
@@ -38,6 +39,7 @@ export default function Discover() {
             <PageTitle>Descubra</PageTitle>
 
             <div className="flex items-center gap-3">
+              <GenresDropdown />
               <FiltersDropdown />
               <SortBySelect />
             </div>
