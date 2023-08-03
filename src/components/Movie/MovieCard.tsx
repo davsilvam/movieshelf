@@ -28,11 +28,11 @@ export function MovieCard({ movie }: MovieCardProps) {
         </div>
       )}
 
-      <p className="mb-1 mt-3 overflow-hidden text-ellipsis whitespace-nowrap font-semibold text-white">
+      <p className="mb-1 mt-3 overflow-hidden text-ellipsis whitespace-nowrap font-semibold text-white max-sm:text-sm">
         {movie.title}
       </p>
 
-      <div className="flex items-center justify-between gap-2 text-oslo">
+      <div className="flex items-center justify-between gap-2 text-oslo max-sm:hidden">
         <div className="flex items-center">
           <div className="flex items-center gap-2">
             {movie.genre_ids.slice(0, 3).map((genreId) => (

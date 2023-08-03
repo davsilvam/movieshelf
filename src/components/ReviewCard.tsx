@@ -59,7 +59,7 @@ export function ReviewCard({ review }: ReviewCardProps) {
         )}
       </header>
 
-      <p className="text-sm leading-relaxed">{review.content}</p>
+      <p className="text-xs leading-relaxed md:text-sm">{review.content}</p>
     </div>
   )
 }

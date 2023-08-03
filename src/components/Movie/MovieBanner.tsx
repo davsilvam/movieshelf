@@ -19,7 +19,7 @@ export function MovieBanner({ movie }: MovieBannerProps) {
     <div
       className={cn(
         'flex flex-col items-end justify-between',
-        'h-[400px] w-full rounded-lg p-10',
+        'min-h-[160px] w-full rounded-lg p-5 md:h-[320px] md:p-10 lg:h-[400px]',
         'bg-cover bg-top shadow-genreBanner',
       )}
       style={{
@@ -31,20 +31,17 @@ export function MovieBanner({ movie }: MovieBannerProps) {
           {movie.genre_ids.map((genreId) => (
             <Fragment key={genreId}>
               {movie.genre_ids.indexOf(genreId) > 0 && (
-                <div className="h-4 w-[1px] bg-oslo" />
+                <div className="h-4 w-[1px] bg-oslo max-sm:h-3" />
               )}
 
-              <p className="font-alt uppercase text-white">
+              <p className="font-alt uppercase text-white max-sm:text-xs">
                 {movieGenres[genreId]}
               </p>
             </Fragment>
           ))}
         </div>
 
-        <p
-          className="max-w-lg text-right font-alt text-5xl uppercase text-white"
-          style={{ lineHeight: '64px' }}
-        >
+        <p className="max-w-md text-right font-alt text-2xl uppercase text-white md:text-5xl lg:max-w-lg">
           {movie.title}
         </p>
       </div>

@@ -8,19 +8,19 @@ import {
 
 import { cn } from 'utils'
 
-const defaultStyles = 'transition rounded-lg'
+const defaultStyles = 'transition rounded-lg px-6 py-3 max-sm:px-4 max-sm:py-3'
 
 const sizes = {
-  base: 'px-6 py-3 w-fit',
-  full: 'px-6 py-3 w-full',
+  base: 'w-fit',
+  full: 'w-full',
 }
 
 const variants = {
   primary: cn(
-    'flex items-center justify-center gap-3',
-    'text-woodsmoke font-semibold duration-150',
+    'flex items-center justify-center gap-3 max-sm:gap-2',
+    'text-woodsmoke font-semibold max-sm:text-sm',
     'bg-white',
-    'hover:bg-white/70 transition',
+    'hover:bg-white/70 transition duration-150',
   ),
 }
 
@@ -49,7 +49,7 @@ export function Button({
       className={cn(defaultStyles, sizeClass, variantClass, className)}
     >
       {children}
-      {Icon && <Icon className="h-4 w-4" />}
+      {Icon && <Icon className="h-4 w-4 max-sm:h-3 max-sm:w-3" />}
     </button>
   )
 }

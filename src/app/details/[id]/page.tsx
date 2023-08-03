@@ -20,7 +20,7 @@ export default function MovieDetails() {
         <section className="flex w-full flex-col gap-5">
           <h2 className="pt-4 font-alt text-xl text-white">Elenco</h2>
 
-          <div className="grid grid-cols-5 gap-5">
+          <div className="grid grid-cols-2 gap-5 md:grid-cols-4 lg:grid-cols-5">
             {mainCast?.map((actor) => (
               <div className="flex items-center gap-4" key={actor.id}>
                 {actor.profile_path ? (
@@ -58,9 +58,12 @@ export default function MovieDetails() {
         <section className="flex w-full flex-col gap-5">
           <h2 className="pt-4 font-alt text-xl text-white">Galeria</h2>
 
-          <div className="flex w-full items-center justify-between">
+          <div className="flex w-full items-center justify-between gap-4 max-md:flex-col md:gap-10">
             {mainBackdrops?.map((backdrop) => (
-              <div className="flex items-center gap-4" key={backdrop + 'w'}>
+              <div
+                className="flex items-center gap-4"
+                key={backdrop.file_path + 'w'}
+              >
                 <Image
                   alt={`${movie?.title} backdrop.`}
                   src={`https://image.tmdb.org/t/p/w780${backdrop.file_path}`}
@@ -97,7 +100,7 @@ export default function MovieDetails() {
         <section className="flex w-full flex-col gap-5">
           <h2 className="pt-4 font-alt text-xl text-white">Similar</h2>
 
-          <div className="grid w-full grid-cols-5 gap-12">
+          <div className="grid w-full grid-cols-3 gap-4 lg:grid-cols-4 lg:gap-10 xl:grid-cols-5">
             {mainSimilar?.map((movie) => (
               <Link href={`/details/${movie.id}`} key={movie.id}>
                 <MovieCard movie={movie} key={movie.id} />

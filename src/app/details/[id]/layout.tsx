@@ -20,7 +20,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   const runtimeMinutes = movie && movie?.runtime % 60
 
   return (
-    <div className="relative z-0 min-h-screen bg-woodsmoke px-10 pb-10">
+    <div className="relative z-0 min-h-screen bg-woodsmoke px-6 pb-10 md:px-10">
       {movie && (
         <Fragment>
           <Button className="absolute top-10" onClick={back}>
@@ -30,15 +30,15 @@ export default function Layout({ children }: { children: ReactNode }) {
 
           <DetailsBanner movie={movie} />
 
-          <div className="flex w-full justify-between pt-[450px]">
-            <div className="flex items-start gap-10">
+          <div className="flex w-full justify-between pt-[450px] max-md:flex-col max-md:gap-5">
+            <div className="flex items-start gap-10 max-md:flex-col">
               {movie?.poster_path ? (
                 <Image
                   alt={`${movie.title} poster.`}
                   src={moviePoster}
-                  className="rounded-2xl"
-                  width={200}
-                  height={300}
+                  className="m-auto aspect-[2/3] w-full max-w-[300px] rounded-2xl md:w-[200px]"
+                  width={300}
+                  height={450}
                 />
               ) : (
                 <div className="flex h-[300px] w-[200px] items-center justify-center rounded-2xl bg-oslo text-woodsmoke">
@@ -86,10 +86,10 @@ export default function Layout({ children }: { children: ReactNode }) {
               </div>
             </div>
 
-            <div className="space-y-4">
-              <div className="text-right font-alt text-white">
+            <div className="flex flex-1 items-end gap-4 max-md:justify-end md:flex-col">
+              <div className="whitespace-nowrap text-right font-alt text-white">
                 <p className="text-lg">
-                  <span className="text-4xl text-pizazz">
+                  <span className="text-3xl text-pizazz md:text-4xl">
                     {movie.vote_average.toFixed(1)}{' '}
                   </span>
                   / 10
@@ -99,7 +99,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 
               <div className="text-right font-alt text-white">
                 <p className="text-lg">
-                  <span className="text-4xl">
+                  <span className="text-3xl md:text-4xl">
                     {String(movie.vote_count).length > 3
                       ? movie.vote_count.toLocaleString().slice(0, -4)
                       : movie.vote_count.toLocaleString()}

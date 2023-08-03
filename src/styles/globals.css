@@ -28,3 +28,9 @@ body {
     transform: initial !important;
     width: 84px !important;
 }
+
+@media (max-width: 769px) {
+    .swiper-pagination-bullet {
+        width: 62px !important;
+    }
+}

@@ -5,7 +5,6 @@ import { ChevronDown, Film } from 'lucide-react'
 import { cn } from 'utils'
 
 import { Navigation } from './Navigation'
-import { Profile } from './Profile'
 import { SearchBar } from './SearchBar'
 
 export function Header() {
@@ -14,7 +13,7 @@ export function Header() {
       className={cn(
         'fixed top-0 z-20',
         'flex flex-col items-center gap-5',
-        'w-full -translate-y-20 px-10 py-6',
+        'w-full -translate-y-20 px-10 py-6 max-lg:hidden',
         'group transition-all duration-300 hover:translate-y-0 hover:bg-woodsmoke',
       )}
     >
@@ -27,11 +26,7 @@ export function Header() {
           <Navigation />
         </div>
 
-        <div className="flex w-full items-center justify-end gap-6 text-white">
-          <SearchBar />
-
-          <Profile />
-        </div>
+        <SearchBar />
       </div>
 
       <div className="flex items-center justify-center text-white">

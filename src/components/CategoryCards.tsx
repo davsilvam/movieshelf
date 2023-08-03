@@ -12,10 +12,10 @@ export function CategoryCards() {
   } = useMovies()
 
   return (
-    <section className="flex w-full items-center justify-between gap-20 font-alt text-4xl text-white">
+    <section className="flex w-full items-center justify-between gap-3 font-alt text-2xl text-white max-md:flex-col md:gap-4 lg:gap-8 xl:gap-20 xl:text-4xl">
       {popularMovies && (
         <Link
-          className="flex h-52 w-full items-center justify-center rounded-md bg-cover bg-center"
+          className="flex h-32 w-full items-center justify-center rounded-md bg-opacity-20 bg-cover bg-center md:h-52"
           style={{
             backgroundImage: `url(https://image.tmdb.org/t/p/original${popularMovies[0].backdrop_path})`,
           }}
@@ -29,7 +29,7 @@ export function CategoryCards() {
 
       {nowPlayingMovies && (
         <Link
-          className="flex h-52 w-full items-center justify-center rounded-md bg-cover bg-center"
+          className="flex h-32 w-full items-center justify-center rounded-md bg-opacity-20 bg-cover bg-center md:h-52"
           style={{
             backgroundImage: `url(https://image.tmdb.org/t/p/w342${nowPlayingMovies[0].backdrop_path})`,
           }}
@@ -43,7 +43,7 @@ export function CategoryCards() {
 
       {topRatedMovies && (
         <Link
-          className="flex h-52 w-full items-center justify-center rounded-md bg-opacity-20 bg-cover bg-center"
+          className="flex h-32 w-full items-center justify-center rounded-md bg-opacity-20 bg-cover bg-center md:h-52"
           style={{
             backgroundImage: `url(https://image.tmdb.org/t/p/original${topRatedMovies[0].backdrop_path})`,
           }}

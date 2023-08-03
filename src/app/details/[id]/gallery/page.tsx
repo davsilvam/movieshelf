@@ -16,7 +16,7 @@ export default function MovieGallery() {
           Planos de fundo ({images?.backdrops.length})
         </h2>
 
-        <div className="grid grid-cols-3 justify-between gap-5">
+        <div className="grid grid-cols-2 justify-between gap-5 md:grid-cols-3">
           {images?.backdrops.map((backdrop) => (
             <Image
               alt={`${movie?.title} backdrop.`}
@@ -35,7 +35,7 @@ export default function MovieGallery() {
           Cartazes ({images?.posters.length})
         </h2>
 
-        <div className="grid grid-cols-5 gap-5">
+        <div className="grid grid-cols-3 gap-5 md:grid-cols-5">
           {images?.posters.map((poster) => (
             <Image
               alt={`${movie?.title} poster.`}

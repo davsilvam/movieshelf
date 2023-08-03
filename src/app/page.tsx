@@ -9,8 +9,8 @@ export default function Home() {
       <BannerSlider />
       <MovieCatalog />
 
-      <div className="flex h-screen w-full flex-col items-center justify-center gap-10">
-        <p className="font-alt text-5xl font-semibold text-white">
+      <div className="flex h-screen w-full flex-col items-center justify-center gap-5 md:gap-10">
+        <p className="font-alt text-3xl font-semibold text-white md:text-5xl">
           Não achou o que queria?
         </p>
 

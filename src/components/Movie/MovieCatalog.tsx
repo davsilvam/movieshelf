@@ -18,7 +18,7 @@ export function MovieCatalog() {
   const { movieQueries } = useMovieCatalog([16, 28, 18, 10749, 878])
 
   return (
-    <main className="flex flex-col items-center gap-16 px-10 pb-40 pt-16">
+    <main className="flex flex-col items-center gap-16 px-6 pb-40 pt-16 md:px-10">
       {isLoading ? (
         <Fragment>
           <div className="flex w-full items-center justify-between gap-20">
