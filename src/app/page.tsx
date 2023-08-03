@@ -1,6 +1,12 @@
 import { ArrowUpRight } from 'lucide-react'
 
-import { BannerSlider, Header, LinkButton, MovieCatalog } from 'components'
+import {
+  BannerSlider,
+  Header,
+  LinkButton,
+  MenuBar,
+  MovieCatalog,
+} from 'components'
 
 export default function Home() {
   return (
@@ -18,6 +24,8 @@ export default function Home() {
           Descubra outros títulos
         </LinkButton>
       </div>
+
+      <MenuBar />
     </main>
   )
 }
