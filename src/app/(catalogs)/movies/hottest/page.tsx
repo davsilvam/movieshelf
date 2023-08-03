@@ -1,12 +1,11 @@
 'use client'
 
-import Link from 'next/link'
 import { Fragment } from 'react'
 
 import {
   BannerCard,
   BannerSkeleton,
-  MovieCard,
+  MovieContainer,
   MovieContainerSkeleton,
   PageTitle,
 } from 'components'
@@ -31,19 +30,15 @@ export default function Hottest() {
       )}
 
       <section className="flex flex-col gap-8 px-6 py-8 md:px-10 md:py-16">
+        <PageTitle>Novidades</PageTitle>
+
         {isLoading ? (
           <MovieContainerSkeleton />
         ) : (
           <Fragment>
-            <PageTitle>Novidades</PageTitle>
-
-            <div className="grid grid-cols-3 gap-4 md:gap-6 lg:grid-cols-4 lg:gap-10 xl:grid-cols-5">
-              {nowPlayingMovies?.map((movie) => (
-                <Link href={`/details/${movie.id}`} key={movie.id}>
-                  <MovieCard movie={movie} />
-                </Link>
-              ))}
-            </div>
+            {nowPlayingMovies && (
+              <MovieContainer.Root movies={nowPlayingMovies} range={[0, 21]} />
+            )}
           </Fragment>
         )}
       </section>

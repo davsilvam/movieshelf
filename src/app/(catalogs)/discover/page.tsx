@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { Fragment } from 'react'
 
 import {
@@ -8,7 +7,7 @@ import {
   FiltersBar,
   FiltersDropdown,
   GenresDropdown,
-  MovieCard,
+  MovieContainer,
   MovieContainerSkeleton,
   PageTitle,
   SortBySelect,
@@ -46,13 +45,9 @@ export default function Discover() {
           <MovieContainerSkeleton hasTitle={false} />
         ) : (
           <Fragment>
-            <div className="grid grid-cols-3 gap-4 md:gap-6 lg:grid-cols-4 lg:gap-10 xl:grid-cols-5">
-              {discoverMovies?.results?.map((movie) => (
-                <Link href={`/details/${movie.id}`} key={movie.id}>
-                  <MovieCard movie={movie} />
-                </Link>
-              ))}
-            </div>
+            {discoverMovies && (
+              <MovieContainer.Root movies={discoverMovies.results} />
+            )}
 
             {discoverMovies && (
               <CatalogPagination

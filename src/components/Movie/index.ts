@@ -1,5 +1,4 @@
-export * from './MovieBanner'
 export * from './MovieCard'
 export * from './MovieCatalog'
-export * from './MovieContainer'
 export * from './MovieContainerSkeleton'
+export * from './MovieContainer'

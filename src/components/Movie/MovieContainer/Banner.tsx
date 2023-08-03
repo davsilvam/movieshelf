@@ -8,11 +8,11 @@ import { cn, movieGenres } from 'utils'
 
 import { Movie } from 'types'
 
-interface MovieBannerProps {
+interface MovieContainerBannerProps {
   movie: Movie
 }
 
-export function MovieBanner({ movie }: MovieBannerProps) {
+export function MovieContainerBanner({ movie }: MovieContainerBannerProps) {
   const movieBackdrop = `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`
 
   return (

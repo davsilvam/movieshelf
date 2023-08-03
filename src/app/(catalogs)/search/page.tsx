@@ -42,22 +42,22 @@ export default function Search() {
       )}
 
       <section className="flex flex-col gap-8 px-6 py-8 md:px-10 md:py-16">
+        <div className="flex flex-col gap-6">
+          <PageTitle>Pesquisa</PageTitle>
+
+          <div className="flex flex-col gap-3">
+            <SearchBar size="full" />
+            <h2 className="text-oslo max-md:text-sm">
+              Com base na sua pesquisa para:{' '}
+              <span className="font-semibold text-white">{title}</span>
+            </h2>{' '}
+          </div>
+        </div>
+
         {isLoading ? (
           <MovieContainerSkeleton />
         ) : (
           <Fragment>
-            <div className="flex flex-col gap-6">
-              <PageTitle>Pesquisa</PageTitle>
-
-              <div className="flex flex-col gap-3">
-                <SearchBar size="full" />
-                <h2 className="text-oslo max-md:text-sm">
-                  Com base na sua pesquisa para:{' '}
-                  <span className="font-semibold text-white">{title}</span>
-                </h2>{' '}
-              </div>
-            </div>
-
             {searchedMovies?.results && searchedMovies.results.length > 0 ? (
               <div className="grid grid-cols-3 gap-4 md:gap-6 lg:grid-cols-4 lg:gap-10 xl:grid-cols-5">
                 {searchedMovies.results.map((movie) => (

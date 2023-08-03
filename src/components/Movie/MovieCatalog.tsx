@@ -21,61 +21,61 @@ export function MovieCatalog() {
     <main className="flex flex-col items-center gap-16 px-6 pb-40 pt-16 md:px-10">
       {isLoading ? (
         <Fragment>
-          <div className="flex w-full items-center justify-between gap-20">
-            <div className="h-52 w-full animate-pulse rounded-md bg-shark" />
-            <div className="h-52 w-full animate-pulse rounded-md bg-shark" />
-            <div className="h-52 w-full animate-pulse rounded-md bg-shark" />
+          <div className="flex w-full items-center justify-between gap-3 font-alt text-2xl text-white max-md:flex-col md:gap-4 lg:gap-8 xl:gap-20 xl:text-4xl">
+            <div className="h-32 w-full animate-pulse rounded-md bg-shark md:h-52" />
+            <div className="h-32 w-full animate-pulse rounded-md bg-shark md:h-52" />
+            <div className="h-32 w-full animate-pulse rounded-md bg-shark md:h-52" />
           </div>
 
-          <MovieContainerSkeleton />
+          <MovieContainerSkeleton hasTitle />
         </Fragment>
       ) : (
         <Fragment>
           <CategoryCards />
 
           {nowPlayingMovies && (
-            <MovieContainer
-              icon={Flame}
-              title="Novidades"
-              movies={nowPlayingMovies}
-            />
+            <MovieContainer.Root movies={nowPlayingMovies}>
+              <MovieContainer.Title icon={Flame}>
+                Novidades
+              </MovieContainer.Title>
+            </MovieContainer.Root>
           )}
         </Fragment>
       )}
 
       {movieQueries[0] && (
-        <MovieContainer
-          icon={Sparkle}
-          title="Animação"
-          movies={movieQueries[0]}
-          hasBanner
-        />
+        <MovieContainer.Root movies={movieQueries[0]} range={[1, 6]}>
+          <MovieContainer.Title icon={Sparkle}>Animação</MovieContainer.Title>
+          <MovieContainer.Banner movie={movieQueries[0][0]} />
+        </MovieContainer.Root>
       )}
 
       {movieQueries[1] && (
-        <MovieContainer icon={Flame} title="Ação" movies={movieQueries[1]} />
+        <MovieContainer.Root movies={movieQueries[1]}>
+          <MovieContainer.Title icon={Flame}>Ação</MovieContainer.Title>
+        </MovieContainer.Root>
       )}
 
       {movieQueries[2] && (
-        <MovieContainer
-          icon={HeartCrack}
-          title="Drama"
-          movies={movieQueries[2]}
-          hasBanner
-        />
+        <MovieContainer.Root movies={movieQueries[2]} range={[1, 6]}>
+          <MovieContainer.Title icon={HeartCrack}>Drama</MovieContainer.Title>
+          <MovieContainer.Banner movie={movieQueries[2][0]} />
+        </MovieContainer.Root>
       )}
 
       {movieQueries[3] && (
-        <MovieContainer icon={Heart} title="Romance" movies={movieQueries[3]} />
+        <MovieContainer.Root movies={movieQueries[3]}>
+          <MovieContainer.Title icon={Heart}>Romance</MovieContainer.Title>
+        </MovieContainer.Root>
       )}
 
       {movieQueries[4] && (
-        <MovieContainer
-          icon={Orbit}
-          title="Ficção Científica"
-          movies={movieQueries[4]}
-          hasBanner
-        />
+        <MovieContainer.Root movies={movieQueries[4]} range={[1, 6]}>
+          <MovieContainer.Title icon={Orbit}>
+            Ficção Científica
+          </MovieContainer.Title>
+          <MovieContainer.Banner movie={movieQueries[4][0]} />
+        </MovieContainer.Root>
       )}
     </main>
   )
