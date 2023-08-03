@@ -18,7 +18,9 @@ export function PageTitle({ children }: PageTitleProps) {
         Página Inicial
       </Link>
 
-      <h1 className="font-alt text-7xl uppercase text-white">{children}</h1>
+      <h1 className="font-alt text-5xl uppercase text-white md:text-7xl">
+        {children}
+      </h1>
     </div>
   )
 }

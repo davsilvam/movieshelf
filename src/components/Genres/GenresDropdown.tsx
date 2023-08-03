@@ -21,6 +21,7 @@ export function GenresDropdown() {
     'cursor-pointer',
     'flex items-center justify-center gap-2',
     'w-full rounded p-2 outline-none',
+    'max-md:text-sm',
     'transition hover:bg-white/10 hover:text-white',
   )
 
@@ -34,7 +35,7 @@ export function GenresDropdown() {
 
       <Portal>
         <Content
-          className="flex min-w-[300px] flex-col gap-3 rounded bg-shark p-3 text-white"
+          className="flex flex-col gap-3 rounded bg-shark p-3 text-white max-md:ml-6 md:min-w-[300px]"
           sideOffset={5}
           align="center"
         >

@@ -20,13 +20,13 @@ export function CatalogPagination({
   const pageBulletStyle = cn(
     'cursor-pointer',
     'flex items-center justify-center',
-    'h-8 w-fit min-w-[32px]  rounded-full px-2',
+    'h-8 w-fit min-w-[32px] rounded-full px-2',
     'text-white',
     'transition',
   )
 
   return (
-    <footer className="mt-10 flex w-full items-end justify-center gap-10">
+    <footer className="mt-10 flex w-full items-end justify-center gap-4 md:gap-10">
       <button
         onClick={goToPreviousPage}
         className="rounded-full bg-white p-2 disabled:cursor-not-allowed disabled:opacity-50"
@@ -35,7 +35,7 @@ export function CatalogPagination({
         <ChevronLeft className="h-4 w-4" />
       </button>
 
-      <ul className="flex items-center gap-5 text-sm font-medium text-white">
+      <ul className="flex items-center gap-3 text-xs font-medium text-white md:gap-5 md:text-sm">
         {currentPage > 1 && (
           <li
             onClick={() => goToPage(currentPage - 1)}

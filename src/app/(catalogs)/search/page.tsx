@@ -35,13 +35,13 @@ export default function Search() {
         <BannerSkeleton />
       ) : (
         searchedMovies?.results[0] && (
-          <div className="h-[90vh] max-w-full">
+          <div className="h-[70vh] max-w-full md:h-[80vh] lg:h-[90vh]">
             <BannerCard movie={searchedMovies.results[0]} />
           </div>
         )
       )}
 
-      <section className="flex flex-col gap-8 px-10 py-16">
+      <section className="flex flex-col gap-8 px-6 py-8 md:px-10 md:py-16">
         {isLoading ? (
           <MovieContainerSkeleton />
         ) : (
@@ -51,7 +51,7 @@ export default function Search() {
 
               <div className="flex flex-col gap-3">
                 <SearchBar size="full" />
-                <h2 className="text-oslo">
+                <h2 className="text-oslo max-md:text-sm">
                   Com base na sua pesquisa para:{' '}
                   <span className="font-semibold text-white">{title}</span>
                 </h2>{' '}
@@ -59,7 +59,7 @@ export default function Search() {
             </div>
 
             {searchedMovies?.results && searchedMovies.results.length > 0 ? (
-              <div className="grid grid-cols-5 gap-12">
+              <div className="grid grid-cols-3 gap-4 md:gap-6 lg:grid-cols-4 lg:gap-10 xl:grid-cols-5">
                 {searchedMovies.results.map((movie) => (
                   <Link href={`/details/${movie.id}`} key={movie.id}>
                     <MovieCard movie={movie} />
@@ -67,7 +67,7 @@ export default function Search() {
                 ))}
               </div>
             ) : (
-              <div className="mt-32 flex flex-col items-center justify-center gap-3 text-white">
+              <div className="mt-32 flex flex-col items-center justify-center gap-3 text-white max-md:text-sm">
                 <SearchX className="h-7 w-7 text-carnation" />
                 <p>Nenhum filme com esse nome foi encontrado.</p>
               </div>

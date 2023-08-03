@@ -28,7 +28,19 @@ import { cn } from 'utils'
 import { FilterSelect } from './FilterSelect'
 
 export function FiltersDropdown() {
-  const { step, resetMenu, selectFilterCategory } = useFilters()
+  const {
+    step,
+    filterCategory,
+    errors,
+    handleSubmit,
+    register,
+    filters,
+    resetMenu,
+    goToPreviousStep,
+    selectFilterCategory,
+    handleFilter,
+    submitFilter,
+  } = useFilters()
 
   return (
     <Root onOpenChange={resetMenu}>
@@ -47,7 +59,53 @@ export function FiltersDropdown() {
           {step === 0 && (
             <FilterSelector selectFilterCategory={selectFilterCategory} />
           )}
-          {step === 1 && <SelectedFilterForm />}
+          {step === 1 && (
+            <Fragment>
+              <Label className="flex items-center gap-3 font-semibold">
+                <button
+                  onClick={goToPreviousStep}
+                  className="rounded p-1 transition-colors hover:bg-white/10"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </button>
+                {filters[filterCategory].title}
+              </Label>
+
+              <form
+                onSubmit={handleSubmit(submitFilter)}
+                className="flex flex-col gap-3"
+              >
+                <div className="flex w-full flex-col gap-1">
+                  <label className="text-sm text-white/70">Filtro</label>
+
+                  <FilterSelect
+                    options={filters[filterCategory].options}
+                    setFilter={handleFilter}
+                  />
+                </div>
+
+                <div className="mb-5 flex w-full flex-col gap-1">
+                  <label htmlFor="param" className="text-sm text-white/70">
+                    Parâmetro
+                  </label>
+
+                  <input
+                    {...register('param')}
+                    className="w-full rounded bg-white/5 p-2 text-sm text-white outline-none transition-colors hover:bg-white/10 focus:bg-white/10"
+                    placeholder={filters[filterCategory].placeholder}
+                  />
+
+                  <span className="mt-0.5 text-xs text-red-500">
+                    {errors.param?.message}
+                  </span>
+                </div>
+
+                <Button className="text-sm" size="full">
+                  Adicionar filtro
+                </Button>
+              </form>
+            </Fragment>
+          )}
         </Content>
       </Portal>
     </Root>
@@ -121,67 +179,6 @@ function FilterSelector({ selectFilterCategory }: FilterSelectorProps) {
           </button>
         </Item>
       </Group>
-    </Fragment>
-  )
-}
-
-function SelectedFilterForm() {
-  const {
-    filterCategory,
-    errors,
-    handleSubmit,
-    register,
-    filters,
-    goToPreviousStep,
-    handleFilter,
-    submitFilter,
-  } = useFilters()
-
-  return (
-    <Fragment>
-      <Label className="flex items-center gap-3 font-semibold">
-        <button
-          onClick={goToPreviousStep}
-          className="rounded p-1 transition-colors hover:bg-white/10"
-        >
-          <ChevronLeft className="h-4 w-4" />
-        </button>
-        {filters[filterCategory].title}
-      </Label>
-
-      <form
-        onSubmit={handleSubmit(submitFilter)}
-        className="flex flex-col gap-3"
-      >
-        <div className="flex w-full flex-col gap-1">
-          <label className="text-sm text-white/70">Filtro</label>
-
-          <FilterSelect
-            options={filters[filterCategory].options}
-            setFilter={handleFilter}
-          />
-        </div>
-
-        <div className="mb-5 flex w-full flex-col gap-1">
-          <label htmlFor="param" className="text-sm text-white/70">
-            Parâmetro
-          </label>
-
-          <input
-            {...register('param')}
-            className="w-full rounded bg-white/5 p-2 text-sm text-white outline-none transition-colors hover:bg-white/10 focus:bg-white/10"
-            placeholder={filters[filterCategory].placeholder}
-          />
-
-          <span className="mt-0.5 text-xs text-red-500">
-            {errors.param?.message}
-          </span>
-        </div>
-
-        <Button className="text-sm" size="full">
-          Adicionar filtro
-        </Button>
-      </form>
     </Fragment>
   )
 }
