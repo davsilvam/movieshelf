@@ -53,7 +53,7 @@ Tecnologias utilizadas no projeto.
 - [React Hook Form](https://www.react-hook-form.com)
 - [Zod](https://zod.dev)
 - [Swiper](https://swiperjs.com)
-- [Radix UI](radix-ui.com)
+- [Radix UI](https://www.radix-ui.com)
 
 ### :art: **Estilização**
 
