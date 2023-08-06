@@ -73,7 +73,7 @@ Tecnologias utilizadas no projeto.
 
 ### Requisitos
 
-- [Node](https://nodejs.org/) e [pnpm](https://pnpm.io/pt/)
+- [Node](https://nodejs.org/) e um gerenciador de pacotes, usei [pnpm](https://pnpm.io/pt/).
 
 Recomendo que veja a [documentação de configuração do Next](https://nextjs.org/docs/getting-started/installation).
 
