@@ -2,6 +2,19 @@
 
 <img src="./.github/banner.png" />
 
+## :bookmark: **Sumário**
+- [Sobre o Projeto](#film_strip-sobre-o-projeto)
+- [Visual do Projeto](#art-visual-do-projeto)
+   - [Desktop e Telas Maiores](#desktop-e-telas-maiores)
+   - [Mobile e Telas Menores](#mobile-e-telas-menores)
+- [Tecnologias](#wrench-tecnologias)
+   - [Construção do site](#construção-do-site)
+   - [Estilização](#estilização)
+   - [IDE, Versionamento e Deploy](#ide-versionamento-e-deploy)
+- [Configurações e Instalação](#rocket-configurações-e-instalação)
+     - [Requisitos](#requisitos)
+- [Licença](#balance_scale-licença)
+
 ## :film_strip: **Sobre o Projeto**
 
 A Movieshelf (trocadilho com *movie*: filme, e *shelf*: estante) é uma aplicação que mostra filmes das mais variadas categorias e suas informações, contando com o catálogo do [TMDB](https://www.themoviedb.org/?language=pt-BR).
@@ -44,7 +57,7 @@ A Movieshelf (trocadilho com *movie*: filme, e *shelf*: estante) é uma aplicaç
 
 Tecnologias utilizadas no projeto.
 
-### :hammer: **Construção do site**
+### **Construção do site**
 
 - [TypeScript](https://www.typescriptlang.org)
 - [Next 13 (App Router)](https://vuejs.org)
@@ -55,14 +68,14 @@ Tecnologias utilizadas no projeto.
 - [Swiper](https://swiperjs.com)
 - [Radix UI](https://www.radix-ui.com)
 
-### :art: **Estilização**
+### **Estilização**
 
 - [Tailwind CSS](https://tailwindcss.com)
 - [clsx](https://github.com/lukeed/clsx)
 - [tailwind-merge](https://github.com/dcastil/tailwind-merge)
 - [Lucide Icons](https://lucide.dev)
 
-### :open_file_folder: **IDE, Versionamento e Deploy**
+### **IDE, Versionamento e Deploy**
 
 - [Visual Studio Code](https://code.visualstudio.com)
 - [Git](https://git-scm.com)
@@ -98,8 +111,10 @@ pnpm run build
 
 Esse projeto está sob a [licença MIT](https://github.com/davsilvam/movieshelf/blob/main/LICENSE.md).
 
-<p align="center">
-  Feito com 💛 e ☕ por <a href="https://www.linkedin.com/in/davsilvam/">David Silva</a>.
-</p>
-
 ---
+
+Feito com 💛 e ☕ por <a href="https://www.linkedin.com/in/davsilvam/">David Silva</a>.
+
+> [Portfólio](https://davidsilvam.vercel.app) &nbsp;&middot;&nbsp;
+> GitHub [@davsilvam](https://github.com/davsilvam) &nbsp;&middot;&nbsp;
+> Instagram [@davsilvam_](https://www.instagram.com/davsilvam_/)
