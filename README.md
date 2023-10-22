@@ -88,6 +88,11 @@ Tecnologias utilizadas no projeto.
 
 - [Node](https://nodejs.org/) e um gerenciador de pacotes, usei [pnpm](https://pnpm.io/pt/).
 
+```sh
+# Caso não tenha o pnpm, execute:
+npm install -g pnpm
+```
+
 Recomendo que veja a [documentação de configuração do Next](https://nextjs.org/docs/getting-started/installation).
 
 ```sh
@@ -101,10 +106,10 @@ pnpm install
 NEXT_PUBLIC_TMDB_ACCESS_TOKEN="<seu-token>"
 
 # Compilar e abrir o programa para desenvolvimento
-pnpm run dev
+pnpm dev
 
 # Compilar e minificar para produção
-pnpm run build
+pnpm build
 ```
 
 ## :balance_scale: **Licença**
