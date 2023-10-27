@@ -60,7 +60,7 @@ Tecnologias utilizadas no projeto.
 ### **Construção do site**
 
 - [TypeScript](https://www.typescriptlang.org)
-- [Next 13 (App Router)](https://vuejs.org)
+- [Next 13 (App Router)](https://nextjs.org)
 - [The Movie Database API](https://developer.themoviedb.org/docs)
 - [TanStack Query](https://tanstack.com/query/latest)
 - [React Hook Form](https://www.react-hook-form.com)
