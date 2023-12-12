@@ -17,7 +17,7 @@ export default function MovieGallery() {
         </h2>
 
         <div className="grid grid-cols-2 justify-between gap-5 md:grid-cols-3">
-          {images?.backdrops.map((backdrop) => (
+          {images?.backdrops.map(backdrop => (
             <Image
               alt={`${movie?.title} backdrop.`}
               src={`https://image.tmdb.org/t/p/w780${backdrop.file_path}`}
@@ -36,7 +36,7 @@ export default function MovieGallery() {
         </h2>
 
         <div className="grid grid-cols-3 gap-5 md:grid-cols-5">
-          {images?.posters.map((poster) => (
+          {images?.posters.map(poster => (
             <Image
               alt={`${movie?.title} poster.`}
               src={`https://image.tmdb.org/t/p/w342${poster.file_path}`}

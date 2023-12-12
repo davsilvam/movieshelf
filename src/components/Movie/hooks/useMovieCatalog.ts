@@ -6,13 +6,13 @@ export function useMovieCatalog(genreIds: number[]) {
   const { getMoviesByGenre } = useMovies()
 
   const movieQueries = useQueries({
-    queries: genreIds.map((genreId) => {
+    queries: genreIds.map(genreId => {
       return {
         queryKey: ['movies', 'genre', genreId, 'list'],
         queryFn: () => getMoviesByGenre(genreId),
       }
     }),
-  }).map((query) => query.data)
+  }).map(query => query.data)
 
   return {
     movieQueries,

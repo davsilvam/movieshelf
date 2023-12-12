@@ -47,7 +47,7 @@ export function CategoryCards() {
           style={{
             backgroundImage: `url(https://image.tmdb.org/t/p/original${topRatedMovies[0].backdrop_path})`,
           }}
-          href="/movies/top_rated"
+          href="/movies/top-rated"
         >
           <div className="flex h-full w-full items-center justify-center bg-woodsmoke/70 transition-colors hover:bg-woodsmoke/50">
             Melhor Avaliados

@@ -12,8 +12,8 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { useMovies } from 'hooks'
 
-import { BannerCard } from './BannerCard'
-import { BannerSkeleton } from './BannerSkeleton'
+import { BannerCard } from './Card'
+import { BannerSkeleton } from './Skeleton'
 
 export function BannerSlider() {
   const {
@@ -22,7 +22,7 @@ export function BannerSlider() {
 
   const hottestMovies =
     popularMovies &&
-    popularMovies.filter((movie) => popularMovies.indexOf(movie) < 4)
+    popularMovies.filter(movie => popularMovies.indexOf(movie) < 4)
 
   return (
     <Fragment>
@@ -42,7 +42,7 @@ export function BannerSlider() {
           slidesPerView={1}
         >
           {hottestMovies &&
-            hottestMovies.map((movie) => (
+            hottestMovies.map(movie => (
               <SwiperSlide className="h-full" key={movie.id}>
                 <BannerCard movie={movie} />
               </SwiperSlide>

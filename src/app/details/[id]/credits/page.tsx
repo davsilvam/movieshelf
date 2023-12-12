@@ -17,7 +17,7 @@ export default function MovieCredits() {
         <h2 className="pt-4 font-alt text-xl text-white">Elenco</h2>
 
         <div className="grid grid-cols-2 gap-2 gap-y-5 md:grid-cols-4 xl:grid-cols-5">
-          {credits?.cast.map((actor) => (
+          {credits?.cast.map(actor => (
             <div className="flex items-center gap-4" key={actor.id}>
               {actor.profile_path ? (
                 <Image
@@ -46,7 +46,7 @@ export default function MovieCredits() {
         <h2 className="pt-4 font-alt text-xl text-white">Equipe</h2>
 
         <div className="grid grid-cols-2 gap-2 gap-y-5 md:grid-cols-4 xl:grid-cols-5">
-          {credits?.crew.map((employee) => (
+          {credits?.crew.map(employee => (
             <div className="flex items-center gap-4" key={employee.id}>
               {employee.profile_path ? (
                 <Image

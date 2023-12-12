@@ -1,3 +1,5 @@
+'use client'
+
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -96,11 +98,11 @@ export function useFilters() {
   }
 
   function goToNextStep() {
-    setStep((state) => state + 1)
+    setStep(state => state + 1)
   }
 
   function goToPreviousStep() {
-    setStep((state) => state - 1)
+    setStep(state => state - 1)
   }
 
   function selectFilterCategory(filter: number) {

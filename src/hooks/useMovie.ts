@@ -29,14 +29,14 @@ export function useMovie(movieId: string) {
   )
 
   const mainCast = credits?.cast.filter(
-    (actor) => credits.cast.indexOf(actor) < 5,
+    actor => credits.cast.indexOf(actor) < 5,
   )
 
   const mainBackdrops = images?.backdrops.filter(
-    (backdrop) => images.backdrops.indexOf(backdrop) < 3,
+    backdrop => images.backdrops.indexOf(backdrop) < 3,
   )
 
-  const mainSimilar = similar?.filter((movie) => similar.indexOf(movie) < 5)
+  const mainSimilar = similar?.filter(movie => similar.indexOf(movie) < 5)
 
   async function getMovie() {
     const data = await fetchWrapper<MovieDetails>(

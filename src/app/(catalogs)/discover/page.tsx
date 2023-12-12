@@ -8,7 +8,6 @@ import {
   FiltersDropdown,
   GenresDropdown,
   MovieContainer,
-  MovieContainerSkeleton,
   PageTitle,
   SortBySelect,
 } from 'components'
@@ -42,7 +41,7 @@ export default function Discover() {
         </header>
 
         {isLoading ? (
-          <MovieContainerSkeleton hasTitle={false} />
+          <MovieContainer.Skeleton hasTitle={false} />
         ) : (
           <Fragment>
             {discoverMovies && (

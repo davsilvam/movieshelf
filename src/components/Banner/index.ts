@@ -1,3 +1,3 @@
-export * from './BannerCard'
-export * from './BannerSkeleton'
-export * from './BannerSlider'
+export * from './Card'
+export * from './Skeleton'
+export * from './Slider'

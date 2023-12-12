@@ -40,19 +40,19 @@ export function GenresDropdown() {
           align="center"
         >
           <Group className="grid grid-cols-2 gap-2 rounded-md text-sm">
-            {movieGenresIds.map((genreId) => (
+            {movieGenresIds.map(genreId => (
               <CheckboxItem
-                onClick={(event) => {
+                onClick={event => {
                   event.preventDefault()
                   handleGenres(genreId)
                 }}
                 className={cn(
                   genreCheckboxStyle,
-                  checkedGenres.some((genre) => genre === genreId)
+                  checkedGenres.some(genre => genre === genreId)
                     ? 'text-white'
                     : 'text-oslo',
                 )}
-                checked={checkedGenres.some((genre) => genre === genreId)}
+                checked={checkedGenres.some(genre => genre === genreId)}
                 key={genreId}
               >
                 <ItemIndicator>

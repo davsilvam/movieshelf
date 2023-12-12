@@ -28,7 +28,7 @@ export function MovieContainerBanner({ movie }: MovieContainerBannerProps) {
     >
       <div className="flex flex-col items-end gap-2">
         <div className="flex items-center gap-2">
-          {movie.genre_ids.map((genreId) => (
+          {movie.genre_ids.map(genreId => (
             <Fragment key={genreId}>
               {movie.genre_ids.indexOf(genreId) > 0 && (
                 <div className="h-4 w-[1px] bg-oslo max-sm:h-3" />

@@ -3,34 +3,36 @@
 @tailwind utilities;
 
 :root {
-    --swiper-theme-color: #ffffff !important;
-    --swiper-pagination-bullet-inactive-color: #8C8D8F !important;
-    --swiper-pagination-bullet-opacity: 100% !important;
-    --swiper-pagination-bullet-inactive-opacity: 60% !important;
+  --swiper-theme-color: #ffffff !important;
+  --swiper-pagination-bullet-inactive-color: #8c8d8f !important;
+  --swiper-pagination-bullet-opacity: 100% !important;
+  --swiper-pagination-bullet-inactive-opacity: 60% !important;
 }
 
 body {
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-.swiper-horizontal > .swiper-pagination-bullets.swiper-pagination-bullets-dynamic, .swiper-pagination-horizontal.swiper-pagination-bullets.swiper-pagination-bullets-dynamic {
-    left: 50% !important;
-    right: 50% !important;
-    text-align: center !important;
-    transform: translateX(-50%) !important;
+.swiper-horizontal
+  > .swiper-pagination-bullets.swiper-pagination-bullets-dynamic,
+.swiper-pagination-horizontal.swiper-pagination-bullets.swiper-pagination-bullets-dynamic {
+  left: 50% !important;
+  right: 50% !important;
+  text-align: center !important;
+  transform: translateX(-50%) !important;
 }
 
 .swiper-pagination-bullet {
-    border-radius: 8px !important;
-    height: 3px !important;
-    left: initial !important;
-    transform: initial !important;
-    width: 84px !important;
+  border-radius: 8px !important;
+  height: 3px !important;
+  left: initial !important;
+  transform: initial !important;
+  width: 84px !important;
 }
 
 @media (max-width: 769px) {
-    .swiper-pagination-bullet {
-        width: 62px !important;
-    }
+  .swiper-pagination-bullet {
+    width: 62px !important;
+  }
 }

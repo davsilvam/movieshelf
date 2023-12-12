@@ -1,1 +1,1 @@
-export * from './GenresDropdown'
+export * from './Dropdown'

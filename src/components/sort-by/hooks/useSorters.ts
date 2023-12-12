@@ -62,7 +62,7 @@ export function useSorters() {
   }
 
   function getSorterMessage(param: string) {
-    const sorter = sorters.find((sorter) => sorter.value === param)
+    const sorter = sorters.find(sorter => sorter.value === param)
     return sorter?.name ?? ''
   }
 

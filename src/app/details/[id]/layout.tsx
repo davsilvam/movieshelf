@@ -48,7 +48,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-4">
-                  {movie.genres.map((genre) => (
+                  {movie.genres.map(genre => (
                     <Fragment key={genre.id}>
                       {movie.genres.indexOf(genre) > 0 && (
                         <div className="h-4 w-[1px] bg-oslo" />

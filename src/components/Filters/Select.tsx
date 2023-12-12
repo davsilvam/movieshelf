@@ -26,7 +26,7 @@ interface FilterSelectProps {
 
 export function FilterSelect({ options, setFilter }: FilterSelectProps) {
   return (
-    <Root onValueChange={(value) => setFilter(value)}>
+    <Root onValueChange={value => setFilter(value)}>
       <Trigger className="flex w-full items-center justify-between rounded bg-white/5 p-2 text-sm text-white outline-none transition-colors hover:bg-white/10">
         <Value
           defaultValue={options[0].description}
@@ -46,7 +46,7 @@ export function FilterSelect({ options, setFilter }: FilterSelectProps) {
         >
           <Viewport>
             <Group className="flex flex-col items-center gap-1">
-              {options.map((option) => (
+              {options.map(option => (
                 <Item
                   className="w-full cursor-pointer rounded p-2 text-sm text-oslo outline-none transition-colors hover:bg-white/10 hover:text-white"
                   value={option.query}

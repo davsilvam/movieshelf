@@ -60,7 +60,7 @@ export function Navigation() {
                 </li>
               </Link>
 
-              <Link href="/movies/top_rated">
+              <Link href="/movies/top-rated">
                 <li className="w-full rounded px-4 py-2 transition-colors hover:bg-oslo/20">
                   <strong>Melhor Avaliados</strong>
                   <p className="text-sm text-white/60">
@@ -88,7 +88,7 @@ export function Navigation() {
 
           <Content className="absolute left-0 top-14 w-full rounded bg-shark">
             <ul className="grid grid-cols-2 gap-1 p-2 text-white">
-              {movieGenresIds.map((genreId) => (
+              {movieGenresIds.map(genreId => (
                 <Link href={`/discover?with_genres=${genreId}`} key={genreId}>
                   <li className="w-full rounded px-4 py-2 text-sm font-semibold transition-colors hover:bg-oslo/20">
                     <p>{movieGenres[genreId]}</p>

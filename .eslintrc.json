@@ -2,6 +2,20 @@
   "extends": ["next/core-web-vitals", "@rocketseat/eslint-config/next"], 
   "plugins": ["eslint-plugin-import-helpers"],
   "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto",
+        "semi": false,
+        "singleQuote": true,
+        "tabWidth": 2,
+        "trailingComma": "all",
+        "printWidth": 80,
+        "arrowParens": "avoid",
+        "bracketSpacing": true,
+        "plugins": ["prettier-plugin-tailwindcss"]
+      }
+    ],
     "import-helpers/order-imports": [
       "warn",
       {

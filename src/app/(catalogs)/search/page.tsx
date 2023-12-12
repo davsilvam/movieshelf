@@ -11,7 +11,7 @@ import {
   BannerSkeleton,
   CatalogPagination,
   MovieCard,
-  MovieContainerSkeleton,
+  MovieContainer,
   PageTitle,
   SearchBar,
 } from 'components'
@@ -55,12 +55,12 @@ export default function Search() {
         </div>
 
         {isLoading ? (
-          <MovieContainerSkeleton />
+          <MovieContainer.Skeleton />
         ) : (
           <Fragment>
             {searchedMovies?.results && searchedMovies.results.length > 0 ? (
               <div className="grid grid-cols-3 gap-4 md:gap-6 lg:grid-cols-4 lg:gap-10 xl:grid-cols-5">
-                {searchedMovies.results.map((movie) => (
+                {searchedMovies.results.map(movie => (
                   <Link href={`/details/${movie.id}`} key={movie.id}>
                     <MovieCard movie={movie} />
                   </Link>

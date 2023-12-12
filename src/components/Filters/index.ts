@@ -1,4 +1,6 @@
-export * from './FiltersBar'
-export * from './FiltersDropdown'
-export * from './FilterSelect'
-export * from './FilterTag'
+export * from './hooks'
+
+export * from './Bar'
+export * from './Dropdown'
+export * from './Select'
+export * from './Tag'

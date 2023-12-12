@@ -8,8 +8,8 @@ import { SearchBar } from 'components'
 export function MenuBar() {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
-  function toogleMenu() {
-    setIsOpen((state) => !state)
+  function toggleMenu() {
+    setIsOpen(state => !state)
   }
 
   return (
@@ -20,7 +20,7 @@ export function MenuBar() {
       }}
     >
       <button
-        onClick={toogleMenu}
+        onClick={toggleMenu}
         className="flex w-full items-center justify-center overflow-hidden border-b border-white/10 py-6 transition hover:bg-white/5"
       >
         <div className="h-1.5 w-20 rounded-md bg-white" />
@@ -59,7 +59,7 @@ export function MenuBar() {
           </Link>
 
           <Link
-            href="/movies/top_rated"
+            href="/movies/top-rated"
             className="rounded-md px-4 py-3 transition hover:bg-white/5"
           >
             Melhor Avaliados

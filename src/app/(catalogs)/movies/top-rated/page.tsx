@@ -6,7 +6,6 @@ import {
   BannerCard,
   BannerSkeleton,
   MovieContainer,
-  MovieContainerSkeleton,
   PageTitle,
 } from 'components'
 
@@ -33,7 +32,7 @@ export default function TopRated() {
         <PageTitle>Melhor Avaliados</PageTitle>
 
         {isLoading ? (
-          <MovieContainerSkeleton />
+          <MovieContainer.Skeleton />
         ) : (
           <Fragment>
             {topRatedMovies && (

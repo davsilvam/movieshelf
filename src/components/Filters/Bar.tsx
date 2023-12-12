@@ -2,11 +2,11 @@
 
 import { Fragment } from 'react'
 
-import { useSorters } from '../SortBy/hooks'
 import { useFiltersBar } from './hooks'
 import { cn, movieGenres } from 'utils'
 
-import { FilterTag } from './FilterTag'
+import { useSorters } from '../sort-by'
+import { FilterTag } from './Tag'
 
 export function FiltersBar() {
   const { getSorterMessage } = useSorters()
@@ -32,7 +32,7 @@ export function FiltersBar() {
               Gêneros:{' '}
               {queries.withGenres.value && (
                 <Fragment>
-                  {queries.withGenres.value.split(',').map((genreId) => {
+                  {queries.withGenres.value.split(',').map(genreId => {
                     const genreIds = queries.withGenres.value
                       ? queries.withGenres.value.split(',')
                       : []

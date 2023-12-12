@@ -25,7 +25,7 @@ import { Button } from 'components'
 import { useFilters } from './hooks'
 import { cn } from 'utils'
 
-import { FilterSelect } from './FilterSelect'
+import { FilterSelect } from './Select'
 
 export function FiltersDropdown() {
   const {
@@ -129,7 +129,7 @@ function FilterSelector({ selectFilterCategory }: FilterSelectorProps) {
 
       <Group className="grid grid-cols-2 gap-2 rounded-md text-sm text-oslo">
         <Item
-          onClick={(event) => {
+          onClick={event => {
             event.preventDefault()
             selectFilterCategory(0)
           }}
@@ -141,7 +141,7 @@ function FilterSelector({ selectFilterCategory }: FilterSelectorProps) {
         </Item>
 
         <Item
-          onClick={(event) => {
+          onClick={event => {
             event.preventDefault()
             selectFilterCategory(1)
           }}
@@ -154,7 +154,7 @@ function FilterSelector({ selectFilterCategory }: FilterSelectorProps) {
         </Item>
 
         <Item
-          onClick={(event) => {
+          onClick={event => {
             event.preventDefault()
             selectFilterCategory(2)
           }}
@@ -167,7 +167,7 @@ function FilterSelector({ selectFilterCategory }: FilterSelectorProps) {
         </Item>
 
         <Item
-          onClick={(event) => {
+          onClick={event => {
             event.preventDefault()
             selectFilterCategory(3)
           }}

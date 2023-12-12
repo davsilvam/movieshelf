@@ -40,7 +40,7 @@ export function SearchBar({ size = 'base' }: SearchBarProps) {
     >
       <Search className="h-4 w-4" />
       <input
-        onKeyDown={(event) => handleSearch(event)}
+        onKeyDown={event => handleSearch(event)}
         className={cn(
           'w-full',
           'px-3 py-2 outline-none',

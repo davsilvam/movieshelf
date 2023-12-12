@@ -8,20 +8,18 @@ export function useGenresSelector() {
   const queryGenres = searchParams
     .get('with_genres')
     ?.split(',')
-    .map((item) => Number(item))
+    .map(item => Number(item))
 
   const [checkedGenres, setCheckedGenres] = useState<number[]>(
     queryGenres || [],
   )
 
   function handleGenres(genreId: number) {
-    if (checkedGenres.some((genre) => genre === genreId)) {
-      return setCheckedGenres((state) =>
-        state.filter((genre) => genre !== genreId),
-      )
+    if (checkedGenres.some(genre => genre === genreId)) {
+      return setCheckedGenres(state => state.filter(genre => genre !== genreId))
     }
 
-    setCheckedGenres((state) => [...state, genreId])
+    setCheckedGenres(state => [...state, genreId])
   }
 
   function submitGenres(open: boolean) {

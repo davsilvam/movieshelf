@@ -21,7 +21,7 @@ export default function MovieDetails() {
           <h2 className="pt-4 font-alt text-xl text-white">Elenco</h2>
 
           <div className="grid grid-cols-2 gap-5 md:grid-cols-4 lg:grid-cols-5">
-            {mainCast?.map((actor) => (
+            {mainCast?.map(actor => (
               <div className="flex items-center gap-4" key={actor.id}>
                 {actor.profile_path ? (
                   <Image
@@ -59,7 +59,7 @@ export default function MovieDetails() {
           <h2 className="pt-4 font-alt text-xl text-white">Galeria</h2>
 
           <div className="flex w-full items-center justify-between gap-4 max-md:flex-col md:gap-10">
-            {mainBackdrops?.map((backdrop) => (
+            {mainBackdrops?.map(backdrop => (
               <div
                 className="flex items-center gap-4"
                 key={backdrop.file_path + 'w'}
@@ -89,7 +89,7 @@ export default function MovieDetails() {
           <h2 className="pt-4 font-alt text-xl text-white">Resenhas</h2>
 
           <div className="flex w-full flex-col items-center gap-5">
-            {reviews?.map((review) => (
+            {reviews?.map(review => (
               <ReviewCard review={review} key={review.id} />
             ))}
           </div>
@@ -101,7 +101,7 @@ export default function MovieDetails() {
           <h2 className="pt-4 font-alt text-xl text-white">Similar</h2>
 
           <div className="grid w-full grid-cols-3 gap-4 lg:grid-cols-4 lg:gap-10 xl:grid-cols-5">
-            {mainSimilar?.map((movie) => (
+            {mainSimilar?.map(movie => (
               <Link href={`/details/${movie.id}`} key={movie.id}>
                 <MovieCard movie={movie} key={movie.id} />
               </Link>

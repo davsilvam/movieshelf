@@ -33,7 +33,7 @@ export function SortBySelect() {
         >
           <Viewport>
             <Group className="flex w-full flex-col gap-1">
-              {sorters.map((sort) => (
+              {sorters.map(sort => (
                 <Item
                   className="cursor-pointer rounded p-2 text-sm outline-none hover:bg-white/10"
                   key={sort.value}

@@ -1,4 +1,5 @@
-export * from './MovieCard'
-export * from './MovieCatalog'
-export * from './MovieContainerSkeleton'
-export * from './MovieContainer'
+export * from './container'
+export * from './hooks'
+
+export * from './Card'
+export * from './Catalog'

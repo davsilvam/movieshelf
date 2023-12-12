@@ -9,7 +9,7 @@ import { CategoryCards } from 'components'
 import { useMovieCatalog } from './hooks'
 import { useMovies } from 'hooks'
 
-import { MovieContainer, MovieContainerSkeleton } from './'
+import { MovieContainer } from '.'
 
 export function MovieCatalog() {
   const {
@@ -27,7 +27,7 @@ export function MovieCatalog() {
             <div className="h-32 w-full animate-pulse rounded-md bg-shark md:h-52" />
           </div>
 
-          <MovieContainerSkeleton hasTitle />
+          <MovieContainer.Skeleton hasTitle />
         </Fragment>
       ) : (
         <Fragment>

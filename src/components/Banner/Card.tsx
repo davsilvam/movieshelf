@@ -28,7 +28,7 @@ export function BannerCard({ movie }: BannerCardProps) {
 
       <div className="z-10 flex flex-col gap-3 md:gap-5">
         <div className="flex items-center gap-2">
-          {movie.genre_ids.map((genreId) => (
+          {movie.genre_ids.map(genreId => (
             <Fragment key={genreId}>
               {movie.genre_ids.indexOf(genreId) > 0 && (
                 <div className="h-5 w-[1px] bg-oslo max-sm:h-3" />

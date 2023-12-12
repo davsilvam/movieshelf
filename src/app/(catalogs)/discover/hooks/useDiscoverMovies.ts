@@ -35,11 +35,11 @@ export function useDiscoverMovies() {
   }
 
   function goToNextPage() {
-    setCurrentPage((state) => state + 1)
+    setCurrentPage(state => state + 1)
   }
 
   function goToPreviousPage() {
-    setCurrentPage((state) => state - 1)
+    setCurrentPage(state => state - 1)
   }
 
   function goToPage(page: number) {

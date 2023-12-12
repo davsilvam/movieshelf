@@ -35,7 +35,7 @@ export function MovieCard({ movie }: MovieCardProps) {
       <div className="flex items-center justify-between gap-2 text-oslo max-sm:hidden">
         <div className="flex items-center">
           <div className="flex items-center gap-2">
-            {movie.genre_ids.slice(0, 3).map((genreId) => (
+            {movie.genre_ids.slice(0, 3).map(genreId => (
               <Fragment key={genreId}>
                 {movie.genre_ids.indexOf(genreId) > 0 && (
                   <div className="h-2 w-[1px] bg-oslo" />
