@@ -17,7 +17,7 @@ export function BannerCard({ movie }: BannerCardProps) {
 
   return (
     <div
-      className={`relative flex h-full flex-col justify-between bg-opacity-75 bg-cover bg-top px-6 pb-8 pt-20 max-md:pb-16 md:px-10 md:pt-32`}
+      className="relative flex h-full flex-col justify-between bg-opacity-75 bg-cover bg-top px-6 pb-8 pt-20 max-md:pb-16 md:px-10 md:pt-32"
       style={{
         backgroundImage: movieBackdrop,
         boxShadow:

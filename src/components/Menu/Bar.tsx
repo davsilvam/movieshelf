@@ -14,7 +14,7 @@ export function MenuBar() {
 
   return (
     <div
-      className={`fixed bottom-0 left-0 z-30 flex w-full flex-col rounded-t-lg bg-shark transition lg:hidden`}
+      className="fixed bottom-0 left-0 z-30 flex w-full flex-col rounded-t-lg bg-shark transition lg:hidden"
       style={{
         transform: `translateY(${isOpen ? '0px' : 'calc(100% - 52px)'})`,
       }}

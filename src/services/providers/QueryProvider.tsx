@@ -2,13 +2,13 @@
 
 import { ReactNode } from 'react'
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClientProvider } from '@tanstack/react-query'
+
+import { queryClient } from 'services'
 
 interface ProvidersProps {
   children: ReactNode
 }
-
-export const queryClient = new QueryClient()
 
 export function QueryProvider({ children }: ProvidersProps) {
   return (

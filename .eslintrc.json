@@ -1,6 +1,6 @@
 {
   "extends": ["next/core-web-vitals", "@rocketseat/eslint-config/next"], 
-  "plugins": ["eslint-plugin-import-helpers"],
+  "plugins": ["import-helpers"],
   "rules": {
     "prettier/prettier": [
       "error",
@@ -24,12 +24,11 @@
           ["/^react/", "/^next/"],
           "module",
           "/^@shared/",
-          "absolute",
           ["/^@/components/", "/components/"],
-          ["/functions/", "/hooks/", "/^@/hooks/", "/utils/"],
-          "/types/",
-          "/^@/services/",
-          "/^@/styles/",
+          ["/hooks/", "/^@/hooks/", "/utils/",  "/^@/utils/"],
+          ["/^@/types/", "/types/"],
+          ["/^@/services/", "/services/"],
+          ["/^@/styles/", "/styles/"],
           ["parent", "sibling", "index"]
         ],
         "alphabetize": { "order": "asc", "ignoreCase": true }

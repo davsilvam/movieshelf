@@ -26,7 +26,7 @@ interface FilterSelectProps {
 
 export function FilterSelect({ options, setFilter }: FilterSelectProps) {
   return (
-    <Root onValueChange={value => setFilter(value)}>
+    <Root onValueChange={setFilter}>
       <Trigger className="flex w-full items-center justify-between rounded bg-white/5 p-2 text-sm text-white outline-none transition-colors hover:bg-white/10">
         <Value
           defaultValue={options[0].description}
