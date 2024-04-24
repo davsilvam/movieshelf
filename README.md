@@ -3,17 +3,13 @@
 <img src="./.github/banner.png" />
 
 ## :bookmark: **Sumário**
-- [Sobre o Projeto](#film_strip-sobre-o-projeto)
-- [Visual do Projeto](#art-visual-do-projeto)
-   - [Desktop e Telas Maiores](#desktop-e-telas-maiores)
-   - [Mobile e Telas Menores](#mobile-e-telas-menores)
-- [Tecnologias](#wrench-tecnologias)
-   - [Construção do site](#construção-do-site)
-   - [Estilização](#estilização)
-   - [IDE, Versionamento e Deploy](#ide-versionamento-e-deploy)
-- [Configurações e Instalação](#rocket-configurações-e-instalação)
-     - [Requisitos](#requisitos)
-- [Licença](#balance_scale-licença)
+<p align="center">
+    <a href="#film_strip-sobre-o-projeto">Sobre o Projeto</a> • 
+    <a href="#mobile-e-telas-menores">Visual do Projeto</a> • 
+    <a href="#wrench-tecnologias">Tecnologias</a> • 
+    <a href="#rocket-configurações-e-instalação">Configurações e Instalação</a> • 
+    <a href="#balance_scale-licença">Licença</a>
+</p>
 
 ## :film_strip: **Sobre o Projeto**
 
