@@ -24,29 +24,25 @@ A Movieshelf (trocadilho com *movie*: filme, e *shelf*: estante) é uma aplicaç
 ### _Desktop e Telas Maiores_
 
 <h1 align="center">
-    <img src="./.github/desktop_1.png" style="width: 70%">
+    <img src="./.github/desktop-1.png" style="width: 85%">
 </h1>
 
 <h1 align="center">
-    <img src="./.github/desktop_2.png" style="width: 70%">
+    <img src="./.github/desktop-2.png" style="width: 85%">
 </h1>
 
 <h1 align="center">
-    <img src="./.github/desktop_3.png" style="width: 70%">
+    <img src="./.github/desktop-3.png" style="width: 85%">
 </h1>
 
 ### _Mobile e Telas Menores_
 
 <h1 align="center">
-    <img src="./.github/mobile_1.png" style="width: 40%;">
+    <img src="./.github/mobile-1.png" style="width: 85%;">
 </h1>
 
 <h1 align="center">
-    <img src="./.github/mobile_2.png" style="width: 40%;">
-</h1>
-
-<h1 align="center">
-    <img src="./.github/mobile_3.png" style="width: 40%;">
+    <img src="./.github/mobile-2.png" style="width: 85%;">
 </h1>
 
 ## :wrench: **Tecnologias**
