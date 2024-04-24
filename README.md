@@ -6,7 +6,7 @@
 
 <p align="center">
     <a href="#film_strip-sobre-o-projeto">Sobre o Projeto</a> • 
-    <a href="#mobile-e-telas-menores">Visual do Projeto</a> • 
+    <a href="#art-visual-do-projeto">Visual do Projeto</a> • 
     <a href="#wrench-tecnologias">Tecnologias</a> • 
     <a href="#rocket-configurações-e-instalação">Configurações e Instalação</a> • 
     <a href="#balance_scale-licença">Licença</a>
