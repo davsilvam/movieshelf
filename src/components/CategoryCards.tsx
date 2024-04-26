@@ -2,14 +2,35 @@
 
 import Link from 'next/link'
 
-import { useMovies } from 'hooks'
+import {
+  LoadMovies,
+  useHottestMovies,
+  usePopularMovies,
+  useTopRatedMovies,
+} from 'hooks'
 
-export function CategoryCards() {
-  const {
-    nowPlayingMovies: { data: nowPlayingMovies },
-    popularMovies: { data: popularMovies },
-    topRatedMovies: { data: topRatedMovies },
-  } = useMovies()
+interface CategoryCardsProps {
+  loadHottestMovies: LoadMovies
+  loadPopularMovies: LoadMovies
+  loadTopRatedMovies: LoadMovies
+}
+
+export function CategoryCards({
+  loadHottestMovies,
+  loadPopularMovies,
+  loadTopRatedMovies,
+}: CategoryCardsProps) {
+  const { nowPlayingMovies } = useHottestMovies({
+    loadHottestMovies,
+  })
+
+  const { popularMovies } = usePopularMovies({
+    loadPopularMovies,
+  })
+
+  const { topRatedMovies } = useTopRatedMovies({
+    loadTopRatedMovies,
+  })
 
   return (
     <section className="flex w-full items-center justify-between gap-3 font-alt text-2xl text-white max-md:flex-col md:gap-4 lg:gap-8 xl:gap-20 xl:text-4xl">

@@ -40,7 +40,7 @@ export default function Discover() {
           <FiltersBar />
         </header>
 
-        {isLoading ? (
+        {/* {isLoading ? (
           <MovieContainer.Skeleton hasTitle={false} />
         ) : (
           <Fragment>
@@ -58,7 +58,7 @@ export default function Discover() {
               />
             )}
           </Fragment>
-        )}
+        )} */}
       </section>
     </div>
   )

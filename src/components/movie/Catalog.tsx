@@ -2,20 +2,69 @@
 
 import { Fragment } from 'react'
 
+import { FetchHttpClientAdapter, HttpClient } from 'infra/adapters'
 import { Flame, Heart, HeartCrack, Orbit, Sparkle } from 'lucide-react'
 
 import { CategoryCards } from 'components'
 
-import { useMovieCatalog } from './hooks'
-import { useMovies } from 'hooks'
+import {
+  LoadMovies,
+  LoadMoviesByGenre,
+  useHottestMovies,
+  useMoviesByGenre,
+} from 'hooks'
+
+import { Movie } from 'types'
 
 import { MovieContainer } from '.'
 
-export function MovieCatalog() {
-  const {
-    nowPlayingMovies: { data: nowPlayingMovies, isLoading },
-  } = useMovies()
-  const { movieQueries } = useMovieCatalog([16, 28, 18, 10749, 878])
+function loadPopularMovies(
+  httpClient: HttpClient<{
+    results: Movie[]
+  }>,
+) {
+  async function loadAll() {
+    return httpClient.request({
+      url: '/movie/popular?language=pt-BR',
+      method: 'get',
+    })
+  }
+
+  return { loadAll }
+}
+
+function loadTopRatedMovies(
+  httpClient: HttpClient<{
+    results: Movie[]
+  }>,
+) {
+  async function loadAll() {
+    return httpClient.request({
+      url: '/movie/top_rated?language=pt-BR',
+      method: 'get',
+    })
+  }
+
+  return { loadAll }
+}
+
+interface MovieCatalogProps {
+  loadHottestMovies: LoadMovies
+  loadMoviesByGenre: LoadMoviesByGenre
+}
+
+export function MovieCatalog({
+  loadHottestMovies,
+  loadMoviesByGenre,
+}: MovieCatalogProps) {
+  const { nowPlayingMovies, isLoading } = useHottestMovies({
+    loadHottestMovies,
+  })
+
+  const { movieQueries } = useMoviesByGenre({
+    loadMoviesByGenre,
+    genreIds: [16, 28, 18, 10749, 878],
+  })
 
   return (
     <main className="flex flex-col items-center gap-16 px-6 pb-40 pt-16 md:px-10">
@@ -31,7 +80,13 @@ export function MovieCatalog() {
         </Fragment>
       ) : (
         <Fragment>
-          <CategoryCards />
+          <CategoryCards
+            loadHottestMovies={loadHottestMovies}
+            loadPopularMovies={loadPopularMovies(new FetchHttpClientAdapter())}
+            loadTopRatedMovies={loadTopRatedMovies(
+              new FetchHttpClientAdapter(),
+            )}
+          />
 
           {nowPlayingMovies && (
             <MovieContainer.Root movies={nowPlayingMovies}>

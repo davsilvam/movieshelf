@@ -4,15 +4,89 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 
+import { FetchHttpClientAdapter, HttpClient } from 'infra/adapters'
 import { ArrowRight, ImageOff } from 'lucide-react'
 
 import { MovieCard, ReviewCard } from 'components'
 
 import { useMovie } from 'hooks'
 
+import { Credits, MovieDetails as Details, Images, Movie, Review } from 'types'
+
+function loadMovieDetails(httpClient: HttpClient<Details>) {
+  async function load(id: string) {
+    return httpClient.request({
+      url: `movie/${id}?language=pt-BR`,
+      method: 'get',
+    })
+  }
+
+  return { load }
+}
+
+function loadMovieCredits(httpClient: HttpClient<Credits>) {
+  async function loadAll(id: string) {
+    return httpClient.request({
+      url: `movie/${id}/credits?language=pt-BR`,
+      method: 'get',
+    })
+  }
+
+  return { loadAll }
+}
+
+function loadMovieImages(httpClient: HttpClient<Images>) {
+  async function loadAll(id: string) {
+    return httpClient.request({
+      url: `movie/${id}/images`,
+      method: 'get',
+    })
+  }
+
+  return { loadAll }
+}
+
+function loadMovieReviews(
+  httpClient: HttpClient<{
+    results: Review[]
+  }>,
+) {
+  async function loadAll(id: string) {
+    return httpClient.request({
+      url: `movie/${id}/reviews?language=pt-BR`,
+      method: 'get',
+    })
+  }
+
+  return { loadAll }
+}
+
+function loadMovieSimilar(
+  httpClient: HttpClient<{
+    results: Movie[]
+  }>,
+) {
+  async function loadAll(id: string) {
+    return httpClient.request({
+      url: `movie/${id}/similar?language=pt-BR`,
+      method: 'get',
+    })
+  }
+
+  return { loadAll }
+}
+
 export default function MovieDetails() {
-  const { id } = useParams()
-  const { movie, mainCast, mainBackdrops, reviews, mainSimilar } = useMovie(id)
+  const { id } = useParams() as { id: string }
+
+  const { details, mainCast, mainBackdrops, reviews, mainSimilar } = useMovie({
+    loadMovieDetails: loadMovieDetails(new FetchHttpClientAdapter()),
+    loadMovieCredits: loadMovieCredits(new FetchHttpClientAdapter()),
+    loadMovieImages: loadMovieImages(new FetchHttpClientAdapter()),
+    loadMovieReviews: loadMovieReviews(new FetchHttpClientAdapter()),
+    loadMovieSimilar: loadMovieSimilar(new FetchHttpClientAdapter()),
+    id,
+  })
 
   return (
     <main className="flex flex-col items-start gap-6 pt-6">
@@ -65,7 +139,7 @@ export default function MovieDetails() {
                 key={backdrop.file_path + 'w'}
               >
                 <Image
-                  alt={`${movie?.title} backdrop.`}
+                  alt={`${details?.title} backdrop.`}
                   src={`https://image.tmdb.org/t/p/w780${backdrop.file_path}`}
                   className="rounded-lg"
                   height={225}

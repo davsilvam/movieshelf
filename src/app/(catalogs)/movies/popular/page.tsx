@@ -15,10 +15,14 @@ import { LoadMovies, usePopularMovies } from 'hooks'
 
 import { Movie } from 'types'
 
-function loadMovies(httpClient: HttpClient<Movie[]>): LoadMovies {
+function loadMovies(
+  httpClient: HttpClient<{
+    results: Movie[]
+  }>,
+): LoadMovies {
   async function loadAll() {
     return httpClient.request({
-      url: '/movies/now_playing?language=pt-BR',
+      url: '/movie/popular?language=pt-BR',
       method: 'get',
     })
   }
@@ -29,7 +33,7 @@ function loadMovies(httpClient: HttpClient<Movie[]>): LoadMovies {
 }
 
 export default function Popular() {
-  const loadPopularMovies = loadMovies(new FetchHttpClientAdapter<Movie[]>())
+  const loadPopularMovies = loadMovies(new FetchHttpClientAdapter())
 
   const { popularMovies, isLoading } = usePopularMovies({
     loadPopularMovies,

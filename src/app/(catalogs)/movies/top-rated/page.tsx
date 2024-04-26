@@ -15,10 +15,14 @@ import { LoadMovies, useTopRatedMovies } from 'hooks'
 
 import { Movie } from 'types'
 
-function loadMovies(httpClient: HttpClient<Movie[]>): LoadMovies {
+function loadMovies(
+  httpClient: HttpClient<{
+    results: Movie[]
+  }>,
+): LoadMovies {
   async function loadAll() {
     return httpClient.request({
-      url: '/movies/now_playing?language=pt-BR',
+      url: '/movie/top_rated?language=pt-BR',
       method: 'get',
     })
   }
@@ -29,7 +33,7 @@ function loadMovies(httpClient: HttpClient<Movie[]>): LoadMovies {
 }
 
 export default function TopRated() {
-  const loadTopRatedMovies = loadMovies(new FetchHttpClientAdapter<Movie[]>())
+  const loadTopRatedMovies = loadMovies(new FetchHttpClientAdapter())
 
   const { topRatedMovies, isLoading } = useTopRatedMovies({
     loadTopRatedMovies,

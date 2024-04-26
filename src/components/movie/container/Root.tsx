@@ -19,6 +19,7 @@ export function MovieContainerRoot({
   return (
     <section className="flex w-full flex-col gap-6">
       {children}
+
       <div className="grid grid-cols-3 gap-4 md:gap-6 lg:grid-cols-4 lg:gap-10 xl:grid-cols-5">
         {movies
           .filter(
