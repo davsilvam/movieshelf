@@ -2,6 +2,9 @@
 
 import { Fragment } from 'react'
 
+import { httpClientFactory } from 'factories'
+import { LoadPopularMoviesGateway } from 'gateways'
+
 import {
   BannerCard,
   BannerSkeleton,
@@ -9,12 +12,14 @@ import {
   PageTitle,
 } from 'components'
 
-import { useMovies } from 'hooks'
+import { usePopularMovies } from 'hooks'
 
 export default function Popular() {
-  const {
-    popularMovies: { data: popularMovies, isLoading },
-  } = useMovies()
+  const loadPopularMovies = new LoadPopularMoviesGateway(httpClientFactory)
+
+  const { popularMovies, isLoading } = usePopularMovies({
+    loadPopularMovies,
+  })
 
   return (
     <main>

@@ -2,6 +2,9 @@
 
 import { Fragment } from 'react'
 
+import { httpClientFactory } from 'factories'
+import { LoadDiscoverMoviesGateway } from 'gateways'
+
 import {
   CatalogPagination,
   FiltersBar,
@@ -12,16 +15,21 @@ import {
   SortBySelect,
 } from 'components'
 
-import { useDiscoverMovies } from './hooks'
+import { useDiscoverMovies } from 'hooks'
 
 export default function Discover() {
+  const loadDiscoverMovies = new LoadDiscoverMoviesGateway(httpClientFactory)
+
   const {
-    discoverMovies: { data: discoverMovies, isLoading },
+    discoverMovies,
+    isLoading,
     currentPage,
     goToNextPage,
     goToPreviousPage,
     goToPage,
-  } = useDiscoverMovies()
+  } = useDiscoverMovies({
+    loadDiscoverMovies,
+  })
 
   return (
     <div className="flex items-center">

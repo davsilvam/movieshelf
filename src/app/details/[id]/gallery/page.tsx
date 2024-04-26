@@ -3,11 +3,26 @@
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
 
-import { useMovie } from 'hooks'
+import { httpClientFactory } from 'factories'
+import { LoadMovieDetailsGateway, LoadMovieImagesGateway } from 'gateways'
+
+import { useMovieDetails, useMovieImages } from 'hooks'
 
 export default function MovieGallery() {
-  const { id } = useParams()
-  const { movie, images } = useMovie(id)
+  const { id } = useParams() as { id: string }
+
+  const loadMovieDetails = new LoadMovieDetailsGateway(httpClientFactory)
+  const loadMovieImages = new LoadMovieImagesGateway(httpClientFactory)
+
+  const { details } = useMovieDetails({
+    loadMovieDetails,
+    id,
+  })
+
+  const { images } = useMovieImages({
+    loadMovieImages,
+    id,
+  })
 
   return (
     <main className="flex flex-col items-start gap-6 pt-6">
@@ -19,7 +34,7 @@ export default function MovieGallery() {
         <div className="grid grid-cols-2 justify-between gap-5 md:grid-cols-3">
           {images?.backdrops.map(backdrop => (
             <Image
-              alt={`${movie?.title} backdrop.`}
+              alt={`${details?.title} backdrop.`}
               src={`https://image.tmdb.org/t/p/w780${backdrop.file_path}`}
               className="w-full rounded-lg"
               key={backdrop + 'w'}
@@ -38,7 +53,7 @@ export default function MovieGallery() {
         <div className="grid grid-cols-3 gap-5 md:grid-cols-5">
           {images?.posters.map(poster => (
             <Image
-              alt={`${movie?.title} poster.`}
+              alt={`${details?.title} poster.`}
               src={`https://image.tmdb.org/t/p/w342${poster.file_path}`}
               className="w-full rounded-lg"
               key={poster + 'w'}

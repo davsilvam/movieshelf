@@ -1,4 +1,4 @@
-type Backdrops = {
+type Backdrop = {
   aspect_ratio: number
   height: number
   iso_639_1: number
@@ -8,7 +8,7 @@ type Backdrops = {
   width: number
 }
 
-type Posters = {
+type Poster = {
   aspect_ratio: number
   height: number
   iso_639_1: number
@@ -18,7 +18,7 @@ type Posters = {
   width: number
 }
 
-export interface Images {
-  backdrops: Backdrops[]
-  posters: Posters[]
+export interface ImagesResponse {
+  backdrops: Backdrop[]
+  posters: Poster[]
 }

@@ -4,6 +4,14 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 
+import { httpClientFactory } from 'factories'
+import {
+  LoadMovieCreditsGateway,
+  LoadMovieDetailsGateway,
+  LoadMovieImagesGateway,
+  LoadMovieSimilarGateway,
+} from 'gateways'
+import { LoadMovieReviewsGateway } from 'gateways/load-movie-reviews-gateway'
 import { ArrowRight, ImageOff } from 'lucide-react'
 
 import { MovieCard, ReviewCard } from 'components'
@@ -11,8 +19,22 @@ import { MovieCard, ReviewCard } from 'components'
 import { useMovie } from 'hooks'
 
 export default function MovieDetails() {
-  const { id } = useParams()
-  const { movie, mainCast, mainBackdrops, reviews, mainSimilar } = useMovie(id)
+  const { id } = useParams() as { id: string }
+
+  const loadMovieDetails = new LoadMovieDetailsGateway(httpClientFactory)
+  const loadMovieCredits = new LoadMovieCreditsGateway(httpClientFactory)
+  const loadMovieImages = new LoadMovieImagesGateway(httpClientFactory)
+  const loadMovieReviews = new LoadMovieReviewsGateway(httpClientFactory)
+  const loadMovieSimilar = new LoadMovieSimilarGateway(httpClientFactory)
+
+  const { details, mainCast, mainBackdrops, reviews, mainSimilar } = useMovie({
+    loadMovieDetails,
+    loadMovieCredits,
+    loadMovieImages,
+    loadMovieReviews,
+    loadMovieSimilar,
+    id,
+  })
 
   return (
     <main className="flex flex-col items-start gap-6 pt-6">
@@ -65,7 +87,7 @@ export default function MovieDetails() {
                 key={backdrop.file_path + 'w'}
               >
                 <Image
-                  alt={`${movie?.title} backdrop.`}
+                  alt={`${details?.title} backdrop.`}
                   src={`https://image.tmdb.org/t/p/w780${backdrop.file_path}`}
                   className="rounded-lg"
                   height={225}

@@ -2,6 +2,9 @@
 
 import { Fragment } from 'react'
 
+import { httpClientFactory } from 'factories'
+import { LoadNowPlayingMoviesGateway } from 'gateways'
+
 import {
   BannerCard,
   BannerSkeleton,
@@ -9,12 +12,16 @@ import {
   PageTitle,
 } from 'components'
 
-import { useMovies } from 'hooks'
+import { useNowPlayingMovies } from 'hooks'
 
-export default function Hottest() {
-  const {
-    nowPlayingMovies: { data: nowPlayingMovies, isLoading },
-  } = useMovies()
+export default function NowPlaying() {
+  const loadNowPlayingMovies = new LoadNowPlayingMoviesGateway(
+    httpClientFactory,
+  )
+
+  const { nowPlayingMovies, isLoading } = useNowPlayingMovies({
+    loadNowPlayingMovies,
+  })
 
   return (
     <main>

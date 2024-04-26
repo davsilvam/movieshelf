@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { Fragment } from 'react'
 
+import { httpClientFactory } from 'factories'
+import { LoadSearchedMoviesGateway } from 'gateways'
 import { SearchX } from 'lucide-react'
 
 import {
@@ -16,18 +18,24 @@ import {
   SearchBar,
 } from 'components'
 
-import { useSearchedMovie } from './hooks'
+import { useSearchedMovie } from 'hooks'
 
 export default function Search() {
   const title = useSearchParams().get('query')
 
+  const loadSearchedMovies = new LoadSearchedMoviesGateway(httpClientFactory)
+
   const {
-    searchedMovies: { data: searchedMovies, isLoading },
+    searchedMovies,
+    isLoading,
     currentPage,
     goToNextPage,
     goToPreviousPage,
     goToPage,
-  } = useSearchedMovie(title ?? '')
+  } = useSearchedMovie({
+    loadSearchedMovies,
+    movieTitle: title || '',
+  })
 
   return (
     <main className="relative pb-10">

@@ -4,10 +4,10 @@ import { ImageOff } from 'lucide-react'
 
 import { cn } from 'utils'
 
-import { MovieDetails } from 'types'
+import { MovieDetailsResponse } from 'types'
 
 interface DetailsBannerProps {
-  movie: MovieDetails
+  movie: MovieDetailsResponse
 }
 
 export function DetailsBanner({ movie }: DetailsBannerProps) {

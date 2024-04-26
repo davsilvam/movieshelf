@@ -4,37 +4,42 @@ import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
 import { Fragment, ReactNode } from 'react'
 
+import { httpClientFactory } from 'factories'
+import { LoadMovieDetailsGateway } from 'gateways'
 import { ArrowLeft, ImageOff } from 'lucide-react'
 
 import { Button, DetailsBanner } from 'components'
 
-import { useMovie } from 'hooks'
+import { useMovieDetails } from 'hooks'
 
 export default function Layout({ children }: { children: ReactNode }) {
-  const { id } = useParams()
-  const { movie } = useMovie(id)
+  const { id } = useParams() as { id: string }
   const { back } = useRouter()
 
-  const moviePoster = `https://image.tmdb.org/t/p/w342${movie?.poster_path}`
-  const runtimeHours = movie && Math.floor(movie?.runtime / 60)
-  const runtimeMinutes = movie && movie?.runtime % 60
+  const loadMovieDetails = new LoadMovieDetailsGateway(httpClientFactory)
+
+  const { details, moviePoster, runtimeHours, runtimeMinutes } =
+    useMovieDetails({
+      loadMovieDetails,
+      id,
+    })
 
   return (
     <div className="relative z-0 min-h-screen bg-woodsmoke px-6 pb-10 md:px-10">
-      {movie && (
+      {details && (
         <Fragment>
           <Button className="absolute top-10" onClick={back}>
             <ArrowLeft className="h-4 w-4" />
             Voltar
           </Button>
 
-          <DetailsBanner movie={movie} />
+          <DetailsBanner movie={details} />
 
           <div className="flex w-full justify-between pt-[450px] max-md:flex-col max-md:gap-5">
             <div className="flex items-start gap-10 max-md:flex-col">
-              {movie?.poster_path ? (
+              {details?.poster_path ? (
                 <Image
-                  alt={`${movie.title} poster.`}
+                  alt={`${details.title} poster.`}
                   src={moviePoster}
                   className="m-auto aspect-[2/3] w-full max-w-[300px] rounded-2xl md:w-[200px]"
                   width={300}
@@ -48,9 +53,9 @@ export default function Layout({ children }: { children: ReactNode }) {
 
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-4">
-                  {movie.genres.map(genre => (
+                  {details.genres.map(genre => (
                     <Fragment key={genre.id}>
-                      {movie.genres.indexOf(genre) > 0 && (
+                      {details.genres.indexOf(genre) > 0 && (
                         <div className="h-4 w-[1px] bg-oslo" />
                       )}
 
@@ -62,17 +67,17 @@ export default function Layout({ children }: { children: ReactNode }) {
                 </div>
 
                 <h1 className="font-alt text-5xl uppercase text-white">
-                  {movie.title}
+                  {details.title}
                 </h1>
 
                 <q className="font-medium italic text-oslo">
-                  {movie.tagline || 'Esse filme não possui slogan.'}
+                  {details.tagline || 'Esse filme não possui slogan.'}
                 </q>
 
                 <div className="flex items-center gap-4 pt-2 font-alt text-white">
-                  {movie.release_date && (
+                  {details.release_date && (
                     <Fragment>
-                      <p>{movie.release_date.slice(0, -6)}</p>
+                      <p>{details.release_date.slice(0, -6)}</p>
                       <div className="h-4 w-[1px] bg-oslo" />
                     </Fragment>
                   )}
@@ -81,7 +86,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 
                 <h2 className="pt-4 font-alt text-xl text-white">Sinopse</h2>
                 <p className="max-w-[900px] text-sm leading-relaxed text-oslo">
-                  {movie.overview || 'Esse filme não possui sinopse.'}
+                  {details.overview || 'Esse filme não possui sinopse.'}
                 </p>
               </div>
             </div>
@@ -90,7 +95,7 @@ export default function Layout({ children }: { children: ReactNode }) {
               <div className="whitespace-nowrap text-right font-alt text-white">
                 <p className="text-lg">
                   <span className="text-3xl text-pizazz md:text-4xl">
-                    {movie.vote_average.toFixed(1)}{' '}
+                    {details.vote_average.toFixed(1)}{' '}
                   </span>
                   / 10
                 </p>
@@ -100,12 +105,12 @@ export default function Layout({ children }: { children: ReactNode }) {
               <div className="text-right font-alt text-white">
                 <p className="text-lg">
                   <span className="text-3xl md:text-4xl">
-                    {String(movie.vote_count).length > 3
-                      ? movie.vote_count.toLocaleString().slice(0, -4)
-                      : movie.vote_count.toLocaleString()}
+                    {String(details.vote_count).length > 3
+                      ? details.vote_count.toLocaleString().slice(0, -4)
+                      : details.vote_count.toLocaleString()}
                   </span>
-                  {String(movie.vote_count).length > 3
-                    ? movie.vote_count.toLocaleString().slice(-4)
+                  {String(details.vote_count).length > 3
+                    ? details.vote_count.toLocaleString().slice(-4)
                     : ''}
                 </p>
 

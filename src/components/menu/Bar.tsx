@@ -45,21 +45,21 @@ export function MenuBar() {
           </Link>
 
           <Link
-            href="/movies/popular"
+            href="/movie/popular"
             className="rounded-md px-4 py-3 transition hover:bg-white/5"
           >
             Populares
           </Link>
 
           <Link
-            href="/movies/hottest"
+            href="/movie/now-playing"
             className="rounded-md px-4 py-3 transition hover:bg-white/5"
           >
             Novidades
           </Link>
 
           <Link
-            href="/movies/top-rated"
+            href="/movie/top-rated"
             className="rounded-md px-4 py-3 transition hover:bg-white/5"
           >
             Melhor Avaliados

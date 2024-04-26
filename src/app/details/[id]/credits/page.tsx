@@ -3,13 +3,21 @@
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
 
+import { httpClientFactory } from 'factories'
+import { LoadMovieCreditsGateway } from 'gateways'
 import { ImageOff } from 'lucide-react'
 
-import { useMovie } from 'hooks'
+import { useMovieCredits } from 'hooks'
 
 export default function MovieCredits() {
-  const { id } = useParams()
-  const { credits } = useMovie(id)
+  const { id } = useParams() as { id: string }
+
+  const loadMovieCredits = new LoadMovieCreditsGateway(httpClientFactory)
+
+  const { credits } = useMovieCredits({
+    loadMovieCredits,
+    id,
+  })
 
   return (
     <main className="flex flex-col items-start gap-6 pt-6">

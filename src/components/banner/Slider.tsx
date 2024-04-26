@@ -10,19 +10,19 @@ import 'swiper/css/pagination'
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-import { useMovies } from 'hooks'
+import { LoadMovies, useNowPlayingMovies } from 'hooks'
 
 import { BannerCard } from './Card'
 import { BannerSkeleton } from './Skeleton'
 
-export function BannerSlider() {
-  const {
-    popularMovies: { data: popularMovies, isLoading },
-  } = useMovies()
+interface BannerSliderProps {
+  loadNowPlayingMovies: LoadMovies
+}
 
-  const hottestMovies =
-    popularMovies &&
-    popularMovies.filter(movie => popularMovies.indexOf(movie) < 4)
+export function BannerSlider({ loadNowPlayingMovies }: BannerSliderProps) {
+  const { hottestMovies, isLoading } = useNowPlayingMovies({
+    loadNowPlayingMovies,
+  })
 
   return (
     <Fragment>
