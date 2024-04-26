@@ -2,6 +2,8 @@
 
 import { Fragment } from 'react'
 
+import { FetchHttpClientAdapter, HttpClient } from 'infra/adapters'
+
 import {
   BannerCard,
   BannerSkeleton,
@@ -9,12 +11,29 @@ import {
   PageTitle,
 } from 'components'
 
-import { useMovies } from 'hooks'
+import { LoadMovies, useHottestMovies } from 'hooks'
+
+import { Movie } from 'types'
+
+function loadMovies(httpClient: HttpClient<Movie[]>): LoadMovies {
+  async function loadAll() {
+    return httpClient.request({
+      url: '/movies/now_playing?language=pt-BR',
+      method: 'get',
+    })
+  }
+
+  return {
+    loadAll,
+  }
+}
 
 export default function Hottest() {
-  const {
-    nowPlayingMovies: { data: nowPlayingMovies, isLoading },
-  } = useMovies()
+  const loadHottestMovies = loadMovies(new FetchHttpClientAdapter<Movie[]>())
+
+  const { nowPlayingMovies, isLoading } = useHottestMovies({
+    loadHottestMovies,
+  })
 
   return (
     <main>

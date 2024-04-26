@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
-import { queryClient } from 'services'
-
 import { fetchWrapper } from 'functions'
 
 import { Credits, Images, Movie, MovieDetails, Review } from 'types'
+
+import { queryClient } from 'services'
 
 export function useMovie(movieId: string) {
   queryClient.invalidateQueries({

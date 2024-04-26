@@ -2,11 +2,11 @@ import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
-import { queryClient } from 'services'
-
 import { fetchWrapper } from 'functions'
 
 import { MovieQuery } from 'types'
+
+import { queryClient } from 'services'
 
 export function useDiscoverMovies() {
   const searchParams = useSearchParams().toString()
