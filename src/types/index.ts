@@ -1,0 +1,6 @@
+export * from './credits'
+export * from './genre'
+export * from './images'
+export * from './movie-details'
+export * from './movie-list'
+export * from './review'
