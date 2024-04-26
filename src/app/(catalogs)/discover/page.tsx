@@ -2,7 +2,8 @@
 
 import { Fragment } from 'react'
 
-import { FetchHttpClientAdapter, HttpClient } from 'infra/adapters'
+import { httpClientFactory } from 'factories'
+import { LoadDiscoverMoviesGateway } from 'gateways'
 
 import {
   CatalogPagination,
@@ -16,20 +17,9 @@ import {
 
 import { useDiscoverMovies } from 'hooks'
 
-import { MovieQuery } from 'types'
-
-function loadDiscoverMovies(httpClient: HttpClient<MovieQuery>) {
-  async function load(query: string, page: number) {
-    return httpClient.request({
-      url: `discover/movie?language=pt-BR&${query}&page=${page}`,
-      method: 'get',
-    })
-  }
-
-  return { load }
-}
-
 export default function Discover() {
+  const loadDiscoverMovies = new LoadDiscoverMoviesGateway(httpClientFactory)
+
   const {
     discoverMovies,
     isLoading,
@@ -38,7 +28,7 @@ export default function Discover() {
     goToPreviousPage,
     goToPage,
   } = useDiscoverMovies({
-    loadDiscoverMovies: loadDiscoverMovies(new FetchHttpClientAdapter()),
+    loadDiscoverMovies,
   })
 
   return (

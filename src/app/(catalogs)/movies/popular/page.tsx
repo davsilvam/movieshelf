@@ -2,7 +2,8 @@
 
 import { Fragment } from 'react'
 
-import { FetchHttpClientAdapter, HttpClient } from 'infra/adapters'
+import { httpClientFactory } from 'factories'
+import { LoadPopularMoviesGateway } from 'gateways'
 
 import {
   BannerCard,
@@ -11,29 +12,10 @@ import {
   PageTitle,
 } from 'components'
 
-import { LoadMovies, usePopularMovies } from 'hooks'
-
-import { Movie } from 'types'
-
-function loadMovies(
-  httpClient: HttpClient<{
-    results: Movie[]
-  }>,
-): LoadMovies {
-  async function loadAll() {
-    return httpClient.request({
-      url: '/movie/popular?language=pt-BR',
-      method: 'get',
-    })
-  }
-
-  return {
-    loadAll,
-  }
-}
+import { usePopularMovies } from 'hooks'
 
 export default function Popular() {
-  const loadPopularMovies = loadMovies(new FetchHttpClientAdapter())
+  const loadPopularMovies = new LoadPopularMoviesGateway(httpClientFactory)
 
   const { popularMovies, isLoading } = usePopularMovies({
     loadPopularMovies,

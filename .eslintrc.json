@@ -1,6 +1,11 @@
 {
-  "extends": ["next/core-web-vitals", "@rocketseat/eslint-config/next"], 
-  "plugins": ["import-helpers"],
+  "extends": [
+    "next/core-web-vitals",
+    "@rocketseat/eslint-config/next"
+  ],
+  "plugins": [
+    "import-helpers"
+  ],
   "rules": {
     "prettier/prettier": [
       "error",
@@ -13,7 +18,9 @@
         "printWidth": 80,
         "arrowParens": "avoid",
         "bracketSpacing": true,
-        "plugins": ["prettier-plugin-tailwindcss"]
+        "plugins": [
+          "prettier-plugin-tailwindcss"
+        ]
       }
     ],
     "import-helpers/order-imports": [
@@ -21,18 +28,46 @@
       {
         "newlinesBetween": "always",
         "groups": [
-          ["/^react/", "/^next/"],
+          [
+            "/^react/",
+            "/^next/"
+          ],
           "module",
           "/^@shared/",
-          ["/^@/components/", "/components/"],
-          ["/hooks/", "/^@/hooks/", "/utils/",  "/^@/utils/"],
-          ["/^@/types/", "/types/"],
-          ["/^@/services/", "/services/"],
-          ["/^@/styles/", "/styles/"],
-          ["parent", "sibling", "index"]
+          [
+            "/^@/components/",
+            "/components/"
+          ],
+          [
+            "/hooks/",
+            "/^@/hooks/",
+            "/utils/",
+            "/^@/utils/"
+          ],
+          [
+            "/^@/types/",
+            "/types/"
+          ],
+          [
+            "/^@/services/",
+            "/services/"
+          ],
+          [
+            "/^@/styles/",
+            "/styles/"
+          ],
+          [
+            "parent",
+            "sibling",
+            "index"
+          ]
         ],
-        "alphabetize": { "order": "asc", "ignoreCase": true }
+        "alphabetize": {
+          "order": "asc",
+          "ignoreCase": true
+        }
       }
-    ]
-}
+    ],
+    "no-useless-constructor": "off"
+  }
 }

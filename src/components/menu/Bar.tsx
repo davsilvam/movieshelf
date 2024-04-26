@@ -52,7 +52,7 @@ export function MenuBar() {
           </Link>
 
           <Link
-            href="/movie/hottest"
+            href="/movie/now-playing"
             className="rounded-md px-4 py-3 transition hover:bg-white/5"
           >
             Novidades

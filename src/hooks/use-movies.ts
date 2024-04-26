@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react'
 
 import { useQueries, useQuery } from '@tanstack/react-query'
-import { HttpResponse, HttpStatusCodes } from 'infra/adapters'
+import { HttpResponse, HttpStatusCodes } from 'adapters'
 
 import { Movie } from 'types'
 
@@ -22,24 +22,55 @@ export type LoadMoviesByGenre = {
 }
 
 interface UseMoviesProps {
-  loadHottestMovies: LoadMovies
+  loadNowPlayingMovies: LoadMovies
   loadPopularMovies: LoadMovies
   loadTopRatedMovies: LoadMovies
-  loadMoviesByGenre: LoadMoviesByGenre
 }
 
-export function useHottestMovies({
-  loadHottestMovies,
-}: Pick<UseMoviesProps, 'loadHottestMovies'>) {
+export function useMovies({
+  loadNowPlayingMovies,
+  loadPopularMovies,
+  loadTopRatedMovies,
+}: UseMoviesProps) {
+  const {
+    nowPlayingMovies,
+    hottestMovies,
+    isLoading: isNowPlayingLoading,
+  } = useNowPlayingMovies({
+    loadNowPlayingMovies,
+  })
+
+  const { popularMovies, isLoading: isPopularLoading } = usePopularMovies({
+    loadPopularMovies,
+  })
+
+  const { topRatedMovies, isLoading: isTopRatedLoading } = useTopRatedMovies({
+    loadTopRatedMovies,
+  })
+
+  return {
+    nowPlayingMovies,
+    hottestMovies,
+    popularMovies,
+    topRatedMovies,
+    isNowPlayingLoading,
+    isPopularLoading,
+    isTopRatedLoading,
+  }
+}
+
+export function useNowPlayingMovies({
+  loadNowPlayingMovies,
+}: Pick<UseMoviesProps, 'loadNowPlayingMovies'>) {
   const getNowPlayingMovies = useCallback(async () => {
-    const response = await loadHottestMovies.loadAll()
+    const response = await loadNowPlayingMovies.loadAll()
 
     if (response.statusCode !== HttpStatusCodes.ok) {
       throw new Error('Error loading movies')
     }
 
     return response.body?.results ?? []
-  }, [loadHottestMovies])
+  }, [loadNowPlayingMovies])
 
   const { data: nowPlayingMovies, isLoading } = useQuery(
     ['movies', 'now-playing', 'category', 'list'],

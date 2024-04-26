@@ -2,33 +2,22 @@
 
 import Link from 'next/link'
 
-import {
-  LoadMovies,
-  useHottestMovies,
-  usePopularMovies,
-  useTopRatedMovies,
-} from 'hooks'
+import { LoadMovies, useMovies } from 'hooks'
 
 interface CategoryCardsProps {
-  loadHottestMovies: LoadMovies
+  loadNowPlayingMovies: LoadMovies
   loadPopularMovies: LoadMovies
   loadTopRatedMovies: LoadMovies
 }
 
 export function CategoryCards({
-  loadHottestMovies,
+  loadNowPlayingMovies,
   loadPopularMovies,
   loadTopRatedMovies,
 }: CategoryCardsProps) {
-  const { nowPlayingMovies } = useHottestMovies({
-    loadHottestMovies,
-  })
-
-  const { popularMovies } = usePopularMovies({
+  const { popularMovies, nowPlayingMovies, topRatedMovies } = useMovies({
+    loadNowPlayingMovies,
     loadPopularMovies,
-  })
-
-  const { topRatedMovies } = useTopRatedMovies({
     loadTopRatedMovies,
   })
 
@@ -54,7 +43,7 @@ export function CategoryCards({
           style={{
             backgroundImage: `url(https://image.tmdb.org/t/p/w342${nowPlayingMovies[0].backdrop_path})`,
           }}
-          href="/movies/hottest"
+          href="/movies/now-playing"
         >
           <div className="flex h-full w-full items-center justify-center bg-woodsmoke/70 transition-colors hover:bg-woodsmoke/50">
             Novidades

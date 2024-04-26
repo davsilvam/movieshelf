@@ -4,35 +4,23 @@ import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
 import { Fragment, ReactNode } from 'react'
 
-import { FetchHttpClientAdapter, HttpClient } from 'infra/adapters'
+import { httpClientFactory } from 'factories'
+import { LoadMovieDetailsGateway } from 'gateways'
 import { ArrowLeft, ImageOff } from 'lucide-react'
 
 import { Button, DetailsBanner } from 'components'
 
 import { useMovieDetails } from 'hooks'
 
-import { MovieDetails } from 'types'
-
-function loadMovieDetails(httpClient: HttpClient<MovieDetails>) {
-  async function load(id: string) {
-    return await httpClient.request({
-      url: `/movie/${id}?language=pt-BR`,
-      method: 'get',
-    })
-  }
-
-  return {
-    load,
-  }
-}
-
 export default function Layout({ children }: { children: ReactNode }) {
   const { id } = useParams() as { id: string }
   const { back } = useRouter()
 
+  const loadMovieDetails = new LoadMovieDetailsGateway(httpClientFactory)
+
   const { details, moviePoster, runtimeHours, runtimeMinutes } =
     useMovieDetails({
-      loadMovieDetails: loadMovieDetails(new FetchHttpClientAdapter()),
+      loadMovieDetails,
       id,
     })
 

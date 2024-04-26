@@ -2,7 +2,6 @@
 
 import { Fragment } from 'react'
 
-import { FetchHttpClientAdapter, HttpClient } from 'infra/adapters'
 import { Flame, Heart, HeartCrack, Orbit, Sparkle } from 'lucide-react'
 
 import { CategoryCards } from 'components'
@@ -10,55 +9,27 @@ import { CategoryCards } from 'components'
 import {
   LoadMovies,
   LoadMoviesByGenre,
-  useHottestMovies,
+  useNowPlayingMovies,
   useMoviesByGenre,
 } from 'hooks'
 
-import { Movie } from 'types'
-
 import { MovieContainer } from '.'
 
-function loadPopularMovies(
-  httpClient: HttpClient<{
-    results: Movie[]
-  }>,
-) {
-  async function loadAll() {
-    return httpClient.request({
-      url: '/movie/popular?language=pt-BR',
-      method: 'get',
-    })
-  }
-
-  return { loadAll }
-}
-
-function loadTopRatedMovies(
-  httpClient: HttpClient<{
-    results: Movie[]
-  }>,
-) {
-  async function loadAll() {
-    return httpClient.request({
-      url: '/movie/top_rated?language=pt-BR',
-      method: 'get',
-    })
-  }
-
-  return { loadAll }
-}
-
 interface MovieCatalogProps {
-  loadHottestMovies: LoadMovies
+  loadNowPlayingMovies: LoadMovies
+  loadPopularMovies: LoadMovies
+  loadTopRatedMovies: LoadMovies
   loadMoviesByGenre: LoadMoviesByGenre
 }
 
 export function MovieCatalog({
-  loadHottestMovies,
+  loadNowPlayingMovies,
+  loadPopularMovies,
+  loadTopRatedMovies,
   loadMoviesByGenre,
 }: MovieCatalogProps) {
-  const { nowPlayingMovies, isLoading } = useHottestMovies({
-    loadHottestMovies,
+  const { nowPlayingMovies, isLoading } = useNowPlayingMovies({
+    loadNowPlayingMovies,
   })
 
   const { movieQueries } = useMoviesByGenre({
@@ -81,11 +52,9 @@ export function MovieCatalog({
       ) : (
         <Fragment>
           <CategoryCards
-            loadHottestMovies={loadHottestMovies}
-            loadPopularMovies={loadPopularMovies(new FetchHttpClientAdapter())}
-            loadTopRatedMovies={loadTopRatedMovies(
-              new FetchHttpClientAdapter(),
-            )}
+            loadNowPlayingMovies={loadNowPlayingMovies}
+            loadPopularMovies={loadPopularMovies}
+            loadTopRatedMovies={loadTopRatedMovies}
           />
 
           {nowPlayingMovies && (

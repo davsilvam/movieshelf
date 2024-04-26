@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
-import { HttpResponse, HttpStatusCodes } from 'infra/adapters'
+import { HttpResponse, HttpStatusCodes } from 'adapters'
 
 import { Credits, Images, Movie, MovieDetails, Review } from 'types'
 

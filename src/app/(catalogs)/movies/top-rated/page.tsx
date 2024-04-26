@@ -2,7 +2,8 @@
 
 import { Fragment } from 'react'
 
-import { FetchHttpClientAdapter, HttpClient } from 'infra/adapters'
+import { httpClientFactory } from 'factories'
+import { LoadTopRatedMoviesGateway } from 'gateways'
 
 import {
   BannerCard,
@@ -11,29 +12,10 @@ import {
   PageTitle,
 } from 'components'
 
-import { LoadMovies, useTopRatedMovies } from 'hooks'
-
-import { Movie } from 'types'
-
-function loadMovies(
-  httpClient: HttpClient<{
-    results: Movie[]
-  }>,
-): LoadMovies {
-  async function loadAll() {
-    return httpClient.request({
-      url: '/movie/top_rated?language=pt-BR',
-      method: 'get',
-    })
-  }
-
-  return {
-    loadAll,
-  }
-}
+import { useTopRatedMovies } from 'hooks'
 
 export default function TopRated() {
-  const loadTopRatedMovies = loadMovies(new FetchHttpClientAdapter())
+  const loadTopRatedMovies = new LoadTopRatedMoviesGateway(httpClientFactory)
 
   const { topRatedMovies, isLoading } = useTopRatedMovies({
     loadTopRatedMovies,

@@ -3,29 +3,19 @@
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
 
-import { FetchHttpClientAdapter, HttpClient } from 'infra/adapters'
+import { httpClientFactory } from 'factories'
+import { LoadMovieCreditsGateway } from 'gateways'
 import { ImageOff } from 'lucide-react'
 
 import { useMovieCredits } from 'hooks'
 
-import { Credits } from 'types'
-
-function loadMovieCredits(httpClient: HttpClient<Credits>) {
-  async function loadAll(id: string) {
-    return httpClient.request({
-      url: `movie/${id}/credits`,
-      method: 'get',
-    })
-  }
-
-  return { loadAll }
-}
-
 export default function MovieCredits() {
   const { id } = useParams() as { id: string }
 
+  const loadMovieCredits = new LoadMovieCreditsGateway(httpClientFactory)
+
   const { credits } = useMovieCredits({
-    loadMovieCredits: loadMovieCredits(new FetchHttpClientAdapter<Credits>()),
+    loadMovieCredits,
     id,
   })
 

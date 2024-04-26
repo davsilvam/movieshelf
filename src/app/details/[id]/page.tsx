@@ -4,87 +4,35 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 
-import { FetchHttpClientAdapter, HttpClient } from 'infra/adapters'
+import { httpClientFactory } from 'factories'
+import {
+  LoadMovieCreditsGateway,
+  LoadMovieDetailsGateway,
+  LoadMovieImagesGateway,
+  LoadMovieSimilarGateway,
+} from 'gateways'
+import { LoadMovieReviewsGateway } from 'gateways/load-movie-reviews-gateway'
 import { ArrowRight, ImageOff } from 'lucide-react'
 
 import { MovieCard, ReviewCard } from 'components'
 
 import { useMovie } from 'hooks'
 
-import { Credits, MovieDetails as Details, Images, Movie, Review } from 'types'
-
-function loadMovieDetails(httpClient: HttpClient<Details>) {
-  async function load(id: string) {
-    return httpClient.request({
-      url: `movie/${id}?language=pt-BR`,
-      method: 'get',
-    })
-  }
-
-  return { load }
-}
-
-function loadMovieCredits(httpClient: HttpClient<Credits>) {
-  async function loadAll(id: string) {
-    return httpClient.request({
-      url: `movie/${id}/credits?language=pt-BR`,
-      method: 'get',
-    })
-  }
-
-  return { loadAll }
-}
-
-function loadMovieImages(httpClient: HttpClient<Images>) {
-  async function loadAll(id: string) {
-    return httpClient.request({
-      url: `movie/${id}/images`,
-      method: 'get',
-    })
-  }
-
-  return { loadAll }
-}
-
-function loadMovieReviews(
-  httpClient: HttpClient<{
-    results: Review[]
-  }>,
-) {
-  async function loadAll(id: string) {
-    return httpClient.request({
-      url: `movie/${id}/reviews?language=pt-BR`,
-      method: 'get',
-    })
-  }
-
-  return { loadAll }
-}
-
-function loadMovieSimilar(
-  httpClient: HttpClient<{
-    results: Movie[]
-  }>,
-) {
-  async function loadAll(id: string) {
-    return httpClient.request({
-      url: `movie/${id}/similar?language=pt-BR`,
-      method: 'get',
-    })
-  }
-
-  return { loadAll }
-}
-
 export default function MovieDetails() {
   const { id } = useParams() as { id: string }
 
+  const loadMovieDetails = new LoadMovieDetailsGateway(httpClientFactory)
+  const loadMovieCredits = new LoadMovieCreditsGateway(httpClientFactory)
+  const loadMovieImages = new LoadMovieImagesGateway(httpClientFactory)
+  const loadMovieReviews = new LoadMovieReviewsGateway(httpClientFactory)
+  const loadMovieSimilar = new LoadMovieSimilarGateway(httpClientFactory)
+
   const { details, mainCast, mainBackdrops, reviews, mainSimilar } = useMovie({
-    loadMovieDetails: loadMovieDetails(new FetchHttpClientAdapter()),
-    loadMovieCredits: loadMovieCredits(new FetchHttpClientAdapter()),
-    loadMovieImages: loadMovieImages(new FetchHttpClientAdapter()),
-    loadMovieReviews: loadMovieReviews(new FetchHttpClientAdapter()),
-    loadMovieSimilar: loadMovieSimilar(new FetchHttpClientAdapter()),
+    loadMovieDetails,
+    loadMovieCredits,
+    loadMovieImages,
+    loadMovieReviews,
+    loadMovieSimilar,
     id,
   })
 

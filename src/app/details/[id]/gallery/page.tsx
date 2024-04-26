@@ -3,46 +3,24 @@
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
 
-import { FetchHttpClientAdapter, HttpClient } from 'infra/adapters'
+import { httpClientFactory } from 'factories'
+import { LoadMovieDetailsGateway, LoadMovieImagesGateway } from 'gateways'
 
 import { useMovieDetails, useMovieImages } from 'hooks'
-
-import { MovieDetails } from 'types'
-
-function loadMovieDetails(httpClient: HttpClient<MovieDetails>) {
-  async function load(id: string) {
-    return httpClient.request({
-      url: `movie/${id}/details`,
-      method: 'get',
-    })
-  }
-
-  return { load }
-}
-
-function loadMovieImages(httpClient: HttpClient) {
-  async function loadAll(id: string) {
-    return httpClient.request({
-      url: `movie/${id}/images`,
-      method: 'get',
-    })
-  }
-
-  return { loadAll }
-}
 
 export default function MovieGallery() {
   const { id } = useParams() as { id: string }
 
+  const loadMovieDetails = new LoadMovieDetailsGateway(httpClientFactory)
+  const loadMovieImages = new LoadMovieImagesGateway(httpClientFactory)
+
   const { details } = useMovieDetails({
-    loadMovieDetails: loadMovieDetails(
-      new FetchHttpClientAdapter<MovieDetails>(),
-    ),
+    loadMovieDetails,
     id,
   })
 
   const { images } = useMovieImages({
-    loadMovieImages: loadMovieImages(new FetchHttpClientAdapter()),
+    loadMovieImages,
     id,
   })
 

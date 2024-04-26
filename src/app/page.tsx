@@ -1,6 +1,11 @@
 'use client'
 
-import { FetchHttpClientAdapter, HttpClient } from 'infra/adapters'
+import { httpClientFactory } from 'factories'
+import {
+  LoadNowPlayingMoviesGateway,
+  LoadPopularMoviesGateway,
+  LoadTopRatedMoviesGateway,
+} from 'gateways'
 import { ArrowUpRight } from 'lucide-react'
 
 import {
@@ -11,48 +16,24 @@ import {
   MovieCatalog,
 } from 'components'
 
-import { Movie } from 'types'
-
-function loadHottestMovies(
-  httpClient: HttpClient<{
-    results: Movie[]
-  }>,
-) {
-  async function loadAll() {
-    return httpClient.request({
-      url: '/movie/now_playing?language=pt-BR',
-      method: 'get',
-    })
-  }
-
-  return { loadAll }
-}
-
-function loadMoviesByGenre(
-  httpClient: HttpClient<{
-    results: Movie[]
-  }>,
-) {
-  async function loadAll(genreId: number) {
-    return httpClient.request({
-      url: `discover/movie?language=pt-BR&sort_by=popularity.desc&with_genres=${genreId}`,
-      method: 'get',
-    })
-  }
-
-  return { loadAll }
-}
-
 export default function Home() {
+  const loadNowPlayingMovies = new LoadNowPlayingMoviesGateway(
+    httpClientFactory,
+  )
+  const loadPopularMovies = new LoadPopularMoviesGateway(httpClientFactory)
+  const loadTopRatedMovies = new LoadTopRatedMoviesGateway(httpClientFactory)
+  const loadMoviesByGenre = new LoadNowPlayingMoviesGateway(httpClientFactory)
+
   return (
     <main className="bg-woodsmoke">
       <Header />
-      <BannerSlider
-        loadHottestMovies={loadHottestMovies(new FetchHttpClientAdapter())}
-      />
+      <BannerSlider loadNowPlayingMovies={loadNowPlayingMovies} />
+
       <MovieCatalog
-        loadHottestMovies={loadHottestMovies(new FetchHttpClientAdapter())}
-        loadMoviesByGenre={loadMoviesByGenre(new FetchHttpClientAdapter())}
+        loadNowPlayingMovies={loadNowPlayingMovies}
+        loadPopularMovies={loadPopularMovies}
+        loadTopRatedMovies={loadTopRatedMovies}
+        loadMoviesByGenre={loadMoviesByGenre}
       />
 
       <div className="flex h-screen w-full flex-col items-center justify-center gap-5 md:gap-10">

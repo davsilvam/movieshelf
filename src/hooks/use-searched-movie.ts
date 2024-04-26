@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
-import { HttpResponse, HttpStatusCodes } from 'infra/adapters'
+import { HttpResponse, HttpStatusCodes } from 'adapters'
 
 import { MovieQuery } from 'types'
 
 import { queryClient } from 'services'
 
-type LoadSearchedMovies = {
+export type LoadSearchedMovies = {
   loadAll: (title: string, page: number) => Promise<HttpResponse<MovieQuery>>
 }
 

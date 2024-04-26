@@ -2,13 +2,13 @@ import { useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
-import { HttpResponse, HttpStatusCodes } from 'infra/adapters'
+import { HttpResponse, HttpStatusCodes } from 'adapters'
 
 import { MovieQuery } from 'types'
 
 import { queryClient } from 'services'
 
-type LoadDiscoverMovies = {
+export type LoadDiscoverMovies = {
   load: (query: string, page: number) => Promise<HttpResponse<MovieQuery>>
 }
 
