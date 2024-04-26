@@ -1,4 +1,4 @@
-type Cast = {
+export type Cast = {
   id: number
   name: string
   profile_path: string

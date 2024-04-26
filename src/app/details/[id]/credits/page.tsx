@@ -9,6 +9,8 @@ import { ImageOff } from 'lucide-react'
 
 import { useMovieCredits } from 'hooks'
 
+import { Cast } from 'types'
+
 export default function MovieCredits() {
   const { id } = useParams() as { id: string }
 
@@ -25,7 +27,7 @@ export default function MovieCredits() {
         <h2 className="pt-4 font-alt text-xl text-white">Elenco</h2>
 
         <div className="grid grid-cols-2 gap-2 gap-y-5 md:grid-cols-4 xl:grid-cols-5">
-          {credits?.cast.map(actor => (
+          {credits?.cast.map((actor: Cast) => (
             <div className="flex items-center gap-4" key={actor.id}>
               {actor.profile_path ? (
                 <Image
