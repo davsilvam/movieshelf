@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['image.tmdb.org', 'secure.gravatar.com'],
+    remotePatterns: ['image.tmdb.org', 'secure.gravatar.com'],
   },
 }
 

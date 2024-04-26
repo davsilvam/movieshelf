@@ -3,13 +3,31 @@
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
 
+import { FetchHttpClientAdapter, HttpClient } from 'infra/adapters'
 import { ImageOff } from 'lucide-react'
 
-import { useMovie } from 'hooks'
+import { useMovieCredits } from 'hooks'
+
+import { Credits } from 'types'
+
+function loadMovieCredits(httpClient: HttpClient<Credits>) {
+  async function loadAll(id: string) {
+    return httpClient.request({
+      url: `movie/${id}/credits`,
+      method: 'get',
+    })
+  }
+
+  return { loadAll }
+}
 
 export default function MovieCredits() {
-  const { id } = useParams()
-  const { credits } = useMovie(id)
+  const { id } = useParams() as { id: string }
+
+  const { credits } = useMovieCredits({
+    loadMovieCredits: loadMovieCredits(new FetchHttpClientAdapter<Credits>()),
+    id,
+  })
 
   return (
     <main className="flex flex-col items-start gap-6 pt-6">

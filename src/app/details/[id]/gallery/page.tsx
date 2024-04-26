@@ -3,11 +3,48 @@
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
 
-import { useMovie } from 'hooks'
+import { FetchHttpClientAdapter, HttpClient } from 'infra/adapters'
+
+import { useMovieDetails, useMovieImages } from 'hooks'
+
+import { MovieDetails } from 'types'
+
+function loadMovieDetails(httpClient: HttpClient<MovieDetails>) {
+  async function load(id: string) {
+    return httpClient.request({
+      url: `movie/${id}/details`,
+      method: 'get',
+    })
+  }
+
+  return { load }
+}
+
+function loadMovieImages(httpClient: HttpClient) {
+  async function loadAll(id: string) {
+    return httpClient.request({
+      url: `movie/${id}/images`,
+      method: 'get',
+    })
+  }
+
+  return { loadAll }
+}
 
 export default function MovieGallery() {
-  const { id } = useParams()
-  const { movie, images } = useMovie(id)
+  const { id } = useParams() as { id: string }
+
+  const { details } = useMovieDetails({
+    loadMovieDetails: loadMovieDetails(
+      new FetchHttpClientAdapter<MovieDetails>(),
+    ),
+    id,
+  })
+
+  const { images } = useMovieImages({
+    loadMovieImages: loadMovieImages(new FetchHttpClientAdapter()),
+    id,
+  })
 
   return (
     <main className="flex flex-col items-start gap-6 pt-6">
@@ -19,7 +56,7 @@ export default function MovieGallery() {
         <div className="grid grid-cols-2 justify-between gap-5 md:grid-cols-3">
           {images?.backdrops.map(backdrop => (
             <Image
-              alt={`${movie?.title} backdrop.`}
+              alt={`${details?.title} backdrop.`}
               src={`https://image.tmdb.org/t/p/w780${backdrop.file_path}`}
               className="w-full rounded-lg"
               key={backdrop + 'w'}
@@ -38,7 +75,7 @@ export default function MovieGallery() {
         <div className="grid grid-cols-3 gap-5 md:grid-cols-5">
           {images?.posters.map(poster => (
             <Image
-              alt={`${movie?.title} poster.`}
+              alt={`${details?.title} poster.`}
               src={`https://image.tmdb.org/t/p/w342${poster.file_path}`}
               className="w-full rounded-lg"
               key={poster + 'w'}

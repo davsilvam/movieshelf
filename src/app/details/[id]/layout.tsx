@@ -13,8 +13,8 @@ import { useMovieDetails } from 'hooks'
 
 import { MovieDetails } from 'types'
 
-function loadMovieDetails(httpClient: HttpClient<MovieDetails>, id: string) {
-  async function load() {
+function loadMovieDetails(httpClient: HttpClient<MovieDetails>) {
+  async function load(id: string) {
     return await httpClient.request({
       url: `/movie/${id}?language=pt-BR`,
       method: 'get',
@@ -32,7 +32,8 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   const { details, moviePoster, runtimeHours, runtimeMinutes } =
     useMovieDetails({
-      loadMovieDetails: loadMovieDetails(new FetchHttpClientAdapter(), id),
+      loadMovieDetails: loadMovieDetails(new FetchHttpClientAdapter()),
+      id,
     })
 
   return (

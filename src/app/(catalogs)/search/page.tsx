@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { Fragment } from 'react'
 
+import { FetchHttpClientAdapter, HttpClient } from 'infra/adapters'
 import { SearchX } from 'lucide-react'
 
 import {
@@ -16,18 +17,35 @@ import {
   SearchBar,
 } from 'components'
 
-import { useSearchedMovie } from './hooks'
+import { useSearchedMovie } from 'hooks'
+
+import { MovieQuery } from 'types'
+
+function loadSearchedMovies(httpClient: HttpClient<MovieQuery>) {
+  async function loadAll(title: string, page: number) {
+    return httpClient.request({
+      url: `search/movie?query=${title}&language=pt-BR&page=${page}`,
+      method: 'get',
+    })
+  }
+
+  return { loadAll }
+}
 
 export default function Search() {
   const title = useSearchParams().get('query')
 
   const {
-    searchedMovies: { data: searchedMovies, isLoading },
+    searchedMovies,
+    isLoading,
     currentPage,
     goToNextPage,
     goToPreviousPage,
     goToPage,
-  } = useSearchedMovie(title ?? '')
+  } = useSearchedMovie({
+    loadSearchedMovies: loadSearchedMovies(new FetchHttpClientAdapter()),
+    movieTitle: title || '',
+  })
 
   return (
     <main className="relative pb-10">

@@ -2,6 +2,8 @@
 
 import { Fragment } from 'react'
 
+import { FetchHttpClientAdapter, HttpClient } from 'infra/adapters'
+
 import {
   CatalogPagination,
   FiltersBar,
@@ -12,16 +14,32 @@ import {
   SortBySelect,
 } from 'components'
 
-import { useDiscoverMovies } from './hooks'
+import { useDiscoverMovies } from 'hooks'
+
+import { MovieQuery } from 'types'
+
+function loadDiscoverMovies(httpClient: HttpClient<MovieQuery>) {
+  async function load(query: string, page: number) {
+    return httpClient.request({
+      url: `discover/movie?language=pt-BR&${query}&page=${page}`,
+      method: 'get',
+    })
+  }
+
+  return { load }
+}
 
 export default function Discover() {
   const {
-    discoverMovies: { data: discoverMovies, isLoading },
+    discoverMovies,
+    isLoading,
     currentPage,
     goToNextPage,
     goToPreviousPage,
     goToPage,
-  } = useDiscoverMovies()
+  } = useDiscoverMovies({
+    loadDiscoverMovies: loadDiscoverMovies(new FetchHttpClientAdapter()),
+  })
 
   return (
     <div className="flex items-center">
@@ -40,7 +58,7 @@ export default function Discover() {
           <FiltersBar />
         </header>
 
-        {/* {isLoading ? (
+        {isLoading ? (
           <MovieContainer.Skeleton hasTitle={false} />
         ) : (
           <Fragment>
@@ -58,7 +76,7 @@ export default function Discover() {
               />
             )}
           </Fragment>
-        )} */}
+        )}
       </section>
     </div>
   )
