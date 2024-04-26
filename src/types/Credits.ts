@@ -12,7 +12,7 @@ type Crew = {
   job: string
 }
 
-export interface Credits {
+export interface CreditsResponse {
   id: number
   cast: Cast[]
   crew: Crew[]

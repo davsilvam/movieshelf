@@ -3,14 +3,10 @@ import { useCallback, useMemo } from 'react'
 import { useQueries, useQuery } from '@tanstack/react-query'
 import { HttpResponse, HttpStatusCodes } from 'adapters'
 
-import { Movie } from 'types'
+import { Movie, MovieListResponse } from 'types'
 
 export type LoadMovies = {
-  loadAll: () => Promise<
-    HttpResponse<{
-      results: Movie[]
-    }>
-  >
+  loadAll: () => Promise<HttpResponse<MovieListResponse>>
 }
 
 export type LoadMoviesByGenre = {

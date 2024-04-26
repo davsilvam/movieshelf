@@ -3,36 +3,34 @@ import { useCallback, useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { HttpResponse, HttpStatusCodes } from 'adapters'
 
-import { Credits, Images, Movie, MovieDetails, Review } from 'types'
+import {
+  CreditsResponse,
+  ImagesResponse,
+  MovieDetailsResponse,
+  MovieListResponse,
+  ReviewsResponse,
+} from 'types'
 
 import { queryClient } from 'services'
 
 export type LoadMovieDetails = {
-  load: (id: string) => Promise<HttpResponse<MovieDetails>>
+  load: (id: string) => Promise<HttpResponse<MovieDetailsResponse>>
 }
 
 export type LoadMovieCredits = {
-  loadAll: (id: string) => Promise<HttpResponse<Credits>>
+  loadAll: (id: string) => Promise<HttpResponse<CreditsResponse>>
 }
 
 export type LoadMovieImages = {
-  loadAll: (id: string) => Promise<HttpResponse<Images>>
+  loadAll: (id: string) => Promise<HttpResponse<ImagesResponse>>
 }
 
 export type LoadMovieReviews = {
-  loadAll: (id: string) => Promise<
-    HttpResponse<{
-      results: Review[]
-    }>
-  >
+  loadAll: (id: string) => Promise<HttpResponse<ReviewsResponse>>
 }
 
 export type LoadMovieSimilar = {
-  loadAll: (id: string) => Promise<
-    HttpResponse<{
-      results: Movie[]
-    }>
-  >
+  loadAll: (id: string) => Promise<HttpResponse<MovieListResponse>>
 }
 
 interface UseMovieProps {

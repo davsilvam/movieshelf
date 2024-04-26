@@ -4,12 +4,15 @@ import { useCallback, useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { HttpResponse, HttpStatusCodes } from 'adapters'
 
-import { MovieQuery } from 'types'
+import { MovieListResponse } from 'types'
 
 import { queryClient } from 'services'
 
 export type LoadDiscoverMovies = {
-  load: (query: string, page: number) => Promise<HttpResponse<MovieQuery>>
+  load: (
+    query: string,
+    page: number,
+  ) => Promise<HttpResponse<MovieListResponse>>
 }
 
 interface UseDiscoverMoviesProps {
