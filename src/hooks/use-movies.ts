@@ -3,18 +3,14 @@ import { useCallback, useMemo } from 'react'
 import { useQueries, useQuery } from '@tanstack/react-query'
 import { HttpResponse, HttpStatusCodes } from 'adapters'
 
-import { Movie, MovieListResponse } from 'types'
+import { MovieListResponse } from 'types'
 
 export type LoadMovies = {
-  loadAll: () => Promise<HttpResponse<MovieListResponse>>
+  execute: () => Promise<HttpResponse<MovieListResponse>>
 }
 
 export type LoadMoviesByGenre = {
-  loadAll: (genreId: number) => Promise<
-    HttpResponse<{
-      results: Movie[]
-    }>
-  >
+  execute: (genreId: number) => Promise<HttpResponse<MovieListResponse>>
 }
 
 interface UseMoviesProps {
@@ -59,7 +55,7 @@ export function useNowPlayingMovies({
   loadNowPlayingMovies,
 }: Pick<UseMoviesProps, 'loadNowPlayingMovies'>) {
   const getNowPlayingMovies = useCallback(async () => {
-    const response = await loadNowPlayingMovies.loadAll()
+    const response = await loadNowPlayingMovies.execute()
 
     if (response.statusCode !== HttpStatusCodes.ok) {
       throw new Error('Error loading movies')
@@ -88,7 +84,7 @@ export function usePopularMovies({
   loadPopularMovies,
 }: Pick<UseMoviesProps, 'loadPopularMovies'>) {
   const getPopularMovies = useCallback(async () => {
-    const response = await loadPopularMovies.loadAll()
+    const response = await loadPopularMovies.execute()
 
     if (response.statusCode !== HttpStatusCodes.ok) {
       throw new Error('Error loading movies.')
@@ -112,7 +108,7 @@ export function useTopRatedMovies({
   loadTopRatedMovies,
 }: Pick<UseMoviesProps, 'loadTopRatedMovies'>) {
   const getTopRatedMovies = useCallback(async () => {
-    const response = await loadTopRatedMovies.loadAll()
+    const response = await loadTopRatedMovies.execute()
 
     if (response.statusCode !== HttpStatusCodes.ok) {
       throw new Error('Error loading movies.')
@@ -141,7 +137,7 @@ export function useMoviesByGenre({
 }) {
   const getMoviesByGenre = useCallback(
     async (genreId: number) => {
-      const response = await loadMoviesByGenre.loadAll(genreId)
+      const response = await loadMoviesByGenre.execute(genreId)
 
       if (response.statusCode !== HttpStatusCodes.ok) {
         throw new Error('Error loading movies.')

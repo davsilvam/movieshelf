@@ -14,23 +14,23 @@ import {
 import { queryClient } from 'services'
 
 export type LoadMovieDetails = {
-  load: (id: string) => Promise<HttpResponse<MovieDetailsResponse>>
+  execute: (id: string) => Promise<HttpResponse<MovieDetailsResponse>>
 }
 
 export type LoadMovieCredits = {
-  loadAll: (id: string) => Promise<HttpResponse<CreditsResponse>>
+  execute: (id: string) => Promise<HttpResponse<CreditsResponse>>
 }
 
 export type LoadMovieImages = {
-  loadAll: (id: string) => Promise<HttpResponse<ImagesResponse>>
+  execute: (id: string) => Promise<HttpResponse<ImagesResponse>>
 }
 
 export type LoadMovieReviews = {
-  loadAll: (id: string) => Promise<HttpResponse<ReviewsResponse>>
+  execute: (id: string) => Promise<HttpResponse<ReviewsResponse>>
 }
 
 export type LoadMovieSimilar = {
-  loadAll: (id: string) => Promise<HttpResponse<MovieListResponse>>
+  execute: (id: string) => Promise<HttpResponse<MovieListResponse>>
 }
 
 interface UseMovieProps {
@@ -103,7 +103,7 @@ export function useMovieDetails({
   })
 
   const getMovieDetails = useCallback(async () => {
-    const response = await loadMovieDetails.load(id)
+    const response = await loadMovieDetails.execute(id)
 
     if (response.statusCode !== HttpStatusCodes.ok) {
       throw new Error('Error loading movie details.')
@@ -144,7 +144,7 @@ export function useMovieCredits({
   id: string
 }) {
   const getMovieCredits = useCallback(async () => {
-    const response = await loadMovieCredits.loadAll(id)
+    const response = await loadMovieCredits.execute(id)
 
     if (response.statusCode !== HttpStatusCodes.ok) {
       throw new Error('Error loading movie credits.')
@@ -176,7 +176,7 @@ export function useMovieImages({
   id: string
 }) {
   const getMovieImages = useCallback(async () => {
-    const response = await loadMovieImages.loadAll(id)
+    const response = await loadMovieImages.execute(id)
 
     if (response.statusCode !== HttpStatusCodes.ok) {
       throw new Error('Error loading movie images.')
@@ -208,7 +208,7 @@ export function useMovieReviews({
   id: string
 }) {
   const getMovieReviews = useCallback(async () => {
-    const response = await loadMovieReviews.loadAll(id)
+    const response = await loadMovieReviews.execute(id)
 
     if (response.statusCode !== HttpStatusCodes.ok) {
       throw new Error('Error loading movie reviews.')
@@ -235,7 +235,7 @@ export function useMovieSimilar({
   id: string
 }) {
   const getMovieSimilar = useCallback(async () => {
-    const response = await loadMovieSimilar.loadAll(id)
+    const response = await loadMovieSimilar.execute(id)
 
     if (response.statusCode !== HttpStatusCodes.ok) {
       throw new Error('Error loading similar movies.')

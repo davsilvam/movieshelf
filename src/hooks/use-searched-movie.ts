@@ -8,7 +8,7 @@ import { MovieListResponse } from 'types'
 import { queryClient } from 'services'
 
 export type LoadSearchedMovies = {
-  loadAll: (
+  execute: (
     title: string,
     page: number,
   ) => Promise<HttpResponse<MovieListResponse>>
@@ -34,7 +34,7 @@ export function useSearchedMovie({
   }, [movieTitle])
 
   const getMoviesByTitle = async () => {
-    const response = await loadSearchedMovies.loadAll(movieTitle, currentPage)
+    const response = await loadSearchedMovies.execute(movieTitle, currentPage)
 
     if (response.statusCode !== HttpStatusCodes.ok) {
       throw new Error('Error loading searched movies.')

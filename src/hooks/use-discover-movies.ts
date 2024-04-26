@@ -9,7 +9,7 @@ import { MovieListResponse } from 'types'
 import { queryClient } from 'services'
 
 export type LoadDiscoverMovies = {
-  load: (
+  execute: (
     query: string,
     page: number,
   ) => Promise<HttpResponse<MovieListResponse>>
@@ -34,7 +34,7 @@ export function useDiscoverMovies({
   }, [searchParams])
 
   const getDiscoverMoviesByQuery = useCallback(async () => {
-    const response = await loadDiscoverMovies.load(searchParams, currentPage)
+    const response = await loadDiscoverMovies.execute(searchParams, currentPage)
 
     if (response.statusCode !== HttpStatusCodes.ok) {
       throw new Error('Error loading discover movies.')
