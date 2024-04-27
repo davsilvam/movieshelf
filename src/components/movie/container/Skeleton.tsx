@@ -1,9 +1,13 @@
+import { MovieCardSkeleton } from '../card-skeleton'
+
 interface MovieContainerSkeletonProps {
   hasTitle?: boolean
+  length?: number
 }
 
 export function MovieContainerSkeleton({
   hasTitle = false,
+  length = 10,
 }: MovieContainerSkeletonProps) {
   return (
     <div className="flex w-full flex-col gap-6">
@@ -12,16 +16,9 @@ export function MovieContainerSkeleton({
       )}
 
       <div className="grid grid-cols-3 gap-4 md:gap-6 lg:grid-cols-4 lg:gap-10 xl:grid-cols-5">
-        <div className="aspect-[2/3] w-full animate-pulse rounded-xl bg-shark" />
-        <div className="aspect-[2/3] w-full animate-pulse rounded-xl bg-shark" />
-        <div className="aspect-[2/3] w-full animate-pulse rounded-xl bg-shark" />
-        <div className="aspect-[2/3] w-full animate-pulse rounded-xl bg-shark" />
-        <div className="aspect-[2/3] w-full animate-pulse rounded-xl bg-shark" />
-        <div className="aspect-[2/3] w-full animate-pulse rounded-xl bg-shark" />
-        <div className="aspect-[2/3] w-full animate-pulse rounded-xl bg-shark" />
-        <div className="aspect-[2/3] w-full animate-pulse rounded-xl bg-shark" />
-        <div className="aspect-[2/3] w-full animate-pulse rounded-xl bg-shark" />
-        <div className="aspect-[2/3] w-full animate-pulse rounded-xl bg-shark" />
+        {Array.from({ length }).map((_, index) => (
+          <MovieCardSkeleton key={index} />
+        ))}
       </div>
     </div>
   )

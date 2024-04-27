@@ -2,6 +2,7 @@
 
 import { httpClientFactory } from 'factories'
 import {
+  LoadMoviesByGenreGateway,
   LoadNowPlayingMoviesGateway,
   LoadPopularMoviesGateway,
   LoadTopRatedMoviesGateway,
@@ -22,7 +23,7 @@ export default function Home() {
   )
   const loadPopularMovies = new LoadPopularMoviesGateway(httpClientFactory)
   const loadTopRatedMovies = new LoadTopRatedMoviesGateway(httpClientFactory)
-  const loadMoviesByGenre = new LoadNowPlayingMoviesGateway(httpClientFactory)
+  const loadMoviesByGenre = new LoadMoviesByGenreGateway(httpClientFactory)
 
   return (
     <main className="bg-woodsmoke">
