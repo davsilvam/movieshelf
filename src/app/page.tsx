@@ -11,8 +11,18 @@ import {
 } from 'gateways'
 import { ArrowUpRight } from 'lucide-react'
 
-import { BannerSlider, Button, Header, MenuBar, MovieCatalog } from 'components'
-import { Carousel } from 'components/banner/carousel'
+import {
+  BannerCard,
+  BannerCarousel,
+  BannerCarouselContent,
+  BannerCarouselItem,
+  Button,
+  Header,
+  MenuBar,
+  MovieCatalog,
+} from 'components'
+
+import { useNowPlayingMovies } from 'hooks'
 
 export default function Home() {
   const loadNowPlayingMovies = new LoadNowPlayingMoviesGateway(
@@ -22,12 +32,25 @@ export default function Home() {
   const loadTopRatedMovies = new LoadTopRatedMoviesGateway(httpClientFactory)
   const loadMoviesByGenre = new LoadMoviesByGenreGateway(httpClientFactory)
 
+  const { hottestMovies } = useNowPlayingMovies({
+    loadNowPlayingMovies,
+  })
+
   return (
     <main className="bg-woodsmoke">
       <Header />
-      <BannerSlider loadNowPlayingMovies={loadNowPlayingMovies} />
 
-      {/* <Carousel /> */}
+      {hottestMovies && (
+        <BannerCarousel>
+          <BannerCarouselContent>
+            {hottestMovies.map(movie => (
+              <BannerCarouselItem className="h-[80vh] w-full" key={movie.id}>
+                <BannerCard movie={movie} />
+              </BannerCarouselItem>
+            ))}
+          </BannerCarouselContent>
+        </BannerCarousel>
+      )}
 
       <MovieCatalog
         loadNowPlayingMovies={loadNowPlayingMovies}

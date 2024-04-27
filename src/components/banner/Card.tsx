@@ -43,7 +43,9 @@ export function BannerCard({ movie }: BannerCardProps) {
         </div>
 
         <p className="font-alt text-4xl uppercase text-white md:max-w-lg md:text-5xl md:leading-[52px] lg:text-7xl">
-          {movie.title}
+          {movie.title.length > 50
+            ? `${movie.title.slice(0, 50)}...`
+            : movie.title}
         </p>
 
         <div className="font-alt text-white">

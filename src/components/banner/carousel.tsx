@@ -12,6 +12,7 @@ import {
   useState,
 } from 'react'
 
+import Autoplay from 'embla-carousel-autoplay'
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from 'embla-carousel-react'
@@ -54,7 +55,7 @@ function useCarousel() {
   return context
 }
 
-const Carousel = forwardRef<
+const BannerCarousel = forwardRef<
   HTMLDivElement,
   HTMLAttributes<HTMLDivElement> & CarouselProps
 >(
@@ -74,9 +75,17 @@ const Carousel = forwardRef<
       {
         ...opts,
         axis: orientation === 'horizontal' ? 'x' : 'y',
+        loop: true,
       },
-      plugins,
+
+      [
+        ...(plugins || []),
+        Autoplay({
+          delay: 5000,
+        }),
+      ],
     )
+
     const [canScrollPrev, setCanScrollPrev] = useState(false)
     const [canScrollNext, setCanScrollNext] = useState(false)
 
@@ -160,9 +169,10 @@ const Carousel = forwardRef<
     )
   },
 )
-Carousel.displayName = 'Carousel'
 
-const CarouselContent = forwardRef<
+BannerCarousel.displayName = 'BannerCarousel'
+
+const BannerCarouselContent = forwardRef<
   HTMLDivElement,
   HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
@@ -182,30 +192,33 @@ const CarouselContent = forwardRef<
     </div>
   )
 })
-CarouselContent.displayName = 'CarouselContent'
 
-const CarouselItem = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => {
-    const { orientation } = useCarousel()
+BannerCarouselContent.displayName = 'BannerCarouselContent'
 
-    return (
-      <div
-        ref={ref}
-        role="group"
-        aria-roledescription="slide"
-        className={cn(
-          'min-w-0 shrink-0 grow-0 basis-full',
-          orientation === 'horizontal' ? 'pl-4' : 'pt-4',
-          className,
-        )}
-        {...props}
-      />
-    )
-  },
-)
-CarouselItem.displayName = 'CarouselItem'
+const BannerCarouselItem = forwardRef<
+  HTMLDivElement,
+  HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => {
+  const { orientation } = useCarousel()
 
-const CarouselPrevious = forwardRef<
+  return (
+    <div
+      ref={ref}
+      role="group"
+      aria-roledescription="slide"
+      className={cn(
+        'min-w-0 shrink-0 grow-0 basis-full',
+        orientation === 'horizontal' ? 'pl-4' : 'pt-4',
+        className,
+      )}
+      {...props}
+    />
+  )
+})
+
+BannerCarouselItem.displayName = 'BannerCarouselItem'
+
+const BannerCarouselPrevious = forwardRef<
   HTMLButtonElement,
   ComponentProps<typeof Button>
 >(({ className, variant = 'outline', size = 'icon', ...props }, ref) => {
@@ -232,9 +245,10 @@ const CarouselPrevious = forwardRef<
     </Button>
   )
 })
-CarouselPrevious.displayName = 'CarouselPrevious'
 
-const CarouselNext = forwardRef<
+BannerCarouselPrevious.displayName = 'BannerCarouselPrevious'
+
+const BannerCarouselNext = forwardRef<
   HTMLButtonElement,
   ComponentProps<typeof Button>
 >(({ className, variant = 'outline', size = 'icon', ...props }, ref) => {
@@ -261,13 +275,14 @@ const CarouselNext = forwardRef<
     </Button>
   )
 })
-CarouselNext.displayName = 'CarouselNext'
+
+BannerCarouselNext.displayName = 'BannerCarouselNext'
 
 export {
   type CarouselApi,
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
+  BannerCarousel,
+  BannerCarouselContent,
+  BannerCarouselItem,
+  BannerCarouselPrevious,
+  BannerCarouselNext,
 }
