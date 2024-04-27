@@ -12,8 +12,8 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { LoadMovies, useNowPlayingMovies } from 'hooks'
 
-import { BannerCard } from './Card'
-import { BannerSkeleton } from './Skeleton'
+import { BannerCard } from './card'
+import { BannerSkeleton } from './skeleton'
 
 interface BannerSliderProps {
   loadNowPlayingMovies: LoadMovies

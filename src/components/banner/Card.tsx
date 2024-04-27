@@ -1,8 +1,9 @@
+import Link from 'next/link'
 import { Fragment } from 'react'
 
 import { ChevronRight } from 'lucide-react'
 
-import { LinkButton } from 'components'
+import { Button } from 'components'
 
 import { movieGenres } from 'utils'
 
@@ -56,13 +57,12 @@ export function BannerCard({ movie }: BannerCardProps) {
         </div>
       </div>
 
-      <LinkButton
-        href={`/details/${movie.id}`}
-        className="z-10"
-        icon={ChevronRight}
-      >
-        Detalhes
-      </LinkButton>
+      <Button asChild size={'lg'} className="z-10 w-fit">
+        <Link href={`/details/${movie.id}`}>
+          Detalhes
+          <ChevronRight className="w-5" />
+        </Link>
+      </Button>
     </div>
   )
 }

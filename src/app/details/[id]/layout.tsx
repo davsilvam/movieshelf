@@ -28,8 +28,8 @@ export default function Layout({ children }: { children: ReactNode }) {
     <div className="relative z-0 min-h-screen bg-woodsmoke px-6 pb-10 md:px-10">
       {details && (
         <Fragment>
-          <Button className="absolute top-10" onClick={back}>
-            <ArrowLeft className="h-4 w-4" />
+          <Button onClick={back} className="absolute top-10">
+            <ArrowLeft className="w-4" />
             Voltar
           </Button>
 

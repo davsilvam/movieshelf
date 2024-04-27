@@ -1,5 +1,7 @@
 'use client'
 
+import Link from 'next/link'
+
 import { httpClientFactory } from 'factories'
 import {
   LoadMoviesByGenreGateway,
@@ -9,13 +11,8 @@ import {
 } from 'gateways'
 import { ArrowUpRight } from 'lucide-react'
 
-import {
-  BannerSlider,
-  Header,
-  LinkButton,
-  MenuBar,
-  MovieCatalog,
-} from 'components'
+import { BannerSlider, Button, Header, MenuBar, MovieCatalog } from 'components'
+import { Carousel } from 'components/banner/carousel'
 
 export default function Home() {
   const loadNowPlayingMovies = new LoadNowPlayingMoviesGateway(
@@ -30,6 +27,8 @@ export default function Home() {
       <Header />
       <BannerSlider loadNowPlayingMovies={loadNowPlayingMovies} />
 
+      {/* <Carousel /> */}
+
       <MovieCatalog
         loadNowPlayingMovies={loadNowPlayingMovies}
         loadPopularMovies={loadPopularMovies}
@@ -42,9 +41,12 @@ export default function Home() {
           Não achou o que queria?
         </p>
 
-        <LinkButton href="/discover" icon={ArrowUpRight}>
-          Descubra outros títulos
-        </LinkButton>
+        <Button asChild size={'lg'} className="z-10 w-fit">
+          <Link href="/discover">
+            Descubra outros títulos
+            <ArrowUpRight className="w-5" />
+          </Link>
+        </Button>
       </div>
 
       <MenuBar />

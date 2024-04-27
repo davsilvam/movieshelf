@@ -1,88 +1,59 @@
-import Link from 'next/link'
-import {
-  AnchorHTMLAttributes,
-  ButtonHTMLAttributes,
-  ElementType,
-  ReactNode,
-} from 'react'
+import { ButtonHTMLAttributes, forwardRef } from 'react'
 
-import { cn } from 'utils'
+import { Slot } from '@radix-ui/react-slot'
+import { cva, type VariantProps } from 'class-variance-authority'
 
-const defaultStyles = 'transition rounded-lg px-6 py-3 max-sm:px-4 max-sm:py-3'
+import { cn } from 'utils/cn'
 
-const sizes = {
-  base: 'w-fit',
-  full: 'w-full',
+const buttonVariants = cva(
+  'inline-flex items-center justify-center whitespace-nowrap rounded-md gap-2 font-semibold ring-offset-background transition-colors max-sm:text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  {
+    variants: {
+      variant: {
+        default: 'bg-white text-woodsmoke hover:bg-white/90',
+        destructive:
+          'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+        outline:
+          'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
+        secondary:
+          'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+        ghost: 'hover:bg-accent hover:text-accent-foreground',
+        link: 'text-primary underline-offset-4 hover:underline',
+      },
+      size: {
+        default: 'h-10 px-4 py-2',
+        sm: 'h-9 rounded-md px-3',
+        lg: 'h-12 rounded-md px-6 py-3 max-sm:px-4 max-sm:py-3',
+        icon: 'h-8 w-8',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+      size: 'default',
+    },
+  },
+)
+
+export interface ButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean
 }
 
-const variants = {
-  primary: cn(
-    'flex items-center justify-center gap-3 max-sm:gap-2',
-    'text-woodsmoke font-semibold max-sm:text-sm',
-    'bg-white',
-    'hover:bg-white/70 transition duration-150',
-  ),
-}
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Component = asChild ? Slot : 'button'
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: ReactNode
-  icon?: ElementType
-  variant?: keyof typeof variants
-  size?: keyof typeof sizes
-  className?: string
-}
+    return (
+      <Component
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    )
+  },
+)
 
-export function Button({
-  children,
-  icon: Icon,
-  variant = 'primary',
-  size = 'base',
-  className,
-  ...props
-}: ButtonProps) {
-  const sizeClass = sizes[size]
-  const variantClass = variants[variant]
+Button.displayName = 'Button'
 
-  return (
-    <button
-      {...props}
-      className={cn(defaultStyles, sizeClass, variantClass, className)}
-    >
-      {children}
-      {Icon && <Icon className="h-4 w-4 max-sm:h-3 max-sm:w-3" />}
-    </button>
-  )
-}
-
-interface LinkButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
-  children: ReactNode
-  href: string
-  icon?: ElementType
-  variant?: keyof typeof variants
-  size?: keyof typeof sizes
-  className?: string
-}
-
-export function LinkButton({
-  children,
-  href = '/',
-  icon: Icon,
-  variant = 'primary',
-  size = 'base',
-  className,
-  ...props
-}: LinkButtonProps) {
-  const sizeClass = sizes[size]
-  const variantClass = variants[variant]
-
-  return (
-    <Link
-      {...props}
-      className={cn(defaultStyles, sizeClass, variantClass, className)}
-      href={href}
-    >
-      {children}
-      {Icon && <Icon className="h-4 w-4" />}
-    </Link>
-  )
-}
+export { Button, buttonVariants }

@@ -100,9 +100,7 @@ export function FiltersDropdown() {
                   </span>
                 </div>
 
-                <Button className="text-sm" size="full">
-                  Adicionar filtro
-                </Button>
+                <Button className="z-10 text-sm">Adicionar filtro</Button>
               </form>
             </Fragment>
           )}
