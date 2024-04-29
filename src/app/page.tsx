@@ -14,8 +14,6 @@ import { ArrowUpRight } from 'lucide-react'
 import {
   BannerCard,
   BannerCarousel,
-  BannerCarouselContent,
-  BannerCarouselItem,
   Button,
   Header,
   MenuBar,
@@ -41,15 +39,15 @@ export default function Home() {
       <Header />
 
       {hottestMovies && (
-        <BannerCarousel>
-          <BannerCarouselContent>
+        <BannerCarousel.Root>
+          <BannerCarousel.Content>
             {hottestMovies.map(movie => (
-              <BannerCarouselItem className="h-[80vh] w-full" key={movie.id}>
+              <BannerCarousel.Item className="h-[80vh] w-full" key={movie.id}>
                 <BannerCard movie={movie} />
-              </BannerCarouselItem>
+              </BannerCarousel.Item>
             ))}
-          </BannerCarouselContent>
-        </BannerCarousel>
+          </BannerCarousel.Content>
+        </BannerCarousel.Root>
       )}
 
       <MovieCatalog
