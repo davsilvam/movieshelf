@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
 import { HttpResponse, HttpStatusCodes } from 'adapters'
@@ -17,24 +17,26 @@ export type LoadSearchedMovies = {
 interface UseSearchedMoviesProps {
   loadSearchedMovies: LoadSearchedMovies
   movieTitle: string
+  page: number
+  goToPage: (page: number) => void
 }
 
 export function useSearchedMovie({
   loadSearchedMovies,
   movieTitle,
+  page,
+  goToPage,
 }: UseSearchedMoviesProps) {
-  const [currentPage, setCurrentPage] = useState<number>(1)
-
   useEffect(() => {
     queryClient.invalidateQueries({
       queryKey: ['search'],
     })
 
-    setCurrentPage(1)
-  }, [movieTitle])
+    goToPage(1)
+  }, [movieTitle, goToPage])
 
   const getMoviesByTitle = async () => {
-    const response = await loadSearchedMovies.execute(movieTitle, currentPage)
+    const response = await loadSearchedMovies.execute(movieTitle, page)
 
     if (response.statusCode !== HttpStatusCodes.ok) {
       throw new Error('Error loading searched movies.')
@@ -44,28 +46,12 @@ export function useSearchedMovie({
   }
 
   const { data: searchedMovies, isLoading } = useQuery(
-    ['movies', 'search', 'list', movieTitle, currentPage],
+    ['movies', 'search', 'list', movieTitle, page],
     getMoviesByTitle,
   )
 
-  function goToNextPage() {
-    setCurrentPage(state => state + 1)
-  }
-
-  function goToPreviousPage() {
-    setCurrentPage(state => state - 1)
-  }
-
-  function goToPage(page: number) {
-    setCurrentPage(page)
-  }
-
   return {
-    currentPage,
     isLoading,
     searchedMovies,
-    goToNextPage,
-    goToPreviousPage,
-    goToPage,
   }
 }

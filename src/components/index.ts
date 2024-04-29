@@ -7,7 +7,6 @@ export * from './movie'
 export * from './sort-by'
 export * from './ui'
 
-export * from './CatalogPagination'
 export * from './CategoryCards'
 export * from './DetailsBanner'
 export * from './PageTitle'
