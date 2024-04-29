@@ -6,7 +6,7 @@ import { useFiltersBar } from './hooks'
 import { cn, movieGenres } from 'utils'
 
 import { useSorters } from '../sort-by'
-import { FilterTag } from './Tag'
+import { FilterTag } from './tag'
 
 export function FiltersBar() {
   const { getSorterMessage } = useSorters()

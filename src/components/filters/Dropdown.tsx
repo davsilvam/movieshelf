@@ -25,7 +25,7 @@ import { Button } from 'components'
 import { useFilters } from './hooks'
 import { cn } from 'utils'
 
-import { FilterSelect } from './Select'
+import { FilterSelect } from './select'
 
 export function FiltersDropdown() {
   const {

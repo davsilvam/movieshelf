@@ -1,4 +1,3 @@
-export * from './Navigation'
-export * from './Profile'
-export * from './Root'
-export * from './SearchBar'
+export * from './navigation'
+export * from './root'
+export * from './search-bar'

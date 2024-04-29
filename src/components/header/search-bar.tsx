@@ -1,10 +1,8 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-import { KeyboardEvent } from 'react'
-
 import { Search } from 'lucide-react'
 
+import { useSearchBar } from './hooks'
 import { cn } from 'utils'
 
 const sizes = {
@@ -17,13 +15,7 @@ interface SearchBarProps {
 }
 
 export function SearchBar({ size = 'base' }: SearchBarProps) {
-  const { push } = useRouter()
-
-  function handleSearch(event: KeyboardEvent<HTMLInputElement>) {
-    if (event.key === 'Enter') {
-      push(`/search?query=${event.currentTarget.value}`)
-    }
-  }
+  const { handleSearch } = useSearchBar()
 
   const sizeClass = sizes[size]
 

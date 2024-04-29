@@ -4,8 +4,8 @@ import { ChevronDown, Film } from 'lucide-react'
 
 import { cn } from 'utils'
 
-import { Navigation } from './Navigation'
-import { SearchBar } from './SearchBar'
+import { Navigation } from './navigation'
+import { SearchBar } from './search-bar'
 
 export function Header() {
   return (

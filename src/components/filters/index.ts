@@ -1,6 +1,6 @@
 export * from './hooks'
 
-export * from './Bar'
-export * from './Dropdown'
-export * from './Select'
-export * from './Tag'
+export * from './bar'
+export * from './dropdown'
+export * from './select'
+export * from './tag'

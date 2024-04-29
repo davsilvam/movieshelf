@@ -1,1 +1,1 @@
-export * from './useGenresSelector'
+export * from './use-genre-selector'

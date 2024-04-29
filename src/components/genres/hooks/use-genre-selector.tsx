@@ -1,7 +1,7 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 
-export function useGenresSelector() {
+export function useGenreSelector() {
   const searchParams = useSearchParams()
   const { push } = useRouter()
 
@@ -10,9 +10,7 @@ export function useGenresSelector() {
     ?.split(',')
     .map(item => Number(item))
 
-  const [checkedGenres, setCheckedGenres] = useState<number[]>(
-    queryGenres || [],
-  )
+  const [checkedGenres, setCheckedGenres] = useState(queryGenres || [])
 
   function handleGenres(genreId: number) {
     if (checkedGenres.some(genre => genre === genreId)) {
