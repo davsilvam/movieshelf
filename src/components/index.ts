@@ -7,7 +7,4 @@ export * from './movie'
 export * from './sort-by'
 export * from './ui'
 
-export * from './CategoryCards'
-export * from './DetailsBanner'
-export * from './PageTitle'
-export * from './ReviewCard'
+export * from './category-cards'
