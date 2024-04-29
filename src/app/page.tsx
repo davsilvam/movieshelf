@@ -1,7 +1,10 @@
 'use client'
 
+import Link from 'next/link'
+
 import { httpClientFactory } from 'factories'
 import {
+  LoadMoviesByGenreGateway,
   LoadNowPlayingMoviesGateway,
   LoadPopularMoviesGateway,
   LoadTopRatedMoviesGateway,
@@ -9,12 +12,15 @@ import {
 import { ArrowUpRight } from 'lucide-react'
 
 import {
-  BannerSlider,
+  BannerCard,
+  BannerCarousel,
+  Button,
   Header,
-  LinkButton,
   MenuBar,
   MovieCatalog,
 } from 'components'
+
+import { useNowPlayingMovies } from 'hooks'
 
 export default function Home() {
   const loadNowPlayingMovies = new LoadNowPlayingMoviesGateway(
@@ -22,12 +28,27 @@ export default function Home() {
   )
   const loadPopularMovies = new LoadPopularMoviesGateway(httpClientFactory)
   const loadTopRatedMovies = new LoadTopRatedMoviesGateway(httpClientFactory)
-  const loadMoviesByGenre = new LoadNowPlayingMoviesGateway(httpClientFactory)
+  const loadMoviesByGenre = new LoadMoviesByGenreGateway(httpClientFactory)
+
+  const { hottestMovies } = useNowPlayingMovies({
+    loadNowPlayingMovies,
+  })
 
   return (
     <main className="bg-woodsmoke">
       <Header />
-      <BannerSlider loadNowPlayingMovies={loadNowPlayingMovies} />
+
+      {hottestMovies && (
+        <BannerCarousel.Root>
+          <BannerCarousel.Content>
+            {hottestMovies.map(movie => (
+              <BannerCarousel.Item className="h-[80vh] w-full" key={movie.id}>
+                <BannerCard movie={movie} />
+              </BannerCarousel.Item>
+            ))}
+          </BannerCarousel.Content>
+        </BannerCarousel.Root>
+      )}
 
       <MovieCatalog
         loadNowPlayingMovies={loadNowPlayingMovies}
@@ -41,9 +62,12 @@ export default function Home() {
           Não achou o que queria?
         </p>
 
-        <LinkButton href="/discover" icon={ArrowUpRight}>
-          Descubra outros títulos
-        </LinkButton>
+        <Button asChild size={'lg'} className="z-10 w-fit">
+          <Link href="/discover">
+            Descubra outros títulos
+            <ArrowUpRight className="w-5" />
+          </Link>
+        </Button>
       </div>
 
       <MenuBar />

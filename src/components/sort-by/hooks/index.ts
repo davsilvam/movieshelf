@@ -1,1 +1,1 @@
-export * from './useSorters'
+export * from './use-sorters'

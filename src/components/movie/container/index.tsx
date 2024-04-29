@@ -1,7 +1,7 @@
-import { MovieContainerBanner } from './Banner'
-import { MovieContainerRoot } from './Root'
-import { MovieContainerSkeleton } from './Skeleton'
-import { MovieContainerTitle } from './Title'
+import { MovieContainerBanner } from './banner'
+import { MovieContainerRoot } from './root'
+import { MovieContainerSkeleton } from './skeleton'
+import { MovieContainerTitle } from './title'
 
 export const MovieContainer = {
   Root: MovieContainerRoot,

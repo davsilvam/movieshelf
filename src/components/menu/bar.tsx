@@ -1,16 +1,13 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
 
 import { SearchBar } from 'components'
 
-export function MenuBar() {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+import { useMenuBar } from './hooks'
 
-  function toggleMenu() {
-    setIsOpen(state => !state)
-  }
+export function MenuBar() {
+  const { isOpen, toggleMenu } = useMenuBar()
 
   return (
     <div

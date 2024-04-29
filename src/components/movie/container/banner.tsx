@@ -1,8 +1,9 @@
+import Link from 'next/link'
 import { Fragment } from 'react'
 
 import { ChevronRight } from 'lucide-react'
 
-import { LinkButton } from 'components'
+import { Button } from 'components'
 
 import { cn, movieGenres } from 'utils'
 
@@ -46,9 +47,12 @@ export function MovieContainerBanner({ movie }: MovieContainerBannerProps) {
         </p>
       </div>
 
-      <LinkButton href={`/details/${movie.id}`} icon={ChevronRight}>
-        Detalhes
-      </LinkButton>
+      <Button asChild size={'lg'}>
+        <Link href={`/details/${movie.id}`}>
+          Detalhes
+          <ChevronRight className="w-5" />
+        </Link>
+      </Button>
     </div>
   )
 }

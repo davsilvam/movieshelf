@@ -1,2 +1,2 @@
-export * from './useFilters'
-export * from './useFiltersBar'
+export * from './use-filters'
+export * from './use-filters-bar'

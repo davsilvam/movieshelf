@@ -6,13 +6,20 @@ import { httpClientFactory } from 'factories'
 import { LoadDiscoverMoviesGateway } from 'gateways'
 
 import {
-  CatalogPagination,
   FiltersBar,
   FiltersDropdown,
   GenresDropdown,
   MovieContainer,
   PageTitle,
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationButton,
+  PaginationNext,
+  PaginationPrevious,
   SortBySelect,
+  usePagination,
 } from 'components'
 
 import { useDiscoverMovies } from 'hooks'
@@ -21,14 +28,17 @@ export default function Discover() {
   const loadDiscoverMovies = new LoadDiscoverMoviesGateway(httpClientFactory)
 
   const {
-    discoverMovies,
-    isLoading,
     currentPage,
+    setCurrentPage,
     goToNextPage,
-    goToPreviousPage,
     goToPage,
-  } = useDiscoverMovies({
+    goToPreviousPage,
+  } = usePagination()
+
+  const { discoverMovies, isLoading } = useDiscoverMovies({
     loadDiscoverMovies,
+    page: currentPage,
+    goToPage: setCurrentPage,
   })
 
   return (
@@ -51,21 +61,66 @@ export default function Discover() {
         {isLoading ? (
           <MovieContainer.Skeleton hasTitle={false} />
         ) : (
-          <Fragment>
-            {discoverMovies && (
+          discoverMovies && (
+            <Fragment>
               <MovieContainer.Root movies={discoverMovies.results} />
-            )}
 
-            {discoverMovies && (
-              <CatalogPagination
-                currentPage={currentPage}
-                totalPages={discoverMovies?.total_pages}
-                goToNextPage={goToNextPage}
-                goToPreviousPage={goToPreviousPage}
-                goToPage={goToPage}
-              />
-            )}
-          </Fragment>
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious
+                      disabled={currentPage === 1}
+                      onClick={goToPreviousPage}
+                    />
+                  </PaginationItem>
+
+                  {currentPage > 1 && (
+                    <PaginationItem>
+                      <PaginationButton
+                        onClick={() => goToPage(currentPage - 1)}
+                      >
+                        {currentPage - 1}
+                      </PaginationButton>
+                    </PaginationItem>
+                  )}
+
+                  {Array.from({ length: 3 }, (_, index) => (
+                    <PaginationItem key={currentPage + index}>
+                      <PaginationButton
+                        onClick={() => goToPage(currentPage + index)}
+                        isActive={currentPage === currentPage + index}
+                      >
+                        {currentPage + index}
+                      </PaginationButton>
+                    </PaginationItem>
+                  ))}
+
+                  {currentPage === 1 && (
+                    <PaginationItem>
+                      <PaginationButton
+                        onClick={() => goToPage(currentPage + 3)}
+                      >
+                        {currentPage + 3}
+                      </PaginationButton>
+                    </PaginationItem>
+                  )}
+
+                  {discoverMovies.total_pages - currentPage > 3 && (
+                    <PaginationItem>
+                      <PaginationEllipsis />
+                    </PaginationItem>
+                  )}
+
+                  <PaginationItem>
+                    <PaginationNext
+                      disabled={currentPage === discoverMovies.total_pages}
+                      onClick={goToNextPage}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </Fragment>
+          )
         )}
       </section>
     </div>

@@ -1,8 +1,9 @@
+import Link from 'next/link'
 import { Fragment } from 'react'
 
 import { ChevronRight } from 'lucide-react'
 
-import { LinkButton } from 'components'
+import { Button } from 'components'
 
 import { movieGenres } from 'utils'
 
@@ -42,7 +43,9 @@ export function BannerCard({ movie }: BannerCardProps) {
         </div>
 
         <p className="font-alt text-4xl uppercase text-white md:max-w-lg md:text-5xl md:leading-[52px] lg:text-7xl">
-          {movie.title}
+          {movie.title.length > 50
+            ? `${movie.title.slice(0, 50)}...`
+            : movie.title}
         </p>
 
         <div className="font-alt text-white">
@@ -56,13 +59,12 @@ export function BannerCard({ movie }: BannerCardProps) {
         </div>
       </div>
 
-      <LinkButton
-        href={`/details/${movie.id}`}
-        className="z-10"
-        icon={ChevronRight}
-      >
-        Detalhes
-      </LinkButton>
+      <Button asChild size={'lg'} className="z-10 w-fit">
+        <Link href={`/details/${movie.id}`}>
+          Detalhes
+          <ChevronRight className="w-5" />
+        </Link>
+      </Button>
     </div>
   )
 }

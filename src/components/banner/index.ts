@@ -1,3 +1,3 @@
-export * from './Card'
-export * from './Skeleton'
-export * from './Slider'
+export * from './card'
+export * from './carousel'
+export * from './skeleton'

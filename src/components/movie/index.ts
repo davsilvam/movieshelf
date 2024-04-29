@@ -1,4 +1,4 @@
 export * from './container'
-
-export * from './Card'
-export * from './Catalog'
+export * from './details'
+export * from './card'
+export * from './catalog'

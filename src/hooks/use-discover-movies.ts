@@ -1,5 +1,5 @@
 import { useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
 import { HttpResponse, HttpStatusCodes } from 'adapters'
@@ -17,55 +17,42 @@ export type LoadDiscoverMovies = {
 
 interface UseDiscoverMoviesProps {
   loadDiscoverMovies: LoadDiscoverMovies
+  page: number
+  goToPage: (page: number) => void
 }
 
 export function useDiscoverMovies({
   loadDiscoverMovies,
+  page,
+  goToPage,
 }: UseDiscoverMoviesProps) {
   const searchParams = useSearchParams().toString()
-  const [currentPage, setCurrentPage] = useState<number>(1)
 
   useEffect(() => {
     queryClient.invalidateQueries({
       queryKey: ['discover'],
     })
 
-    setCurrentPage(1)
-  }, [searchParams])
+    goToPage(1)
+  }, [searchParams, goToPage])
 
   const getDiscoverMoviesByQuery = useCallback(async () => {
-    const response = await loadDiscoverMovies.execute(searchParams, currentPage)
+    const response = await loadDiscoverMovies.execute(searchParams, page)
 
     if (response.statusCode !== HttpStatusCodes.ok) {
       throw new Error('Error loading discover movies.')
     }
 
     return response.body
-  }, [searchParams, currentPage, loadDiscoverMovies])
+  }, [searchParams, page, loadDiscoverMovies])
 
   const { data: discoverMovies, isLoading } = useQuery(
-    ['movies', 'discover', searchParams, 'query', currentPage],
+    ['movies', 'discover', searchParams, 'query', page],
     getDiscoverMoviesByQuery,
   )
-
-  function goToNextPage() {
-    setCurrentPage(state => state + 1)
-  }
-
-  function goToPreviousPage() {
-    setCurrentPage(state => state - 1)
-  }
-
-  function goToPage(page: number) {
-    setCurrentPage(page)
-  }
 
   return {
     discoverMovies,
     isLoading,
-    currentPage,
-    goToNextPage,
-    goToPreviousPage,
-    goToPage,
   }
 }

@@ -32,7 +32,15 @@ export function MovieCatalog({
     loadNowPlayingMovies,
   })
 
-  const { movieQueries } = useMoviesByGenre({
+  const {
+    movieQueries: [
+      animationMovies,
+      actionMovies,
+      dramaMovies,
+      romanceMovies,
+      sciFiMovies,
+    ],
+  } = useMoviesByGenre({
     loadMoviesByGenre,
     genreIds: [16, 28, 18, 10749, 878],
   })
@@ -67,38 +75,38 @@ export function MovieCatalog({
         </Fragment>
       )}
 
-      {movieQueries[0] && (
-        <MovieContainer.Root movies={movieQueries[0]} range={[1, 6]}>
+      {animationMovies && (
+        <MovieContainer.Root movies={animationMovies} range={[1, 6]}>
           <MovieContainer.Title icon={Sparkle}>Animação</MovieContainer.Title>
-          <MovieContainer.Banner movie={movieQueries[0][0]} />
+          <MovieContainer.Banner movie={animationMovies[0]} />
         </MovieContainer.Root>
       )}
 
-      {movieQueries[1] && (
-        <MovieContainer.Root movies={movieQueries[1]}>
+      {actionMovies && (
+        <MovieContainer.Root movies={actionMovies}>
           <MovieContainer.Title icon={Flame}>Ação</MovieContainer.Title>
         </MovieContainer.Root>
       )}
 
-      {movieQueries[2] && (
-        <MovieContainer.Root movies={movieQueries[2]} range={[1, 6]}>
+      {dramaMovies && (
+        <MovieContainer.Root movies={dramaMovies} range={[1, 6]}>
           <MovieContainer.Title icon={HeartCrack}>Drama</MovieContainer.Title>
-          <MovieContainer.Banner movie={movieQueries[2][0]} />
+          <MovieContainer.Banner movie={dramaMovies[0]} />
         </MovieContainer.Root>
       )}
 
-      {movieQueries[3] && (
-        <MovieContainer.Root movies={movieQueries[3]}>
+      {romanceMovies && (
+        <MovieContainer.Root movies={romanceMovies}>
           <MovieContainer.Title icon={Heart}>Romance</MovieContainer.Title>
         </MovieContainer.Root>
       )}
 
-      {movieQueries[4] && (
-        <MovieContainer.Root movies={movieQueries[4]} range={[1, 6]}>
+      {sciFiMovies && (
+        <MovieContainer.Root movies={sciFiMovies} range={[1, 6]}>
           <MovieContainer.Title icon={Orbit}>
             Ficção Científica
           </MovieContainer.Title>
-          <MovieContainer.Banner movie={movieQueries[4][0]} />
+          <MovieContainer.Banner movie={sciFiMovies[0]} />
         </MovieContainer.Root>
       )}
     </main>

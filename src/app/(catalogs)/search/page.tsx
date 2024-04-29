@@ -11,11 +11,18 @@ import { SearchX } from 'lucide-react'
 import {
   BannerCard,
   BannerSkeleton,
-  CatalogPagination,
   MovieCard,
   MovieContainer,
   PageTitle,
+  Pagination,
+  PaginationButton,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationNext,
+  PaginationPrevious,
   SearchBar,
+  usePagination,
 } from 'components'
 
 import { useSearchedMovie } from 'hooks'
@@ -26,15 +33,18 @@ export default function Search() {
   const loadSearchedMovies = new LoadSearchedMoviesGateway(httpClientFactory)
 
   const {
-    searchedMovies,
-    isLoading,
     currentPage,
+    setCurrentPage,
     goToNextPage,
-    goToPreviousPage,
     goToPage,
-  } = useSearchedMovie({
+    goToPreviousPage,
+  } = usePagination()
+
+  const { searchedMovies, isLoading } = useSearchedMovie({
     loadSearchedMovies,
     movieTitle: title || '',
+    page: currentPage,
+    goToPage: setCurrentPage,
   })
 
   return (
@@ -84,13 +94,56 @@ export default function Search() {
         )}
 
         {searchedMovies && searchedMovies.total_pages > 1 && (
-          <CatalogPagination
-            currentPage={currentPage}
-            totalPages={searchedMovies.total_pages}
-            goToNextPage={goToNextPage}
-            goToPreviousPage={goToPreviousPage}
-            goToPage={goToPage}
-          />
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  disabled={currentPage === 1}
+                  onClick={goToPreviousPage}
+                />
+              </PaginationItem>
+
+              {currentPage > 1 && (
+                <PaginationItem>
+                  <PaginationButton onClick={() => goToPage(currentPage - 1)}>
+                    {currentPage - 1}
+                  </PaginationButton>
+                </PaginationItem>
+              )}
+
+              {Array.from({ length: 3 }, (_, index) => (
+                <PaginationItem key={currentPage + index}>
+                  <PaginationButton
+                    onClick={() => goToPage(currentPage + index)}
+                    isActive={currentPage === currentPage + index}
+                  >
+                    {currentPage + index}
+                  </PaginationButton>
+                </PaginationItem>
+              ))}
+
+              {currentPage === 1 && (
+                <PaginationItem>
+                  <PaginationButton onClick={() => goToPage(currentPage + 3)}>
+                    {currentPage + 3}
+                  </PaginationButton>
+                </PaginationItem>
+              )}
+
+              {searchedMovies.total_pages - currentPage > 3 && (
+                <PaginationItem>
+                  <PaginationEllipsis />
+                </PaginationItem>
+              )}
+
+              <PaginationItem>
+                <PaginationNext
+                  disabled={currentPage === searchedMovies.total_pages}
+                  onClick={goToNextPage}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
         )}
       </section>
     </main>

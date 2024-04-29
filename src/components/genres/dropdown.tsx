@@ -11,11 +11,11 @@ import {
 } from '@radix-ui/react-dropdown-menu'
 import { AtSign, Check } from 'lucide-react'
 
-import { useGenresSelector } from './hooks'
+import { useGenreSelector } from './hooks'
 import { cn, movieGenres, movieGenresIds } from 'utils'
 
 export function GenresDropdown() {
-  const { checkedGenres, handleGenres, submitGenres } = useGenresSelector()
+  const { checkedGenres, handleGenres, submitGenres } = useGenreSelector()
 
   const genreCheckboxStyle = cn(
     'cursor-pointer',

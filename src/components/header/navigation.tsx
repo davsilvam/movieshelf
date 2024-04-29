@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 
 import {
@@ -33,6 +31,7 @@ export function Navigation() {
               className={cn(
                 'relative top-[1px]',
                 'h-4 w-4',
+                // eslint-disable-next-line prettier/prettier
                 'transition-transform duration-[250] ease-in group-data-[state=open]:-rotate-180',
               )}
               aria-hidden
@@ -79,7 +78,7 @@ export function Navigation() {
               className={cn(
                 'relative top-[1px]',
                 'h-4 w-4',
-                'transition-transform duration-[250] ease-in group-data-[state=open]:-rotate-180',
+                'duration-[250] transition-transform ease-in group-data-[state=open]:-rotate-180',
               )}
               aria-hidden
               strokeWidth={3}
