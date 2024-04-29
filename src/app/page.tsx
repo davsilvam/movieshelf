@@ -14,6 +14,7 @@ import { ArrowUpRight } from 'lucide-react'
 import {
   BannerCard,
   BannerCarousel,
+  BannerSkeleton,
   Button,
   Header,
   MenuBar,
@@ -30,7 +31,7 @@ export default function Home() {
   const loadTopRatedMovies = new LoadTopRatedMoviesGateway(httpClientFactory)
   const loadMoviesByGenre = new LoadMoviesByGenreGateway(httpClientFactory)
 
-  const { hottestMovies } = useNowPlayingMovies({
+  const { hottestMovies, isLoading } = useNowPlayingMovies({
     loadNowPlayingMovies,
   })
 
@@ -38,16 +39,20 @@ export default function Home() {
     <main className="bg-woodsmoke">
       <Header />
 
-      {hottestMovies && (
-        <BannerCarousel.Root>
-          <BannerCarousel.Content>
-            {hottestMovies.map(movie => (
-              <BannerCarousel.Item className="h-[80vh] w-full" key={movie.id}>
-                <BannerCard movie={movie} />
-              </BannerCarousel.Item>
-            ))}
-          </BannerCarousel.Content>
-        </BannerCarousel.Root>
+      {isLoading ? (
+        <BannerSkeleton />
+      ) : (
+        hottestMovies && (
+          <BannerCarousel.Root>
+            <BannerCarousel.Content>
+              {hottestMovies.map(movie => (
+                <BannerCarousel.Item className="h-[80vh] w-full" key={movie.id}>
+                  <BannerCard movie={movie} />
+                </BannerCarousel.Item>
+              ))}
+            </BannerCarousel.Content>
+          </BannerCarousel.Root>
+        )
       )}
 
       <MovieCatalog
