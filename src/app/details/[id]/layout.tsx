@@ -4,23 +4,22 @@ import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
 import { Fragment, ReactNode } from 'react'
 
-import { httpClientFactory } from 'factories'
-import { LoadMovieDetailsGateway } from 'gateways'
 import { ArrowLeft, ImageOff } from 'lucide-react'
 
 import { Button, DetailsBanner } from 'components'
 
+import { useMoviesDependencies } from 'contexts/hooks/use-movies-dependencies'
 import { useMovieDetails } from 'hooks'
 
 export default function Layout({ children }: { children: ReactNode }) {
   const { id } = useParams() as { id: string }
   const { back } = useRouter()
 
-  const loadMovieDetails = new LoadMovieDetailsGateway(httpClientFactory)
+  const { movieGateway } = useMoviesDependencies()
 
   const { details, moviePoster, runtimeHours, runtimeMinutes } =
     useMovieDetails({
-      loadMovieDetails,
+      movieGateway,
       id,
     })
 

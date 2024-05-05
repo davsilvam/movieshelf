@@ -20,6 +20,6 @@ export type HttpResponse<R> = {
   body?: R
 }
 
-export interface HttpClient<R = any> {
-  request: (request: HttpRequest) => Promise<HttpResponse<R>>
+export interface HttpClient {
+  request<T>(request: HttpRequest): Promise<HttpResponse<T>>
 }

@@ -1,78 +1,40 @@
 import { useCallback, useMemo } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
-import { HttpResponse, HttpStatusCodes } from 'adapters'
-
-import {
-  CreditsResponse,
-  ImagesResponse,
-  MovieDetailsResponse,
-  MovieListResponse,
-  ReviewsResponse,
-} from 'types'
+import { HttpStatusCodes } from 'adapters'
+import { MovieGateway } from 'gateways/movie-gateway'
 
 import { queryClient } from 'services'
 
-export type LoadMovieDetails = {
-  execute: (id: string) => Promise<HttpResponse<MovieDetailsResponse>>
-}
-
-export type LoadMovieCredits = {
-  execute: (id: string) => Promise<HttpResponse<CreditsResponse>>
-}
-
-export type LoadMovieImages = {
-  execute: (id: string) => Promise<HttpResponse<ImagesResponse>>
-}
-
-export type LoadMovieReviews = {
-  execute: (id: string) => Promise<HttpResponse<ReviewsResponse>>
-}
-
-export type LoadMovieSimilar = {
-  execute: (id: string) => Promise<HttpResponse<MovieListResponse>>
-}
-
 interface UseMovieProps {
-  loadMovieDetails: LoadMovieDetails
-  loadMovieCredits: LoadMovieCredits
-  loadMovieImages: LoadMovieImages
-  loadMovieReviews: LoadMovieReviews
-  loadMovieSimilar: LoadMovieSimilar
+  movieGateway: MovieGateway
   id: string
 }
 
-export function useMovie({
-  loadMovieDetails,
-  loadMovieCredits,
-  loadMovieImages,
-  loadMovieReviews,
-  loadMovieSimilar,
-  id,
-}: UseMovieProps) {
+export function useMovie({ movieGateway, id }: UseMovieProps) {
   const { details, moviePoster, runtimeHours, runtimeMinutes } =
     useMovieDetails({
-      loadMovieDetails,
+      movieGateway,
       id,
     })
 
   const { credits, mainCast } = useMovieCredits({
-    loadMovieCredits,
+    movieGateway,
     id,
   })
 
   const { images, mainBackdrops } = useMovieImages({
-    loadMovieImages,
+    movieGateway,
     id,
   })
 
   const { reviews } = useMovieReviews({
-    loadMovieReviews,
+    movieGateway,
     id,
   })
 
-  const { similar, mainSimilar } = useMovieSimilar({
-    loadMovieSimilar,
+  const { recommendations, topRecommendations } = useMovieRecommendations({
+    movieGateway,
     id,
   })
 
@@ -86,16 +48,16 @@ export function useMovie({
     images,
     mainBackdrops,
     reviews,
-    similar,
-    mainSimilar,
+    recommendations,
+    topRecommendations,
   }
 }
 
 export function useMovieDetails({
-  loadMovieDetails,
+  movieGateway,
   id,
 }: {
-  loadMovieDetails: LoadMovieDetails
+  movieGateway: MovieGateway
   id: string
 }) {
   queryClient.invalidateQueries({
@@ -103,14 +65,14 @@ export function useMovieDetails({
   })
 
   const getMovieDetails = useCallback(async () => {
-    const response = await loadMovieDetails.execute(id)
+    const response = await movieGateway.getMovieDetails(id)
 
     if (response.statusCode !== HttpStatusCodes.ok) {
       throw new Error('Error loading movie details.')
     }
 
     return response.body
-  }, [id, loadMovieDetails])
+  }, [id, movieGateway])
 
   const { data: details } = useQuery(['movie', 'details'], getMovieDetails)
 
@@ -137,21 +99,21 @@ export function useMovieDetails({
 }
 
 export function useMovieCredits({
-  loadMovieCredits,
+  movieGateway,
   id,
 }: {
-  loadMovieCredits: LoadMovieCredits
+  movieGateway: MovieGateway
   id: string
 }) {
   const getMovieCredits = useCallback(async () => {
-    const response = await loadMovieCredits.execute(id)
+    const response = await movieGateway.getMovieCredits(id)
 
     if (response.statusCode !== HttpStatusCodes.ok) {
       throw new Error('Error loading movie credits.')
     }
 
     return response.body
-  }, [id, loadMovieCredits])
+  }, [id, movieGateway])
 
   const { data: credits } = useQuery(
     ['movie', 'details', 'credits'],
@@ -169,21 +131,21 @@ export function useMovieCredits({
 }
 
 export function useMovieImages({
-  loadMovieImages,
+  movieGateway,
   id,
 }: {
-  loadMovieImages: LoadMovieImages
+  movieGateway: MovieGateway
   id: string
 }) {
   const getMovieImages = useCallback(async () => {
-    const response = await loadMovieImages.execute(id)
+    const response = await movieGateway.getMovieImages(id)
 
     if (response.statusCode !== HttpStatusCodes.ok) {
       throw new Error('Error loading movie images.')
     }
 
     return response.body
-  }, [id, loadMovieImages])
+  }, [id, movieGateway])
 
   const { data: images } = useQuery(
     ['movie', 'details', 'images'],
@@ -201,21 +163,21 @@ export function useMovieImages({
 }
 
 export function useMovieReviews({
-  loadMovieReviews,
+  movieGateway,
   id,
 }: {
-  loadMovieReviews: LoadMovieReviews
+  movieGateway: MovieGateway
   id: string
 }) {
   const getMovieReviews = useCallback(async () => {
-    const response = await loadMovieReviews.execute(id)
+    const response = await movieGateway.getMovieReviews(id)
 
     if (response.statusCode !== HttpStatusCodes.ok) {
       throw new Error('Error loading movie reviews.')
     }
 
     return response.body?.results || []
-  }, [id, loadMovieReviews])
+  }, [id, movieGateway])
 
   const { data: reviews } = useQuery(
     ['movie', 'details', 'reviews'],
@@ -227,34 +189,34 @@ export function useMovieReviews({
   }
 }
 
-export function useMovieSimilar({
-  loadMovieSimilar,
+export function useMovieRecommendations({
+  movieGateway,
   id,
 }: {
-  loadMovieSimilar: LoadMovieSimilar
+  movieGateway: MovieGateway
   id: string
 }) {
-  const getMovieSimilar = useCallback(async () => {
-    const response = await loadMovieSimilar.execute(id)
+  const getMovieRecommendations = useCallback(async () => {
+    const response = await movieGateway.getMovieRecommendations(id)
 
     if (response.statusCode !== HttpStatusCodes.ok) {
       throw new Error('Error loading similar movies.')
     }
 
     return response.body?.results || []
-  }, [id, loadMovieSimilar])
+  }, [id, movieGateway])
 
-  const { data: similar } = useQuery(
-    ['movie', 'details', 'similar'],
-    getMovieSimilar,
+  const { data: recommendations } = useQuery(
+    ['movie', 'details', 'recommendations'],
+    getMovieRecommendations,
   )
 
-  const mainSimilar = useMemo(() => {
-    return similar?.filter((_, index) => index < 5)
-  }, [similar])
+  const topRecommendations = useMemo(() => {
+    return recommendations?.filter((_, index) => index < 5)
+  }, [recommendations])
 
   return {
-    similar,
-    mainSimilar,
+    recommendations,
+    topRecommendations,
   }
 }

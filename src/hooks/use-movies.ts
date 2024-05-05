@@ -1,44 +1,21 @@
 import { useCallback, useMemo } from 'react'
 
 import { useQueries, useQuery } from '@tanstack/react-query'
-import { HttpResponse, HttpStatusCodes } from 'adapters'
+import { HttpStatusCodes } from 'adapters'
+import { MovieGateway } from 'gateways/movie-gateway'
 
-import { MovieListResponse } from 'types'
-
-export type LoadMovies = {
-  execute: () => Promise<HttpResponse<MovieListResponse>>
-}
-
-export type LoadMoviesByGenre = {
-  execute: (genreId: number) => Promise<HttpResponse<MovieListResponse>>
-}
-
-interface UseMoviesProps {
-  loadNowPlayingMovies: LoadMovies
-  loadPopularMovies: LoadMovies
-  loadTopRatedMovies: LoadMovies
-}
-
-export function useMovies({
-  loadNowPlayingMovies,
-  loadPopularMovies,
-  loadTopRatedMovies,
-}: UseMoviesProps) {
+export function useMovies(movieGateway: MovieGateway) {
   const {
     nowPlayingMovies,
     hottestMovies,
     isLoading: isNowPlayingLoading,
-  } = useNowPlayingMovies({
-    loadNowPlayingMovies,
-  })
+  } = useNowPlayingMovies(movieGateway)
 
-  const { popularMovies, isLoading: isPopularLoading } = usePopularMovies({
-    loadPopularMovies,
-  })
+  const { popularMovies, isLoading: isPopularLoading } =
+    usePopularMovies(movieGateway)
 
-  const { topRatedMovies, isLoading: isTopRatedLoading } = useTopRatedMovies({
-    loadTopRatedMovies,
-  })
+  const { topRatedMovies, isLoading: isTopRatedLoading } =
+    useTopRatedMovies(movieGateway)
 
   return {
     nowPlayingMovies,
@@ -51,18 +28,16 @@ export function useMovies({
   }
 }
 
-export function useNowPlayingMovies({
-  loadNowPlayingMovies,
-}: Pick<UseMoviesProps, 'loadNowPlayingMovies'>) {
+export function useNowPlayingMovies(movieGateway: MovieGateway) {
   const getNowPlayingMovies = useCallback(async () => {
-    const response = await loadNowPlayingMovies.execute()
+    const response = await movieGateway.getMovieList('now_playing')
 
     if (response.statusCode !== HttpStatusCodes.ok) {
       throw new Error('Error loading movies')
     }
 
     return response.body?.results ?? []
-  }, [loadNowPlayingMovies])
+  }, [movieGateway])
 
   const { data: nowPlayingMovies, isLoading } = useQuery(
     ['movies', 'now-playing', 'category', 'list'],
@@ -80,18 +55,16 @@ export function useNowPlayingMovies({
   }
 }
 
-export function usePopularMovies({
-  loadPopularMovies,
-}: Pick<UseMoviesProps, 'loadPopularMovies'>) {
+export function usePopularMovies(movieGateway: MovieGateway) {
   const getPopularMovies = useCallback(async () => {
-    const response = await loadPopularMovies.execute()
+    const response = await movieGateway.getMovieList('popular')
 
     if (response.statusCode !== HttpStatusCodes.ok) {
       throw new Error('Error loading movies.')
     }
 
     return response.body?.results ?? []
-  }, [loadPopularMovies])
+  }, [movieGateway])
 
   const { data: popularMovies, isLoading } = useQuery(
     ['movies', 'popular', 'category', 'list'],
@@ -104,18 +77,16 @@ export function usePopularMovies({
   }
 }
 
-export function useTopRatedMovies({
-  loadTopRatedMovies,
-}: Pick<UseMoviesProps, 'loadTopRatedMovies'>) {
+export function useTopRatedMovies(movieGateway: MovieGateway) {
   const getTopRatedMovies = useCallback(async () => {
-    const response = await loadTopRatedMovies.execute()
+    const response = await movieGateway.getMovieList('top_rated')
 
     if (response.statusCode !== HttpStatusCodes.ok) {
       throw new Error('Error loading movies.')
     }
 
     return response.body?.results ?? []
-  }, [loadTopRatedMovies])
+  }, [movieGateway])
 
   const { data: topRatedMovies, isLoading } = useQuery(
     ['movies', 'top-rated', 'category', 'list'],
@@ -129,15 +100,15 @@ export function useTopRatedMovies({
 }
 
 export function useMoviesByGenre({
-  loadMoviesByGenre,
+  movieGateway,
   genreIds,
 }: {
-  loadMoviesByGenre: LoadMoviesByGenre
+  movieGateway: MovieGateway
   genreIds: number[]
 }) {
   const getMoviesByGenre = useCallback(
     async (genreId: number) => {
-      const response = await loadMoviesByGenre.execute(genreId)
+      const response = await movieGateway.getMovieListByGenre(genreId)
 
       if (response.statusCode !== HttpStatusCodes.ok) {
         throw new Error('Error loading movies.')
@@ -145,7 +116,7 @@ export function useMoviesByGenre({
 
       return response.body?.results ?? []
     },
-    [loadMoviesByGenre],
+    [movieGateway],
   )
 
   const movieQueries = useQueries({

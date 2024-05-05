@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
 import { HttpResponse, HttpStatusCodes } from 'adapters'
+import { MovieGateway } from 'gateways/movie-gateway'
 
 import { MovieListResponse } from 'types'
 
@@ -15,14 +16,14 @@ export type LoadSearchedMovies = {
 }
 
 interface UseSearchedMoviesProps {
-  loadSearchedMovies: LoadSearchedMovies
+  movieGateway: MovieGateway
   movieTitle: string
   page: number
   goToPage: (page: number) => void
 }
 
 export function useSearchedMovie({
-  loadSearchedMovies,
+  movieGateway,
   movieTitle,
   page,
   goToPage,
@@ -36,7 +37,7 @@ export function useSearchedMovie({
   }, [movieTitle, goToPage])
 
   const getMoviesByTitle = async () => {
-    const response = await loadSearchedMovies.execute(movieTitle, page)
+    const response = await movieGateway.getMovieListBySearch(movieTitle, page)
 
     if (response.statusCode !== HttpStatusCodes.ok) {
       throw new Error('Error loading searched movies.')

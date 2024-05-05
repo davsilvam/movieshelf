@@ -2,9 +2,6 @@
 
 import { Fragment } from 'react'
 
-import { httpClientFactory } from 'factories'
-import { LoadDiscoverMoviesGateway } from 'gateways'
-
 import {
   FiltersBar,
   FiltersDropdown,
@@ -22,10 +19,11 @@ import {
   usePagination,
 } from 'components'
 
+import { useMoviesDependencies } from 'contexts/hooks/use-movies-dependencies'
 import { useDiscoverMovies } from 'hooks'
 
 export default function Discover() {
-  const loadDiscoverMovies = new LoadDiscoverMoviesGateway(httpClientFactory)
+  const { movieGateway } = useMoviesDependencies()
 
   const {
     currentPage,
@@ -36,7 +34,7 @@ export default function Discover() {
   } = usePagination()
 
   const { discoverMovies, isLoading } = useDiscoverMovies({
-    loadDiscoverMovies,
+    movieGateway,
     page: currentPage,
     goToPage: setCurrentPage,
   })

@@ -4,8 +4,6 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { Fragment } from 'react'
 
-import { httpClientFactory } from 'factories'
-import { LoadSearchedMoviesGateway } from 'gateways'
 import { SearchX } from 'lucide-react'
 
 import {
@@ -25,12 +23,13 @@ import {
   usePagination,
 } from 'components'
 
+import { useMoviesDependencies } from 'contexts/hooks/use-movies-dependencies'
 import { useSearchedMovie } from 'hooks'
 
 export default function Search() {
   const title = useSearchParams().get('query')
 
-  const loadSearchedMovies = new LoadSearchedMoviesGateway(httpClientFactory)
+  const { movieGateway } = useMoviesDependencies()
 
   const {
     currentPage,
@@ -41,7 +40,7 @@ export default function Search() {
   } = usePagination()
 
   const { searchedMovies, isLoading } = useSearchedMovie({
-    loadSearchedMovies,
+    movieGateway,
     movieTitle: title || '',
     page: currentPage,
     goToPage: setCurrentPage,

@@ -5,6 +5,8 @@ import {
 } from 'next/font/google'
 import { ReactNode } from 'react'
 
+import { MovieProvider } from 'contexts'
+
 import { QueryProvider } from 'services'
 import 'styles/globals.css'
 
@@ -26,7 +28,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR">
       <body className={`${fjallaOne.variable} ${roboto.variable} font-sans`}>
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <MovieProvider>{children}</MovieProvider>
+        </QueryProvider>
       </body>
     </html>
   )

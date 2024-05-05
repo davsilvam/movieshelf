@@ -2,6 +2,8 @@ import Image from 'next/image'
 
 import { Calendar, User } from 'lucide-react'
 
+import { formatDate } from 'utils'
+
 import { Review } from 'types'
 
 interface ReviewCardProps {
@@ -18,10 +20,6 @@ export function ReviewCard({ review }: ReviewCardProps) {
     review.author_details.avatar_path.includes('secure.gravatar.com')
       ? slicedAvatarPath
       : `https://secure.gravatar.com/avatar/${slicedAvatarPath}`
-
-  const formattedDate = new Intl.DateTimeFormat('pt-BR', {
-    dateStyle: 'medium',
-  }).format(new Date(review.created_at))
 
   return (
     <div className="flex w-full flex-col gap-4 bg-shark p-6 text-white">
@@ -44,7 +42,7 @@ export function ReviewCard({ review }: ReviewCardProps) {
           <div className="flex flex-col gap-1">
             <p className="font-semibold">{review.author}</p>
             <p className="flex items-center gap-1 text-xs capitalize text-oslo">
-              <Calendar className="h-4 w-4" /> {formattedDate}
+              <Calendar className="h-4 w-4" /> {formatDate(review.created_at)}
             </p>
           </div>
         </div>
