@@ -2,9 +2,6 @@
 
 import { Fragment } from 'react'
 
-import { httpClientFactory } from 'factories'
-import { LoadNowPlayingMoviesGateway } from 'gateways'
-
 import {
   BannerCard,
   BannerSkeleton,
@@ -12,16 +9,13 @@ import {
   PageTitle,
 } from 'components'
 
+import { useMoviesDependencies } from 'contexts/hooks/use-movies-dependencies'
 import { useNowPlayingMovies } from 'hooks'
 
 export default function NowPlaying() {
-  const loadNowPlayingMovies = new LoadNowPlayingMoviesGateway(
-    httpClientFactory,
-  )
+  const { movieGateway } = useMoviesDependencies()
 
-  const { nowPlayingMovies, isLoading } = useNowPlayingMovies({
-    loadNowPlayingMovies,
-  })
+  const { nowPlayingMovies, isLoading } = useNowPlayingMovies(movieGateway)
 
   return (
     <main>

@@ -1,26 +1,26 @@
 'use client'
 
-import Image from 'next/image'
 import { useParams } from 'next/navigation'
 
-import { httpClientFactory } from 'factories'
-import { LoadMovieDetailsGateway, LoadMovieImagesGateway } from 'gateways'
+import { MovieDetailsImageCard } from 'components'
 
+import { useMoviesDependencies } from 'contexts/hooks/use-movies-dependencies'
 import { useMovieDetails, useMovieImages } from 'hooks'
 
-export default function MovieGallery() {
-  const { id } = useParams() as { id: string }
+import { Params } from '../page'
 
-  const loadMovieDetails = new LoadMovieDetailsGateway(httpClientFactory)
-  const loadMovieImages = new LoadMovieImagesGateway(httpClientFactory)
+export default function MovieGallery() {
+  const { id } = useParams<Params>()
+
+  const { movieGateway } = useMoviesDependencies()
 
   const { details } = useMovieDetails({
-    loadMovieDetails,
+    movieGateway,
     id,
   })
 
   const { images } = useMovieImages({
-    loadMovieImages,
+    movieGateway,
     id,
   })
 
@@ -33,13 +33,11 @@ export default function MovieGallery() {
 
         <div className="grid grid-cols-2 justify-between gap-5 md:grid-cols-3">
           {images?.backdrops.map(backdrop => (
-            <Image
-              alt={`${details?.title} backdrop.`}
-              src={`https://image.tmdb.org/t/p/w780${backdrop.file_path}`}
-              className="w-full rounded-lg"
+            <MovieDetailsImageCard
+              movieTitle={details?.title || ''}
+              filePath={backdrop.file_path}
+              type="backdrop"
               key={backdrop + 'w'}
-              height={225}
-              width={400}
             />
           ))}
         </div>
@@ -52,13 +50,11 @@ export default function MovieGallery() {
 
         <div className="grid grid-cols-3 gap-5 md:grid-cols-5">
           {images?.posters.map(poster => (
-            <Image
-              alt={`${details?.title} poster.`}
-              src={`https://image.tmdb.org/t/p/w342${poster.file_path}`}
-              className="w-full rounded-lg"
+            <MovieDetailsImageCard
+              movieTitle={details?.title || ''}
+              filePath={poster.file_path}
+              type="poster"
               key={poster + 'w'}
-              height={330}
-              width={220}
             />
           ))}
         </div>

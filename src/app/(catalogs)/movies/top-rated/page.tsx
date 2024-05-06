@@ -2,9 +2,6 @@
 
 import { Fragment } from 'react'
 
-import { httpClientFactory } from 'factories'
-import { LoadTopRatedMoviesGateway } from 'gateways'
-
 import {
   BannerCard,
   BannerSkeleton,
@@ -12,14 +9,13 @@ import {
   PageTitle,
 } from 'components'
 
+import { useMoviesDependencies } from 'contexts/hooks/use-movies-dependencies'
 import { useTopRatedMovies } from 'hooks'
 
 export default function TopRated() {
-  const loadTopRatedMovies = new LoadTopRatedMoviesGateway(httpClientFactory)
+  const { movieGateway } = useMoviesDependencies()
 
-  const { topRatedMovies, isLoading } = useTopRatedMovies({
-    loadTopRatedMovies,
-  })
+  const { topRatedMovies, isLoading } = useTopRatedMovies(movieGateway)
 
   return (
     <main>

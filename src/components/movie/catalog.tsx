@@ -6,32 +6,15 @@ import { Flame, Heart, HeartCrack, Orbit, Sparkle } from 'lucide-react'
 
 import { CategoryCards } from 'components'
 
-import {
-  LoadMovies,
-  LoadMoviesByGenre,
-  useNowPlayingMovies,
-  useMoviesByGenre,
-} from 'hooks'
+import { useMoviesDependencies } from 'contexts/hooks/use-movies-dependencies'
+import { useNowPlayingMovies, useMoviesByGenre } from 'hooks'
 
 import { MovieContainer } from '.'
 
-interface MovieCatalogProps {
-  loadNowPlayingMovies: LoadMovies
-  loadPopularMovies: LoadMovies
-  loadTopRatedMovies: LoadMovies
-  loadMoviesByGenre: LoadMoviesByGenre
-}
+export function MovieCatalog() {
+  const { movieGateway } = useMoviesDependencies()
 
-export function MovieCatalog({
-  loadNowPlayingMovies,
-  loadPopularMovies,
-  loadTopRatedMovies,
-  loadMoviesByGenre,
-}: MovieCatalogProps) {
-  const { nowPlayingMovies, isLoading } = useNowPlayingMovies({
-    loadNowPlayingMovies,
-  })
-
+  const { nowPlayingMovies, isLoading } = useNowPlayingMovies(movieGateway)
   const {
     movieQueries: [
       animationMovies,
@@ -41,7 +24,7 @@ export function MovieCatalog({
       sciFiMovies,
     ],
   } = useMoviesByGenre({
-    loadMoviesByGenre,
+    movieGateway,
     genreIds: [16, 28, 18, 10749, 878],
   })
 
@@ -59,11 +42,7 @@ export function MovieCatalog({
         </Fragment>
       ) : (
         <Fragment>
-          <CategoryCards
-            loadNowPlayingMovies={loadNowPlayingMovies}
-            loadPopularMovies={loadPopularMovies}
-            loadTopRatedMovies={loadTopRatedMovies}
-          />
+          <CategoryCards />
 
           {nowPlayingMovies && (
             <MovieContainer.Root movies={nowPlayingMovies}>

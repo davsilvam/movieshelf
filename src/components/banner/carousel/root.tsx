@@ -1,3 +1,5 @@
+'use client'
+
 import {
   HTMLAttributes,
   KeyboardEvent,
@@ -12,11 +14,7 @@ import useEmblaCarousel from 'embla-carousel-react'
 
 import { cn } from 'utils'
 
-import {
-  CarouselApi,
-  CarouselContext,
-  CarouselProps,
-} from './context/carousel-context'
+import { CarouselApi, CarouselContext, CarouselProps } from './context'
 
 export const BannerCarouselRoot = forwardRef<
   HTMLDivElement,

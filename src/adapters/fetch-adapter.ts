@@ -2,8 +2,8 @@ import { fetchWrapper, FetchResponse } from 'functions'
 
 import { HttpClient, HttpRequest, HttpResponse } from './http-client'
 
-export class FetchHttpClientAdapter<R> implements HttpClient {
-  async request(data: HttpRequest): Promise<HttpResponse<R>> {
+export class FetchHttpClientAdapter implements HttpClient {
+  async request<R>(data: HttpRequest): Promise<HttpResponse<R>> {
     let response: FetchResponse
 
     try {
